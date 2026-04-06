@@ -70,39 +70,6 @@
   
   
   <entry>
-    <title>Hexo Fluid 主题测试文章</title>
-    <link href="/2026/03/27/test/"/>
-    <url>/2026/03/27/test/</url>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是一篇测试文章，用于验证 Hexo + Fluid 主题的各项功能是否正常。</p><hr><h2 id="1-标题测试"><a href="#1-标题测试" class="headerlink" title="1. 标题测试"></a>1. 标题测试</h2><h3 id="1-1-三级标题"><a href="#1-1-三级标题" class="headerlink" title="1.1 三级标题"></a>1.1 三级标题</h3><h4 id="1-1-1-四级标题"><a href="#1-1-1-四级标题" class="headerlink" title="1.1.1 四级标题"></a>1.1.1 四级标题</h4><p><strong>加粗文本</strong> 和 <em>斜体文本</em>，以及 <em><strong>加粗斜体</strong></em>。</p><p><del>删除线文本</del></p><hr><h2 id="2-列表测试"><a href="#2-列表测试" class="headerlink" title="2. 列表测试"></a>2. 列表测试</h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><ul><li>列表项 1</li><li>列表项 2<ul><li>嵌套项 2.1</li><li>嵌套项 2.2</li></ul></li><li>列表项 3</li></ul><h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><ol><li>第一项</li><li>第二项</li><li>第三项</li></ol><hr><h2 id="3-代码块测试"><a href="#3-代码块测试" class="headerlink" title="3. 代码块测试"></a>3. 代码块测试</h2><h3 id="JavaScript-代码"><a href="#JavaScript-代码" class="headerlink" title="JavaScript 代码"></a>JavaScript 代码</h3><pre><code class="language-javascript">function helloWorld() {  const message = &quot;Hello, Hexo!&quot;;  console.log(message);  return message;}helloWorld();</code></pre>]]></content>
-    
-    
-    <categories>
-      
-      <category>技术</category>
-      
-      <category>测试</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>Hexo</tag>
-      
-      <tag>Fluid</tag>
-      
-      <tag>Markdown</tag>
-      
-      <tag>教程</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>Hexo Fluid 主题测试文章（AI看法专题）</title>
     <link href="/2026/03/27/ai-test/"/>
     <url>/2026/03/27/ai-test/</url>
@@ -132,6 +99,39 @@
       <tag>AI</tag>
       
       <tag>人工智能</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hexo Fluid 主题测试文章</title>
+    <link href="/2026/03/27/test/"/>
+    <url>/2026/03/27/test/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是一篇测试文章，用于验证 Hexo + Fluid 主题的各项功能是否正常。</p><hr><h2 id="1-标题测试"><a href="#1-标题测试" class="headerlink" title="1. 标题测试"></a>1. 标题测试</h2><h3 id="1-1-三级标题"><a href="#1-1-三级标题" class="headerlink" title="1.1 三级标题"></a>1.1 三级标题</h3><h4 id="1-1-1-四级标题"><a href="#1-1-1-四级标题" class="headerlink" title="1.1.1 四级标题"></a>1.1.1 四级标题</h4><p><strong>加粗文本</strong> 和 <em>斜体文本</em>，以及 <em><strong>加粗斜体</strong></em>。</p><p><del>删除线文本</del></p><hr><h2 id="2-列表测试"><a href="#2-列表测试" class="headerlink" title="2. 列表测试"></a>2. 列表测试</h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><ul><li>列表项 1</li><li>列表项 2<ul><li>嵌套项 2.1</li><li>嵌套项 2.2</li></ul></li><li>列表项 3</li></ul><h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><ol><li>第一项</li><li>第二项</li><li>第三项</li></ol><hr><h2 id="3-代码块测试"><a href="#3-代码块测试" class="headerlink" title="3. 代码块测试"></a>3. 代码块测试</h2><h3 id="JavaScript-代码"><a href="#JavaScript-代码" class="headerlink" title="JavaScript 代码"></a>JavaScript 代码</h3><pre><code class="language-javascript">function helloWorld() {  const message = &quot;Hello, Hexo!&quot;;  console.log(message);  return message;}helloWorld();</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+      <category>测试</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Hexo</tag>
+      
+      <tag>Fluid</tag>
+      
+      <tag>Markdown</tag>
+      
+      <tag>教程</tag>
       
     </tags>
     
