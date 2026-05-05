@@ -1,0 +1,1068 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/logo.jpg">
+  <link rel="icon" href="/img/logo.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ExploreIO">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="gzctf比赛平台搭建教程，本文章适合快速搭建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gzctf平台搭建教程">
+<meta property="og:url" content="https://exploreio.github.io/2026/05/05/gzctf/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="gzctf比赛平台搭建教程，本文章适合快速搭建">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://exploreio.github.io/img/eee.png">
+<meta property="article:published_time" content="2026-05-05T10:40:00.000Z">
+<meta property="article:modified_time" content="2026-05-05T10:42:50.900Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="ctf比赛，比赛平台">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://exploreio.github.io/img/eee.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>gzctf平台搭建教程 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/glassBg.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"exploreio.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"▌","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":5,"color":"#36D399","options":{"showSpinner":false,"trickleSpeed":100,"easing":"ease-in-out"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ExploreIO&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/eee.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="gzctf平台搭建教程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-05-05 18:40" pubdate>
+          2026年5月5日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          7 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="CTF"
+        id="heading-59db9139e685f7d6a4a8784f9221066f" role="tab" data-toggle="collapse" href="#collapse-59db9139e685f7d6a4a8784f9221066f"
+        aria-expanded="true"
+      >
+        CTF
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-59db9139e685f7d6a4a8784f9221066f"
+           role="tabpanel" aria-labelledby="heading-59db9139e685f7d6a4a8784f9221066f">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="web安全"
+        id="heading-3462cf7781bac1cfac12668cdfaa788c" role="tab" data-toggle="collapse" href="#collapse-3462cf7781bac1cfac12668cdfaa788c"
+        aria-expanded="false"
+      >
+        web安全
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3462cf7781bac1cfac12668cdfaa788c"
+           role="tabpanel" aria-labelledby="heading-3462cf7781bac1cfac12668cdfaa788c">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/04/04/ssti-sec1/" title="ssti模板注入手法总结python篇（一）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ssti模板注入手法总结python篇（一）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/05/ssti-sec2/" title="ssti模板注入手法总结python篇（二）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ssti模板注入手法总结python篇（二）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/13/file_include/" title="文件包含漏洞手法总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">文件包含漏洞手法总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="靶场搭建"
+        id="heading-00479b9959bcc6af4435ea74496652f0" role="tab" data-toggle="collapse" href="#collapse-00479b9959bcc6af4435ea74496652f0"
+        aria-expanded="true"
+      >
+        靶场搭建
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-00479b9959bcc6af4435ea74496652f0"
+           role="tabpanel" aria-labelledby="heading-00479b9959bcc6af4435ea74496652f0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/05/05/gzctf/" title="gzctf平台搭建教程"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">gzctf平台搭建教程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">gzctf平台搭建教程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>前段时间有一个想法：想搞一个校内的ctf，这其实是我们学校的第一届校内ctf，之前学校是没有举办过的。于是我就开始找项目看有没有简单操作的，找的时候自己搭建了两个平台，一个是ctfd这个项目不适合快速的搭建，一个是ocean ctf这个项目只能试用商业化了也不适合。后面就找到了gzctf，这个是我经过实测的，在一个网络安全班里面实际测试过的，跑在一个虚拟机里面，设置4g，4核完全够用，我当时测试的班里面一共有30个人，我和另外三个小伙伴出的题目，我搭建的这个平台一直开放了大概20个小时，非常的流畅，中间没有出现任何问题。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/GZTimeWalker/GZCTF">https://github.com/GZTimeWalker/GZCTF</a></p>
+<p>官方的教程网址<a target="_blank" rel="noopener" href="https://gzctf.gzti.me/zh">https://gzctf.gzti.me/zh</a></p>
+<p>这个项目叫做gzctf，是用来搭建ctf比赛的，十分的方便</p>
+<p>大家可以看看当时我30个人测试的效果，下面的截图是当时测试比赛时候截的图</p>
+<p><img src="/../img/gzctf/image-20260505180225402.png" srcset="/img/loading.gif" lazyload alt="image-20260505180225402"></p>
+<p><img src="/../img/gzctf/image-20260505180306504.png" srcset="/img/loading.gif" lazyload alt="image-20260505180306504"></p>
+<p><img src="/../img/gzctf/image-20260505180340501.png" srcset="/img/loading.gif" lazyload alt="image-20260505180340501"></p>
+<p><img src="/../img/gzctf/image-20260505180401191.png" srcset="/img/loading.gif" lazyload alt="image-20260505180401191"></p>
+<p><img src="/../img/gzctf/image-20260505180444743.png" srcset="/img/loading.gif" lazyload alt="image-20260505180444743"></p>
+<p><img src="/../img/gzctf/image-20260505180529472.png" srcset="/img/loading.gif" lazyload alt="image-20260505180529472"></p>
+<p><img src="/../img/gzctf/image-20260505180618043.png" srcset="/img/loading.gif" lazyload alt="image-20260505180618043"></p>
+<h2 id="搭建教程"><a href="#搭建教程" class="headerlink" title="搭建教程"></a>搭建教程</h2><p>说多了，现在开始搭建。</p>
+<p>我们不需要下载github上面的源码，我们只需要自己编写两个文件</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">├── appsettings.<span class="hljs-keyword">json</span><br><span class="hljs-keyword"></span>├── compose.yml<br></code></pre></td></tr></table></figure>
+
+<p>首先看appsettings.json文件怎么写</p>
+<p>大佬可以自己研究，不想折腾的可以按照我的来配置，其中需要自己配置的我在后面有注释</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs bash">ubuntu@ubuntu24:~/gzctf$ <span class="hljs-built_in">cat</span> appsettings.json<br>&#123;<br>  <span class="hljs-string">&quot;AllowedHosts&quot;</span>: <span class="hljs-string">&quot;*&quot;</span>,<br>  <span class="hljs-string">&quot;ConnectionStrings&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;Database&quot;</span>: <span class="hljs-string">&quot;Host=db:5432;Database=gzctf;Username=postgres;Password=gzctf&quot;</span> <span class="hljs-comment"># 只需要配置一个password,数据库的账号么密码</span><br>  &#125;,<br>  <span class="hljs-string">&quot;EmailConfig&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;SenderAddress&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-string">&quot;SenderName&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-string">&quot;UserName&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-string">&quot;Password&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-string">&quot;Smtp&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;Host&quot;</span>: <span class="hljs-string">&quot;localhost&quot;</span>,<br>      <span class="hljs-string">&quot;Port&quot;</span>: 587<br>    &#125;<br>  &#125;,<br>  <span class="hljs-string">&quot;XorKey&quot;</span>: <span class="hljs-string">&quot;dht75kslpq29vnx&quot;</span>,<br>  <span class="hljs-string">&quot;ContainerProvider&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;Type&quot;</span>: <span class="hljs-string">&quot;Docker&quot;</span>,<br>    <span class="hljs-string">&quot;PortMappingType&quot;</span>: <span class="hljs-string">&quot;Default&quot;</span>,<br>    <span class="hljs-string">&quot;EnableTrafficCapture&quot;</span>: <span class="hljs-literal">false</span>,<br>    <span class="hljs-string">&quot;PublicEntry&quot;</span>: <span class="hljs-string">&quot;192.168.8.133&quot;</span>, <span class="hljs-comment">#看好自己的ip地址即可，更具实际情况配置。</span><br>    <span class="hljs-string">&quot;DockerConfig&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;SwarmMode&quot;</span>: <span class="hljs-literal">false</span>,<br>      <span class="hljs-string">&quot;Uri&quot;</span>: <span class="hljs-string">&quot;unix:///var/run/docker.sock&quot;</span><br>    &#125;<br>  &#125;,<br>  <span class="hljs-string">&quot;CaptchaConfig&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;Provider&quot;</span>: <span class="hljs-string">&quot;None&quot;</span>,<br>    <span class="hljs-string">&quot;SiteKey&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-string">&quot;SecretKey&quot;</span>: <span class="hljs-string">&quot;&quot;</span><br>  &#125;<br>&#125; <span class="hljs-comment">#这些不需要配置</span><br>ubuntu@ubuntu24:~/gzctf$<br></code></pre></td></tr></table></figure>
+
+<p>再看到compose.yml，这个是给docker compose使用的文件</p>
+<p>不想折腾的可以按照我的这个配置</p>
+<blockquote>
+<p>注意修改自己的密码即可</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs bash">ubuntu@ubuntu24:~/gzctf$ <span class="hljs-built_in">cat</span> compose.yml<br>services:<br>  gzctf:<br>    image: registry.cn-shanghai.aliyuncs.com/gztime/gzctf:develop<br>    restart: always<br>    environment:<br>      - <span class="hljs-string">&quot;GZCTF_ADMIN_PASSWORD=Gzctf@2026!Test&quot;</span>   <span class="hljs-comment"># 平台初始管理员密码，用户名默认 admin，密码要复杂一点</span><br>      <span class="hljs-comment"># 选择后台语言，如 en_US / zh_CN / ja_JP</span><br>      - <span class="hljs-string">&quot;LC_ALL=zh_CN.UTF-8&quot;</span><br>    ports:<br>      - <span class="hljs-string">&quot;8080:8080&quot;</span>   <span class="hljs-comment"># 外部80端口被占用，已修改为8080</span><br>    volumes:<br>      - <span class="hljs-string">&quot;./data/files:/app/files&quot;</span><br>      - <span class="hljs-string">&quot;./appsettings.json:/app/appsettings.json:ro&quot;</span><br>      - <span class="hljs-string">&quot;/var/run/docker.sock:/var/run/docker.sock&quot;</span> <span class="hljs-comment"># Docker 部署必须</span><br>    depends_on:<br>      db:<br>        condition: service_healthy   <span class="hljs-comment"># 建议等数据库健康检查通过后再启动</span><br><br>  db:<br>    image: postgres:alpine<br>    restart: always<br>    environment:<br>      - <span class="hljs-string">&quot;POSTGRES_PASSWORD=gzctf&quot;</span>   <span class="hljs-comment"># 数据库密码，需与 appsettings.json 中完全一致</span><br>    volumes:<br>      - <span class="hljs-string">&quot;./data/db:/var/lib/postgresql&quot;</span>   <span class="hljs-comment"># 修正了挂载路径</span><br>    healthcheck:   <span class="hljs-comment"># 添加健康检查，配合上面的 condition: service_healthy</span><br>      <span class="hljs-built_in">test</span>: [<span class="hljs-string">&quot;CMD-SHELL&quot;</span>, <span class="hljs-string">&quot;pg_isready -U postgres&quot;</span>]<br>      interval: 5s<br>      <span class="hljs-built_in">timeout</span>: 5s<br>      retries: 5<br>ubuntu@ubuntu24:~/gzctf$<br></code></pre></td></tr></table></figure>
+
+<p>之后就是直接在这些文件的目录下面运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker compose up -d<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/gzctf/image-20260505181622132.png" srcset="/img/loading.gif" lazyload alt="image-20260505181622132"></p>
+<p>之后就是访问设置的端口即可</p>
+<p>登录进去密码就是自己配置的</p>
+<h2 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h2><p>我们管理员的操作主要是</p>
+<p><img src="/../img/gzctf/image-20260505181814574.png" srcset="/img/loading.gif" lazyload alt="image-20260505181814574"></p>
+<p>在这个小扳手里面操作的</p>
+<p>点击新建比赛之后就来到了这个页面</p>
+<p><img src="/../img/gzctf/image-20260505181903195.png" srcset="/img/loading.gif" lazyload alt="image-20260505181903195"></p>
+<p>这里配置很简单的，没有什么难度，下面我只讲一下需要注意的事项</p>
+<p>这个平台注册用户的操作主要是选手注册账号之后，默认配置是选手需要新建队伍才能参加比赛的</p>
+<p>然后新建队伍之后需要管理员审核才能参加比赛</p>
+<p>下面这个是选手视角</p>
+<p><img src="/../img/gzctf/image-20260505182425784.png" srcset="/img/loading.gif" lazyload alt="image-20260505182425784"></p>
+<p>下面这个是管理员视角</p>
+<p><img src="/../img/gzctf/image-20260505182506633.png" srcset="/img/loading.gif" lazyload alt="image-20260505182506633"></p>
+<p>之后注意的事项就是新建题目了</p>
+<p><img src="/../img/gzctf/image-20260505182555015.png" srcset="/img/loading.gif" lazyload alt="image-20260505182555015"></p>
+<p>对于web一般是使用动态容器，使用动态容器是需要自己在题目里面编写动态flag的，对于动态flag的编写，gzctf也有格式</p>
+<p>大家可以跟着我写一个测试题目</p>
+<p>测试题目如下，有两个文件</p>
+<p>index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">// 直接从环境变量获取 Flag</span><br><span class="hljs-variable">$flag</span> = <span class="hljs-title function_ invoke__">getenv</span>(<span class="hljs-string">&#x27;GZCTF_FLAG&#x27;</span>); <br><span class="hljs-comment">// 然后你可以把它藏进 HTML 注释或提交给后端逻辑</span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;!-- &quot;</span> . <span class="hljs-title function_ invoke__">htmlspecialchars</span>(<span class="hljs-variable">$flag</span>) . <span class="hljs-string">&quot; --&gt;&quot;</span>; <br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>Dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment"># 使用一个带 Web 服务的 PHP 基础镜像</span><br><span class="hljs-keyword">FROM</span> php:<span class="hljs-number">7.0</span>-apache<br><br><span class="hljs-comment"># 把包含上述 PHP 代码的 index.php 复制到容器中</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> index.php /var/www/html/</span><br><br><span class="hljs-comment"># 暴露 Web 服务端口</span><br><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到动态flag的写法就是getenv(‘GZCTF_FLAG’); 从环境变量里面获得字段</p>
+<p>然后</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker build -t echo_flag .<br></code></pre></td></tr></table></figure>
+
+<p>-t是取一个名字</p>
+<p>构造好之后，使用docker images就可以看到在本地刚刚构造的镜像了</p>
+<p><img src="/../img/gzctf/image-20260505183220793.png" srcset="/img/loading.gif" lazyload alt="image-20260505183220793"></p>
+<p>upload-htaccess:v1是我测试比赛的时候构建的题目镜像</p>
+<p>有了镜像之后就上题目了</p>
+<p><img src="/../img/gzctf/image-20260505183323548.png" srcset="/img/loading.gif" lazyload alt="image-20260505183323548"></p>
+<p>在这里写上镜像的名字就可以了</p>
+<p>这个就是在本地建立题目的操作，其实也可以不用再本地构建镜像， 也可以将镜像上传到云平台，比如阿里云的镜像仓库，那么我们在容器镜像里面输入的就是阿里云的镜像地址就可以了（这个方法有的时候使用不了，我就使用不了）</p>
+<p>其实这个项目的操作，我上面所说的只是快速搭建而已，其实人家有一套成熟的体系</p>
+<p>不止有这些操作，这里给出别人的研究搭建文章<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Acc1oFl4g/p/19180234">手把手教你搭建GZCTF比赛平台+动态靶机部署，超详细教程，看这一篇就够了 - Acc1oFl4g - 博客园</a></p>
+<p>结束</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/%E9%9D%B6%E5%9C%BA%E6%90%AD%E5%BB%BA/" class="category-chain-item">靶场搭建</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
+      
+        <a href="/tags/ctf%E6%AF%94%E8%B5%9B%EF%BC%8C%E6%AF%94%E8%B5%9B%E5%B9%B3%E5%8F%B0/" class="print-no-link">#ctf比赛，比赛平台</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>gzctf平台搭建教程</div>
+      <div>https://exploreio.github.io/2026/05/05/gzctf/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ExploreIO</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年5月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/13/file_include/" title="文件包含漏洞手法总结">
+                        <span class="hidden-mobile">文件包含漏洞手法总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="margin-top: 8px; font-size: 14px; opacity: 0.7;"> <span id="vercount_value_site_pv">Loading</span> 次访问 · <span id="vercount_value_site_uv">Loading</span> 位访客 </div> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100,"easing":"ease-in-out"})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://events.vercount.one/js?i=/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start -->
+<!-- 全屏背景 -->
+<script src="/js/background.js?v=1777977932602"></script>
+
+<!-- 落雪动画 -->
+<script src="/js/snow.js?v=1777977932602"></script>
+
+<!-- 签名动画 -->
+<script src="/js/sign.js?v=1777977932602"></script>
+<link rel="stylesheet" href="/css/sign.css?v=1777977932602">
+
+<!-- 标签页标题变化 -->
+<script src="/js/title.js?v=1777977932602"></script>
+
+<!-- 文章卡片滑入动画 -->
+<script src="/js/scrollAnimation.js?v=1777977932602"></script>
+<link rel="stylesheet" href="/css/scrollAnimation.css?v=1777977932602">
+
+<!-- 网站运行时间 -->
+<script src="/js/time-insert.js?v=1777977932602"></script>
+  <!-- hexo injector body_end end --></body>
+</html>
