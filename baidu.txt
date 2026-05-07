@@ -1,3 +1,4 @@
+https://exploreio.github.io/2026/05/07/sql_injec/
 https://exploreio.github.io/2026/05/05/gzctf/
 https://exploreio.github.io/2026/04/13/file_include/
 https://exploreio.github.io/2026/04/04/ssti-sec1/
