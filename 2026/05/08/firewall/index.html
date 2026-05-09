@@ -1,0 +1,1000 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/logo.jpg">
+  <link rel="icon" href="/img/logo.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ExploreIO">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="这个是关于华为设备防火墙的基础教学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="华为防火墙配置教程">
+<meta property="og:url" content="https://exploreio.github.io/2026/05/08/firewall/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="这个是关于华为设备防火墙的基础教学">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://exploreio.github.io/img/a1.jpg">
+<meta property="article:published_time" content="2026-05-08T14:30:00.000Z">
+<meta property="article:modified_time" content="2026-05-09T00:41:27.012Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="网络安全">
+<meta property="article:tag" content="防火墙，华为">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://exploreio.github.io/img/a1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>华为防火墙配置教程 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/glassBg.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"exploreio.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"▌","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":5,"color":"#36D399","options":{"showSpinner":false,"trickleSpeed":100,"easing":"ease-in-out"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ExploreIO&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/a1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="华为防火墙配置教程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-05-08 22:30" pubdate>
+          2026年5月8日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="防火墙"
+        id="heading-8606f66d0bcb4cc1983e1a85adbcd253" role="tab" data-toggle="collapse" href="#collapse-8606f66d0bcb4cc1983e1a85adbcd253"
+        aria-expanded="true"
+      >
+        防火墙
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-8606f66d0bcb4cc1983e1a85adbcd253"
+           role="tabpanel" aria-labelledby="heading-8606f66d0bcb4cc1983e1a85adbcd253">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/05/08/firewall/" title="华为防火墙配置教程"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">华为防火墙配置教程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">华为防火墙配置教程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="防火墙安全策略（华为手册）"><a href="#防火墙安全策略（华为手册）" class="headerlink" title="防火墙安全策略（华为手册）"></a>防火墙安全策略（华为手册）</h2><p>实验的目的</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">理解防火墙的安全区域<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="/../img/firewall/image-20260429083044841.png" srcset="/img/loading.gif" lazyload alt="image-20260429083044841"></p>
+<p>配置如下</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">0</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.1.0.1</span> <span class="hljs-number">255.255.255.0</span><br><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">1</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.2.0.1</span> <span class="hljs-number">255.255.255.0</span><br></code></pre></td></tr></table></figure>
+
+<p>配置好pc 的ip地址和防火墙的ip地址</p>
+<p><img src="/../img/firewall/image-20260429083253179.png" srcset="/img/loading.gif" lazyload alt="image-20260429083253179"></p>
+<p><img src="/../img/firewall/image-20260429083326429.png" srcset="/img/loading.gif" lazyload alt="image-20260429083326429"></p>
+<p>防火墙的策略如下</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># 将口加入信任区域与不信任区域</span><span class="hljs-built_in"></span><br><span class="hljs-built_in">firewall </span>zone trust<br> <span class="hljs-built_in">set</span> priority 85<br> <span class="hljs-built_in">add</span><span class="hljs-built_in"> interface </span>GigabitEthernet0/0/0<br> <span class="hljs-built_in">add</span><span class="hljs-built_in"> interface </span>GigabitEthernet1/0/0<br><span class="hljs-comment">#</span><span class="hljs-built_in"></span><br><span class="hljs-built_in">firewall </span>zone untrust<br> <span class="hljs-built_in">set</span> priority 5<br> <span class="hljs-built_in">add</span><span class="hljs-built_in"> interface </span>GigabitEthernet1/0/1<br><br><span class="hljs-comment"># 配置策略信任区域与不信任区域策略为通过</span><br>[USG6000V1-policy-security]di th<br>2026-04-29 00:35:19.030 <br><span class="hljs-comment">#</span><br>security-policy<br> rule name policy_sec<br>  source-zone trust<br>  destination-zone untrust<br>  action permit<br><span class="hljs-comment">#</span><br>return<br>[USG6000V1-policy-security]<br></code></pre></td></tr></table></figure>
+
+<p>现在需要将pc1和pc2加入到同一个vlan里面</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># sw1</span><span class="hljs-built_in"></span><br><span class="hljs-built_in">vlan </span>10<br>[Huawei-Ethernet0/0/1]di th<br><span class="hljs-comment">#</span><span class="hljs-built_in"></span><br><span class="hljs-built_in">interface </span>Ethernet0/0/1<br><span class="hljs-built_in"> port </span>link-type access<br><span class="hljs-built_in"> port default vlan </span>10<br><span class="hljs-comment">#</span><br>return<br>[Huawei-Ethernet0/0/2]di th<br><span class="hljs-comment">#</span><span class="hljs-built_in"></span><br><span class="hljs-built_in">interface </span>Ethernet0/0/2<br><span class="hljs-built_in"> port </span>link-type access<br><span class="hljs-built_in"> port default vlan </span>10<br><span class="hljs-comment">#</span><br>return<br>[Huawei-Ethernet0/0/2]<br><br><br><br><span class="hljs-comment"># sw2</span><span class="hljs-built_in"></span><br><span class="hljs-built_in">vlan </span>10<br>[Huawei-Ethernet0/0/1]di th<br><span class="hljs-comment">#</span><span class="hljs-built_in"></span><br><span class="hljs-built_in">interface </span>Ethernet0/0/1<br><span class="hljs-built_in"> port </span>link-type access<br><span class="hljs-built_in"> port default vlan </span>10<br><span class="hljs-comment">#</span><br>return<br>[Huawei-Ethernet0/0/2]di th<br><span class="hljs-comment">#</span><span class="hljs-built_in"></span><br><span class="hljs-built_in">interface </span>Ethernet0/0/2<br><span class="hljs-built_in"> port </span>link-type access<br><span class="hljs-built_in"> port </span>trunk<span class="hljs-built_in"> default vlan </span>10<br><span class="hljs-comment">#</span><br>return<br>[Huawei-Ethernet0/0/2]<br></code></pre></td></tr></table></figure>
+
+<p>接下来使用pc1 ping pc2</p>
+<p>可以发现是ping不通的</p>
+<p>因为我们只是允许了trust区域去untrust区域，但是untrust区域是去不了trust区域的</p>
+<p>我们可以查看一下，我们自己配置的防火墙规则</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">[USG6000V1-<span class="hljs-keyword">policy</span>-<span class="hljs-keyword">security</span>]dis <span class="hljs-keyword">security</span>-<span class="hljs-keyword">policy</span> <span class="hljs-keyword">rule</span> <span class="hljs-keyword">all</span><br><span class="hljs-number">2026</span><span class="hljs-number">-04</span><span class="hljs-number">-29</span> <span class="hljs-number">00</span>:<span class="hljs-number">54</span>:<span class="hljs-number">20.140</span>  <br>Total:<span class="hljs-number">2</span> <br><span class="hljs-keyword">RULE</span> ID  <span class="hljs-keyword">RULE</span> <span class="hljs-type">NAME</span>                         STATE      ACTION       HITS        <br><span class="hljs-comment">------------------------------------------------------------------------------- </span><br><span class="hljs-number">1</span>        policy_sec                        <span class="hljs-keyword">enable</span>     permit       <span class="hljs-number">0</span>           <br><span class="hljs-number">0</span>        <span class="hljs-keyword">default</span>                           <span class="hljs-keyword">enable</span>     deny         <span class="hljs-number">0</span>           <br><span class="hljs-comment">-------------------------------------------------------------------------------.</span><br>[USG6000V1-<span class="hljs-keyword">policy</span>-<span class="hljs-keyword">security</span>]dis <span class="hljs-keyword">security</span>-<span class="hljs-keyword">policy</span> <span class="hljs-keyword">rule</span> <span class="hljs-type">name</span> policy_sec<br><span class="hljs-number">2026</span><span class="hljs-number">-04</span><span class="hljs-number">-29</span> <span class="hljs-number">00</span>:<span class="hljs-number">54</span>:<span class="hljs-number">37.120</span> <br> (<span class="hljs-number">0</span> times matched)<br> <span class="hljs-keyword">rule</span> <span class="hljs-type">name</span> policy_sec<br>  source-<span class="hljs-type">zone</span> trust<br>  destination-<span class="hljs-type">zone</span> untrust<br>  action permit<br>[USG6000V1-<span class="hljs-keyword">policy</span>-<span class="hljs-keyword">security</span>]<br></code></pre></td></tr></table></figure>
+
+<p>可以看到确实是</p>
+<p>接下来增加策略</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">[USG6000V1-<span class="hljs-keyword">policy</span>-<span class="hljs-keyword">security</span>-<span class="hljs-keyword">rule</span>-untrust_to_trust]di th<br><span class="hljs-number">2026</span><span class="hljs-number">-04</span><span class="hljs-number">-29</span> <span class="hljs-number">00</span>:<span class="hljs-number">56</span>:<span class="hljs-number">22.960</span> <br>#<br> <span class="hljs-keyword">rule</span> <span class="hljs-type">name</span> untrust_to_trust<br>  source-<span class="hljs-type">zone</span> untrust<br>  destination-<span class="hljs-type">zone</span> trust<br>  action permit<br>#<br><span class="hljs-keyword">return</span><br>[USG6000V1-<span class="hljs-keyword">policy</span>-<span class="hljs-keyword">security</span>-<span class="hljs-keyword">rule</span>-untrust_to_trust]<br></code></pre></td></tr></table></figure>
+
+<p>接下来就可以ping通了</p>
+<p><img src="/../img/firewall/image-20260429091807250.png" srcset="/img/loading.gif" lazyload alt="image-20260429091807250"></p>
+<h2 id="防火墙安全策略（作业包含net配置）"><a href="#防火墙安全策略（作业包含net配置）" class="headerlink" title="防火墙安全策略（作业包含net配置）"></a>防火墙安全策略（作业包含net配置）</h2><p><img src="/../img/firewall/image-20260429100452433.png" srcset="/img/loading.gif" lazyload alt="image-20260429100452433"></p>
+<p>实验目的</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs markdown">主要目标：<br>1、实现全网互通<br>运营商：配置地址即可<br>服务器交换机：傻瓜，不配置<br>FTP服务器：配置，启服务<br>核心交换机：创VLAN <br><span class="hljs-code">            调端口</span><br><span class="hljs-code">            给路由</span><br><span class="hljs-code">防火墙：配置地址</span><br><span class="hljs-code">        配安全策略：</span><br><span class="hljs-code">                   内到外</span><br><span class="hljs-code">                   DMZ到外</span><br><span class="hljs-code">                   内到DMZ</span><br><span class="hljs-code">        调接口安全区域</span><br><span class="hljs-code">        给路由</span><br><span class="hljs-code">        做地址转化</span><br><span class="hljs-code"></span><br>2、实现防火墙可内网管理<br>启动服务（telnet web SSH）<br>创用户，并给定用户权限<br>配置安全策略  <br><span class="hljs-code">          trust到local</span><br><span class="hljs-code"></span><br>3、实现FTP服务器外网可访问<br>NAT端口映射<br>放行NAT服务<br></code></pre></td></tr></table></figure>
+
+<p>运营商，ftp，核心交换机的配置</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs routeros">相关配置<br>1、全网互通<br>运营商：<span class="hljs-built_in"></span><br><span class="hljs-built_in">interface </span>GigabitEthernet0/0/1<br><span class="hljs-built_in"> ip address </span>60.6.206.2 255.255.255.0 <span class="hljs-built_in"></span><br><span class="hljs-built_in">interface </span>LoopBack0<br><span class="hljs-built_in"> ip address </span>222.222.222.222 255.255.255.255 <br>FTP服务器：<br>配置 10.10.10.211 网关10.10.10.1<br>启动FTP并配置目录<br>核心交换机：<span class="hljs-built_in"></span><br><span class="hljs-built_in">vlan </span>batch 100 <span class="hljs-keyword">to</span> 102<span class="hljs-built_in"></span><br><span class="hljs-built_in">interface </span>Vlanif100<br><span class="hljs-built_in"> ip address </span>10.10.100.2 255.255.255.0<span class="hljs-built_in"></span><br><span class="hljs-built_in">interface </span>Vlanif101<br><span class="hljs-built_in"> ip address </span>10.10.101.1 255.255.255.0<span class="hljs-built_in"></span><br><span class="hljs-built_in">interface </span>Vlanif102<br><span class="hljs-built_in"> ip address </span>10.10.102.1 255.255.255.0<span class="hljs-built_in"></span><br><span class="hljs-built_in">interface </span>GigabitEthernet0/0/1<br><span class="hljs-built_in"> port </span>link-type access<br><span class="hljs-built_in"> port default vlan </span>100<span class="hljs-built_in"></span><br><span class="hljs-built_in">interface </span>GigabitEthernet0/0/2<br><span class="hljs-built_in"> port </span>link-type access<br><span class="hljs-built_in"> port default vlan </span>101<span class="hljs-built_in"></span><br><span class="hljs-built_in">interface </span>GigabitEthernet0/0/3<br><span class="hljs-built_in"> port </span>link-type access<br><span class="hljs-built_in"> port default vlan </span>102<span class="hljs-built_in"></span><br><span class="hljs-built_in">ip </span>route-static 0.0.0.0 0.0.0.0 10.10.100.1<br></code></pre></td></tr></table></figure>
+
+<p>防火墙配置</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">防火墙：<br>interface GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">1</span><br> undo shutdown<br> ip address <span class="hljs-number">60.6</span><span class="hljs-number">.206</span><span class="hljs-number">.1</span> <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.0</span><br>interface GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">2</span><br> undo shutdown<br> ip address <span class="hljs-number">10.10</span><span class="hljs-number">.10</span><span class="hljs-number">.1</span> <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.0</span><br>interface GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">3</span><br> undo shutdown<br> ip address <span class="hljs-number">10.10</span><span class="hljs-number">.100</span><span class="hljs-number">.1</span> <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.0</span><br>firewall <span class="hljs-type">zone</span> trust<br> <span class="hljs-keyword">add</span> interface GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">3</span><br>firewall <span class="hljs-type">zone</span> untrust<br> <span class="hljs-keyword">add</span> interface GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">1</span><br>firewall <span class="hljs-type">zone</span> dmz<br> <span class="hljs-keyword">add</span> interface GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">2</span><br><span class="hljs-keyword">security</span>-<span class="hljs-keyword">policy</span><br> <span class="hljs-keyword">rule</span> <span class="hljs-type">name</span> trust_untrust<br>  source-<span class="hljs-type">zone</span> trust<br>  destination-<span class="hljs-type">zone</span> untrust<br>  action permit<br> <span class="hljs-keyword">rule</span> <span class="hljs-type">name</span> dmz_untrust<br>  source-<span class="hljs-type">zone</span> dmz<br>  destination-<span class="hljs-type">zone</span> untrust<br>  action permit<br> <span class="hljs-keyword">rule</span> <span class="hljs-type">name</span> trust_dmz<br>  source-<span class="hljs-type">zone</span> trust<br>  destination-<span class="hljs-type">zone</span> dmz<br>  action permit<br>ip route-static <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> <span class="hljs-number">60.6</span><span class="hljs-number">.206</span><span class="hljs-number">.2</span><br>ip route-static <span class="hljs-number">10.10</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> <span class="hljs-number">255.255</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> <span class="hljs-number">10.10</span><span class="hljs-number">.100</span><span class="hljs-number">.2</span><br>nat address-<span class="hljs-keyword">group</span> pool_nat <span class="hljs-number">0</span><br> mode pat<br> section <span class="hljs-number">0</span> <span class="hljs-number">60.6</span><span class="hljs-number">.206</span><span class="hljs-number">.3</span> <span class="hljs-number">60.6</span><span class="hljs-number">.206</span><span class="hljs-number">.4</span><br>nat-<span class="hljs-keyword">policy</span><br> <span class="hljs-keyword">rule</span> <span class="hljs-type">name</span> inside_outside<br>  source-<span class="hljs-type">zone</span> trust<br>  destination-<span class="hljs-type">zone</span> untrust<br>  action source-nat address-<span class="hljs-keyword">group</span> pool_nat<br></code></pre></td></tr></table></figure>
+
+<p>防火墙的ssh配置</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">SSH配置：<br><span class="hljs-number">1</span>、启动服务<br>stelnet <span class="hljs-keyword">server</span> <span class="hljs-keyword">enable</span> <br><span class="hljs-number">2</span>、建用户，并授权<br>aaa <br>manager-<span class="hljs-keyword">user</span> lisi<br>  <span class="hljs-keyword">password</span> cipher <span class="hljs-number">12345678</span><br>  service-<span class="hljs-keyword">type</span> ssh<br>  <span class="hljs-keyword">level</span> <span class="hljs-number">15</span><br>ssh <span class="hljs-keyword">user</span> lisi<br>ssh <span class="hljs-keyword">user</span> lisi authentication-<span class="hljs-keyword">type</span> <span class="hljs-keyword">password</span><br>ssh <span class="hljs-keyword">user</span> lisi service-<span class="hljs-keyword">type</span> stelnet<br><span class="hljs-number">3</span>、进用户接口配置SSH授权<br>interface GigabitEthernet <span class="hljs-number">1</span>/<span class="hljs-number">0</span>/<span class="hljs-number">3</span><br>service-manage <span class="hljs-keyword">enable</span> <br>service-manage ssh permit <br><span class="hljs-number">4</span>、安全规则允许<br><span class="hljs-keyword">security</span>-<span class="hljs-keyword">policy</span><br><span class="hljs-keyword">rule</span> <span class="hljs-type">name</span> ssh_access_from_trust<br>   source-<span class="hljs-type">zone</span>  trust<br>   destination-<span class="hljs-type">zone</span> <span class="hljs-keyword">local</span><br>   action permit<br><span class="hljs-number">5</span>、产生公钥<br>rsa <span class="hljs-keyword">local</span>-key-pair <span class="hljs-keyword">create</span><br><span class="hljs-number">6</span> 检查服务状态<br>display ssh <span class="hljs-keyword">server</span> status<br>display rsa <span class="hljs-keyword">local</span>-key-pair <span class="hljs-built_in">public</span><br></code></pre></td></tr></table></figure>
+
+<p>最后发现ssh连接不上</p>
+<h2 id="防火墙net配置（华为手册）"><a href="#防火墙net配置（华为手册）" class="headerlink" title="防火墙net配置（华为手册）"></a>防火墙net配置（华为手册）</h2><p><img src="/../img/firewall/image-20260429111914951.png" srcset="/img/loading.gif" lazyload alt="image-20260429111914951"></p>
+<p>拓扑图如上</p>
+<p>开始配置</p>
+<p>服务器</p>
+<p><img src="/../img/firewall/image-20260429112006055.png" srcset="/img/loading.gif" lazyload alt="image-20260429112006055"></p>
+<p>两个交换机是傻瓜交换机</p>
+<p>防火墙配置</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">0</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.1.2.1</span> <span class="hljs-number">255.255.255.0</span><br><span class="hljs-comment">#</span><br><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">1</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">40.1.1.1</span> <span class="hljs-number">255.255.255.0</span><br><span class="hljs-comment">#</span><br><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">2</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.1.1.1</span> <span class="hljs-number">255.255.255.0</span><br><span class="hljs-attribute">firewall</span> zone trust<br> <span class="hljs-attribute">set</span> priority <span class="hljs-number">85</span><br> <span class="hljs-attribute">add</span> interface GigabitEthernet0/<span class="hljs-number">0</span>/<span class="hljs-number">0</span><br> <span class="hljs-attribute">add</span> interface GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">0</span><br><span class="hljs-comment">#</span><br><span class="hljs-attribute">firewall</span> zone untrust<br> <span class="hljs-attribute">set</span> priority <span class="hljs-number">5</span><br> <span class="hljs-attribute">add</span> interface GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">1</span><br><span class="hljs-comment">#</span><br><span class="hljs-attribute">firewall</span> zone dmz<br> <span class="hljs-attribute">set</span> priority <span class="hljs-number">50</span><br> <span class="hljs-attribute">add</span> interface GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">2</span><br><span class="hljs-attribute">nat</span> address-group natpool <span class="hljs-number">0</span><br> <span class="hljs-attribute">mode</span> pat<br> <span class="hljs-attribute">section</span> <span class="hljs-number">0</span> <span class="hljs-number">2.2.2.2</span> <span class="hljs-number">2.2.2.5</span><br><span class="hljs-attribute">nat</span>-policy<br> <span class="hljs-attribute">rule</span> name source_nat<br>  <span class="hljs-attribute">source</span>-zone trust<br>  <span class="hljs-attribute">destination</span>-zone untrust<br>  <span class="hljs-attribute">action</span> source-nat address-group natpool<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/firewall/image-20260429112646969.png" srcset="/img/loading.gif" lazyload alt="image-20260429112646969"></p>
+<p><img src="/../img/firewall/image-20260429112720812.png" srcset="/img/loading.gif" lazyload alt="image-20260429112720812"></p>
+<p>可以看到net地址转化生效</p>
+<h2 id="防火墙双机热备实验（华为手册）"><a href="#防火墙双机热备实验（华为手册）" class="headerlink" title="防火墙双机热备实验（华为手册）"></a>防火墙双机热备实验（华为手册）</h2><p><img src="/../img/firewall/image-20260508195808473.png" srcset="/img/loading.gif" lazyload alt="image-20260508195808473"></p>
+<p>拓扑如上，式样要求是左边是trust右边是untrust，中间是dmz</p>
+<p>两个防火墙实现双击热备</p>
+<p>先配置FW1的1&#x2F;0&#x2F;1 和1&#x2F;0&#x2F;2</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">1</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.3.0.1</span> <span class="hljs-number">255.255.255.0</span><br><span class="hljs-comment">#</span><br><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">2</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.2.0.1</span> <span class="hljs-number">255.255.255.0</span><br></code></pre></td></tr></table></figure>
+
+<p>还是对FW1进行配置</p>
+<p>将G1&#x2F;0&#x2F;1配置vrrp备份组1，并加入到状态为active的VGMP</p>
+<p>将G1&#x2F;0&#x2F;2配置vrrp备份组2，并加入到状态为active的VGMP</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">1</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.3.0.1</span> <span class="hljs-number">255.255.255.0</span><br> <span class="hljs-attribute">vrrp</span> vrid <span class="hljs-number">1</span> virtual-ip <span class="hljs-number">10.3.0.3</span> active<br><span class="hljs-comment">#</span><br><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">2</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.2.0.1</span> <span class="hljs-number">255.255.255.0</span><br> <span class="hljs-attribute">vrrp</span> vrid <span class="hljs-number">2</span> virtual-ip <span class="hljs-number">1.1.1.1</span> <span class="hljs-number">255.255.255.0</span> active<br></code></pre></td></tr></table></figure>
+
+<p>还是对FW配置<br>将左右接口加入对应的区域</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">firewall zone trust<br> <span class="hljs-keyword">set</span> priority <span class="hljs-number">85</span><br> add <span class="hljs-keyword">interface</span> <span class="hljs-symbol">GigabitEthernet0</span>/<span class="hljs-symbol">0</span>/<span class="hljs-symbol">0</span><br> <span class="hljs-symbol">add</span> <span class="hljs-symbol">interface</span> <span class="hljs-symbol">GigabitEthernet1</span>/<span class="hljs-symbol">0</span>/<span class="hljs-symbol">1</span><br>#<br><span class="hljs-symbol">firewall</span> <span class="hljs-symbol">zone</span> <span class="hljs-symbol">untrust</span><br> <span class="hljs-symbol">set</span> <span class="hljs-symbol">priority</span> <span class="hljs-symbol">5</span><br> <span class="hljs-symbol">add</span> <span class="hljs-symbol">interface</span> <span class="hljs-symbol">GigabitEthernet1</span>/<span class="hljs-symbol">0</span>/<span class="hljs-symbol">2</span><br></code></pre></td></tr></table></figure>
+
+<p>然后现在就开始配置FW2了<br>配置FW2的IP地址</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">1</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.3.0.2</span> <span class="hljs-number">255.255.255.0</span><br><span class="hljs-comment">#</span><br><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">2</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.2.0.2</span> <span class="hljs-number">255.255.255.0</span><br></code></pre></td></tr></table></figure>
+
+<p>将FW2的1&#x2F;0&#x2F;1和1&#x2F;0&#x2F;2vrrp备份组1和备份组2，并都加入状态为standby的VGMP管理组</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">1</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.3.0.2</span> <span class="hljs-number">255.255.255.0</span><br> <span class="hljs-attribute">vrrp</span> vrid <span class="hljs-number">1</span> virtual-ip <span class="hljs-number">10.3.0.3</span> standby<br><span class="hljs-comment">#</span><br><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">2</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.2.0.2</span> <span class="hljs-number">255.255.255.0</span><br> <span class="hljs-attribute">vrrp</span> vrid <span class="hljs-number">2</span> virtual-ip <span class="hljs-number">1.1.1.1</span> <span class="hljs-number">255.255.255.0</span> standby<br></code></pre></td></tr></table></figure>
+
+<p>然后将左右接口加入到对应的区域</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">firewall zone trust<br> <span class="hljs-keyword">set</span> priority <span class="hljs-number">85</span><br> add <span class="hljs-keyword">interface</span> <span class="hljs-symbol">GigabitEthernet0</span>/<span class="hljs-symbol">0</span>/<span class="hljs-symbol">0</span><br> <span class="hljs-symbol">add</span> <span class="hljs-symbol">interface</span> <span class="hljs-symbol">GigabitEthernet1</span>/<span class="hljs-symbol">0</span>/<span class="hljs-symbol">1</span><br><span class="hljs-symbol">firewall</span> <span class="hljs-symbol">zone</span> <span class="hljs-symbol">untrust</span><br> <span class="hljs-symbol">set</span> <span class="hljs-symbol">priority</span> <span class="hljs-symbol">5</span><br> <span class="hljs-symbol">add</span> <span class="hljs-symbol">interface</span> <span class="hljs-symbol">GigabitEthernet1</span>/<span class="hljs-symbol">0</span>/<span class="hljs-symbol">2</span><br></code></pre></td></tr></table></figure>
+
+<p>现在已经完成了防火墙的基本配置了，现在开始设置心跳线<br>配置这两个防火墙的ip地址</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">FW1</span><br><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">3</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.10.0.1</span> <span class="hljs-number">255.255.255.0</span><br><span class="hljs-attribute">FW2</span><br><span class="hljs-attribute">interface</span> GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">3</span><br> <span class="hljs-attribute">undo</span> shutdown<br> <span class="hljs-attribute">ip</span> address <span class="hljs-number">10.10.0.2</span> <span class="hljs-number">255.255.255.0</span><br></code></pre></td></tr></table></figure>
+
+<p>然后都加入dmz区域</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">FW1<br>firewall zone dmz<br> <span class="hljs-keyword">set</span> priority <span class="hljs-number">50</span><br> add <span class="hljs-keyword">interface</span> <span class="hljs-symbol">GigabitEthernet1</span>/<span class="hljs-symbol">0</span>/<span class="hljs-symbol">3</span><br><span class="hljs-symbol">FW2</span><br><span class="hljs-symbol">firewall</span> <span class="hljs-symbol">zone</span> <span class="hljs-symbol">dmz</span><br> <span class="hljs-symbol">set</span> <span class="hljs-symbol">priority</span> <span class="hljs-symbol">50</span><br> <span class="hljs-symbol">add</span> <span class="hljs-symbol">interface</span> <span class="hljs-symbol">GigabitEthernet1</span>/<span class="hljs-symbol">0</span>/<span class="hljs-symbol">3</span><br></code></pre></td></tr></table></figure>
+
+<p>然后开启双击热备功能</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">FW1</span><br> <span class="hljs-attribute">hrp</span> enable<br> <span class="hljs-attribute">hrp</span> interface GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">3</span> remote <span class="hljs-number">10.10.0.2</span><br><span class="hljs-attribute">FW2</span><br> <span class="hljs-attribute">hrp</span> enable<br> <span class="hljs-attribute">hrp</span> interface GigabitEthernet1/<span class="hljs-number">0</span>/<span class="hljs-number">3</span> remote <span class="hljs-number">10.10.0.1</span><br></code></pre></td></tr></table></figure>
+
+<p>最后设置策略</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">security</span>-<span class="hljs-keyword">policy</span><br> <span class="hljs-keyword">rule</span> <span class="hljs-type">name</span> trust_to_untrust<br>  source-<span class="hljs-type">zone</span> trust<br>  destination-<span class="hljs-type">zone</span> untrust<br>  source-address <span class="hljs-number">10.3</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> mask <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.0</span><br>  action permit<br></code></pre></td></tr></table></figure>
+
+<p>开始配置FW1的NAT策略，双机热备建立之后，FW1的NAT策略配置会自动备份到FW2上面<br>配置的策略思路如下<br>将源地址10.3.0.0 24转化为1.1.1.2到1.1.1.5</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs css">nat <span class="hljs-selector-tag">address</span>-group group1 <span class="hljs-number">0</span><br> mode pat<br> <span class="hljs-selector-tag">section</span> <span class="hljs-number">0</span> <span class="hljs-number">1.1</span>.<span class="hljs-number">1.2</span> <span class="hljs-number">1.1</span>.<span class="hljs-number">1.5</span><br>nat-policy<br> rule name policy_nat1<br>  <span class="hljs-selector-tag">source</span>-zone trust<br>  destination-zone untrust<br>  <span class="hljs-selector-tag">source</span>-<span class="hljs-selector-tag">address</span> <span class="hljs-number">10.3</span>.<span class="hljs-number">0.0</span> <span class="hljs-attribute">mask</span> <span class="hljs-number">255.255</span>.<span class="hljs-number">255.0</span><br>  action <span class="hljs-selector-tag">source</span>-nat <span class="hljs-selector-tag">address</span>-group group1<br></code></pre></td></tr></table></figure>
+
+<p>最后直接ping</p>
+<p><img src="/../img/firewall/image-20260508210508380.png" srcset="/img/loading.gif" lazyload alt="image-20260508210508380"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%98%B2%E7%81%AB%E5%A2%99/" class="category-chain-item">防火墙</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="print-no-link">#网络安全</a>
+      
+        <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99%EF%BC%8C%E5%8D%8E%E4%B8%BA/" class="print-no-link">#防火墙，华为</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>华为防火墙配置教程</div>
+      <div>https://exploreio.github.io/2026/05/08/firewall/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ExploreIO</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年5月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/05/05/gzctf/" title="gzctf平台搭建教程">
+                        <span class="hidden-mobile">gzctf平台搭建教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="margin-top: 8px; font-size: 14px; opacity: 0.7;"> <span id="vercount_value_site_pv">Loading</span> 次访问 · <span id="vercount_value_site_uv">Loading</span> 位访客 </div> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100,"easing":"ease-in-out"})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://events.vercount.one/js?i=/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start -->
+<!-- 全屏背景 -->
+<script src="/js/background.js?v=1778288192617"></script>
+
+<!-- 落雪动画 -->
+<script src="/js/snow.js?v=1778288192617"></script>
+
+<!-- 签名动画 -->
+<script src="/js/sign.js?v=1778288192617"></script>
+<link rel="stylesheet" href="/css/sign.css?v=1778288192617">
+
+<!-- 标签页标题变化 -->
+<script src="/js/title.js?v=1778288192617"></script>
+
+<!-- 文章卡片滑入动画 -->
+<script src="/js/scrollAnimation.js?v=1778288192617"></script>
+<link rel="stylesheet" href="/css/scrollAnimation.css?v=1778288192617">
+
+<!-- 网站运行时间 -->
+<script src="/js/time-insert.js?v=1778288192617"></script>
+  <!-- hexo injector body_end end --></body>
+</html>

