@@ -1,4 +1,4 @@
-https://exploreio.github.io/2026/05/05/sql_injec/
+https://exploreio.github.io/2026/05/16/sql_injec/
 https://exploreio.github.io/2026/05/08/firewall/
 https://exploreio.github.io/2026/04/13/file_include/
 https://exploreio.github.io/2026/05/05/gzctf/
