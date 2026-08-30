@@ -1,3 +1,4 @@
+https://exploreio.github.io/2026/08/29/CVE-2026-79483-EN/
 https://exploreio.github.io/2026/08/29/CVE-2026-79483/
 https://exploreio.github.io/2026/07/25/xxe/
 https://exploreio.github.io/2026/04/13/file_include/
