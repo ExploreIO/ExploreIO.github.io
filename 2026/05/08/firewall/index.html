@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://exploreio.github.io/img/a1.jpg">
 <meta property="article:published_time" content="2026-05-08T14:30:00.000Z">
-<meta property="article:modified_time" content="2026-05-15T13:24:18.606Z">
+<meta property="article:modified_time" content="2026-05-23T06:28:11.251Z">
 <meta property="article:author" content="ExploreIO">
 <meta property="article:tag" content="网络安全">
 <meta property="article:tag" content="防火墙，华为">
@@ -624,7 +624,16 @@
 <p>对FW2配置防火墙策略</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">对FW2配置防火墙策略<br>[FW2-<span class="hljs-keyword">policy</span>-<span class="hljs-keyword">security</span>-<span class="hljs-keyword">rule</span>-t_u]di th<br><span class="hljs-number">2026</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span> <span class="hljs-number">12</span>:<span class="hljs-number">55</span>:<span class="hljs-number">18.990</span> <br>#<br> <span class="hljs-keyword">rule</span> <span class="hljs-type">name</span> t_u<br>  source-<span class="hljs-type">zone</span> trust<br>  source-<span class="hljs-type">zone</span> untrust<br>  destination-<span class="hljs-type">zone</span> trust<br>  source-address <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.0</span> mask <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.0</span><br>  destination-address <span class="hljs-number">172.16</span><span class="hljs-number">.1</span><span class="hljs-number">.0</span> mask <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.0</span><br>  destination-address <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.0</span> mask <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.0</span><br>  service icmp<br>  action permit<br>#<br><span class="hljs-keyword">return</span><br><br><br>[FW2-<span class="hljs-keyword">policy</span>-<span class="hljs-keyword">security</span>-<span class="hljs-keyword">rule</span>-u_l]di th<br><span class="hljs-number">2026</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span> <span class="hljs-number">12</span>:<span class="hljs-number">56</span>:<span class="hljs-number">31.180</span> <br>#<br> <span class="hljs-keyword">rule</span> <span class="hljs-type">name</span> u_l<br>  source-<span class="hljs-type">zone</span> untrust<br>  destination-<span class="hljs-type">zone</span> <span class="hljs-keyword">local</span><br>  source-address <span class="hljs-number">200.10</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span> mask <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.255</span><br>  destination-address <span class="hljs-number">200.10</span><span class="hljs-number">.2</span><span class="hljs-number">.3</span> mask <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.255</span><br>  service esp<br>  action permit<br>#<br><span class="hljs-keyword">return</span><br><br><br>[FW2-<span class="hljs-keyword">object</span>-service-<span class="hljs-keyword">set</span>-isakmp]di th<br><span class="hljs-number">2026</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span> <span class="hljs-number">12</span>:<span class="hljs-number">57</span>:<span class="hljs-number">18.150</span> <br>#<br>ip service-<span class="hljs-keyword">set</span> isakmp <span class="hljs-keyword">type</span> <span class="hljs-keyword">object</span> <span class="hljs-number">16</span><br> service <span class="hljs-number">0</span> protocol udp source-port <span class="hljs-number">500</span><br>#<br><span class="hljs-keyword">return</span><br><br><br>[FW2-<span class="hljs-keyword">policy</span>-<span class="hljs-keyword">security</span>-<span class="hljs-keyword">rule</span>-isakmp]di th<br><span class="hljs-number">2026</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span> <span class="hljs-number">12</span>:<span class="hljs-number">59</span>:<span class="hljs-number">15.600</span> <br>#<br> <span class="hljs-keyword">rule</span> <span class="hljs-type">name</span> isakmp<br>  source-<span class="hljs-type">zone</span> <span class="hljs-keyword">local</span><br>  source-<span class="hljs-type">zone</span> untrust<br>  destination-<span class="hljs-type">zone</span> <span class="hljs-keyword">local</span><br>  destination-<span class="hljs-type">zone</span> untrust<br>  source-address <span class="hljs-number">200.10</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span> mask <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.255</span><br>  source-address <span class="hljs-number">200.10</span><span class="hljs-number">.2</span><span class="hljs-number">.3</span> mask <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.255</span><br>  destination-address <span class="hljs-number">200.10</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span> mask <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.255</span><br>  destination-address <span class="hljs-number">200.10</span><span class="hljs-number">.2</span><span class="hljs-number">.3</span> mask <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.255</span><br>  service isakmp<br>  action permit<br>#<br><span class="hljs-keyword">return</span><br><br></code></pre></td></tr></table></figure>
 
-<h2 id="华为防火墙配置web服务管理"><a href="#华为防火墙配置web服务管理" class="headerlink" title="华为防火墙配置web服务管理"></a>华为防火墙配置web服务管理</h2>
+<h2 id="华为防火墙配置web服务管理"><a href="#华为防火墙配置web服务管理" class="headerlink" title="华为防火墙配置web服务管理"></a>华为防火墙配置web服务管理</h2><p><img src="/../img/firewall/image-20260523085827582.png" srcset="/img/loading.gif" lazyload alt="image-20260523085827582"></p>
+<p>拓扑图直接这样，最终的效果如下</p>
+<p><img src="/../img/firewall/image-20260523085937306.png" srcset="/img/loading.gif" lazyload alt="image-20260523085937306"></p>
+<p>但是一开始，没有配置云朵的话，是不能使用线进行连接的</p>
+<p><img src="/../img/firewall/image-20260523090005478.png" srcset="/img/loading.gif" lazyload alt="image-20260523090005478"></p>
+<p>云朵的配置如上，其中使用的网卡，可以使用vmware里面的仅主机网卡</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[FW-GigabitEthernet1/0/1]service-manage http permit<br>[FW-GigabitEthernet1/0/1]ip address 192.168.0.100 24<br></code></pre></td></tr></table></figure>
+
+<p>配置好ip地址和开启http服务</p>
+
                 
               </div>
             
@@ -1061,23 +1070,23 @@
   </noscript>
 <!-- hexo injector body_end start -->
 <!-- 全屏背景 -->
-<script src="/js/background.js?v=1779027924466"></script>
+<script src="/js/background.js?v=1788084129717"></script>
 
 <!-- 落雪动画 -->
-<script src="/js/snow.js?v=1779027924466"></script>
+<script src="/js/snow.js?v=1788084129717"></script>
 
 <!-- 签名动画 -->
-<script src="/js/sign.js?v=1779027924466"></script>
-<link rel="stylesheet" href="/css/sign.css?v=1779027924466">
+<script src="/js/sign.js?v=1788084129717"></script>
+<link rel="stylesheet" href="/css/sign.css?v=1788084129717">
 
 <!-- 标签页标题变化 -->
-<script src="/js/title.js?v=1779027924466"></script>
+<script src="/js/title.js?v=1788084129717"></script>
 
 <!-- 文章卡片滑入动画 -->
-<script src="/js/scrollAnimation.js?v=1779027924466"></script>
-<link rel="stylesheet" href="/css/scrollAnimation.css?v=1779027924466">
+<script src="/js/scrollAnimation.js?v=1788084129717"></script>
+<link rel="stylesheet" href="/css/scrollAnimation.css?v=1788084129717">
 
 <!-- 网站运行时间 -->
-<script src="/js/time-insert.js?v=1779027924466"></script>
+<script src="/js/time-insert.js?v=1788084129717"></script>
   <!-- hexo injector body_end end --></body>
 </html>

