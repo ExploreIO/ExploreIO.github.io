@@ -1,3 +1,4 @@
+https://exploreio.github.io/2026/09/04/fastgpt-mcpClient-unauthenticated-ssrf/
 https://exploreio.github.io/2026/09/04/fastgpt-mcpCLient%E6%9C%AA%E8%AE%A4%E8%AF%81ssrf%E5%A4%8D%E7%8E%B0/
 https://exploreio.github.io/2026/08/29/CVE-2026-79483-EN/
 https://exploreio.github.io/2026/08/29/CVE-2026-79483/
@@ -30,6 +31,10 @@ https://exploreio.github.io/tags/ctf%E6%AF%94%E8%B5%9B%EF%BC%8C%E6%AF%94%E8%B5%9
 https://exploreio.github.io/tags/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/
 https://exploreio.github.io/tags/cve/
 https://exploreio.github.io/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/
+https://exploreio.github.io/tags/cybersecurity/
+https://exploreio.github.io/tags/penetration-testing/
+https://exploreio.github.io/tags/vulnerability-hunting/
+https://exploreio.github.io/tags/CVE/
 https://exploreio.github.io/categories/CTF/
 https://exploreio.github.io/categories/%E6%8A%80%E6%9C%AF/
 https://exploreio.github.io/categories/%E9%98%B2%E7%81%AB%E5%A2%99/
@@ -38,3 +43,5 @@ https://exploreio.github.io/categories/CTF/web%E5%AE%89%E5%85%A8/
 https://exploreio.github.io/categories/%E6%8A%80%E6%9C%AF/%E6%B5%8B%E8%AF%95/
 https://exploreio.github.io/categories/web%E5%AE%89%E5%85%A8/
 https://exploreio.github.io/categories/web%E5%AE%89%E5%85%A8/cve/
+https://exploreio.github.io/categories/web-security/
+https://exploreio.github.io/categories/web-security/CVE/

