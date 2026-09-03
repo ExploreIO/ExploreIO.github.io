@@ -1,3 +1,4 @@
+https://exploreio.github.io/2026/09/04/fastgpt-mcpCLient%E6%9C%AA%E8%AE%A4%E8%AF%81ssrf%E5%A4%8D%E7%8E%B0/
 https://exploreio.github.io/2026/08/29/CVE-2026-79483-EN/
 https://exploreio.github.io/2026/08/29/CVE-2026-79483/
 https://exploreio.github.io/2026/07/25/xxe/

