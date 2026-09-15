@@ -1,10 +1,10 @@
+https://exploreio.github.io/2026/09/15/xxe/
+https://exploreio.github.io/2026/05/16/sql_injec/
 https://exploreio.github.io/2026/09/04/fastgpt-mcpClient-unauthenticated-ssrf/
 https://exploreio.github.io/2026/09/04/fastgpt-mcpCLient%E6%9C%AA%E8%AE%A4%E8%AF%81ssrf%E5%A4%8D%E7%8E%B0/
 https://exploreio.github.io/2026/08/29/CVE-2026-79483-EN/
 https://exploreio.github.io/2026/08/29/CVE-2026-79483/
-https://exploreio.github.io/2026/07/25/xxe/
 https://exploreio.github.io/2026/04/13/file_include/
-https://exploreio.github.io/2026/05/16/sql_injec/
 https://exploreio.github.io/2026/04/13/file_upload/
 https://exploreio.github.io/2026/05/08/firewall/
 https://exploreio.github.io/2026/05/05/gzctf/
@@ -35,6 +35,8 @@ https://exploreio.github.io/tags/cybersecurity/
 https://exploreio.github.io/tags/penetration-testing/
 https://exploreio.github.io/tags/vulnerability-hunting/
 https://exploreio.github.io/tags/CVE/
+https://exploreio.github.io/tags/xxe%E6%BC%8F%E6%B4%9E/
+https://exploreio.github.io/tags/sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/
 https://exploreio.github.io/categories/CTF/
 https://exploreio.github.io/categories/%E6%8A%80%E6%9C%AF/
 https://exploreio.github.io/categories/%E9%98%B2%E7%81%AB%E5%A2%99/
